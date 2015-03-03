@@ -1,0 +1,7 @@
+Mon, 02 Mar 2015 14:18:55 -0600
+README.rdoc	Mon, 02 Mar 2015 13:05:34 -0600
+app/controllers/application_controller.rb	Mon, 02 Mar 2015 13:05:34 -0600
+app/controllers/products_controller.rb	Mon, 02 Mar 2015 14:04:09 -0600
+app/helpers/application_helper.rb	Mon, 02 Mar 2015 13:05:34 -0600
+app/helpers/products_helper.rb	Mon, 02 Mar 2015 14:04:09 -0600
+app/models/product.rb	Mon, 02 Mar 2015 14:04:09 -0600
