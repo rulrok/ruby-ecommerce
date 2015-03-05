@@ -1,0 +1,61 @@
+<%= form_for [:admin, @product] do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this admin_product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :product_name %><br>
+    <%= f.text_field :product_name %>
+  </div>
+  <div class="field">
+    <%= f.label :product_description %><br>
+    <%= f.text_area :product_description %>
+  </div>
+  <div class="field">
+    <%= f.label :category_id %><br>
+    <%= f.number_field :category_id %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity_per_unit %><br>
+    <%= f.number_field :quantity_per_unit %>
+  </div>
+  <div class="field">
+    <%= f.label :unit_price %><br>
+    <%= f.text_field :unit_price %>
+  </div>
+  <div class="field">
+    <%= f.label :discount %><br>
+    <%= f.text_field :discount %>
+  </div>
+  <div class="field">
+    <%= f.label :discount_available %><br>
+    <%= f.check_box :discount_available %>
+  </div>
+  <div class="field">
+    <%= f.label :unit_weight %><br>
+    <%= f.number_field :unit_weight %>
+  </div>
+  <div class="field">
+    <%= f.label :unit_in_stock %><br>
+    <%= f.number_field :unit_in_stock %>
+  </div>
+  <div class="field">
+    <%= f.label :product_available %><br>
+    <%= f.check_box :product_available %>
+  </div>
+  <div class="field">
+    <%= f.label :picture_url %><br>
+    <%= f.text_field :picture_url %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

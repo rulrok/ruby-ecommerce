@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Admin Products</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product name</th>
+      <th>Product description</th>
+      <th>Category</th>
+      <th>Quantity per unit</th>
+      <th>Unit price</th>
+      <th>Discount</th>
+      <th>Discount available</th>
+      <th>Unit weight</th>
+      <th>Unit in stock</th>
+      <th>Product available</th>
+      <th>Picture url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_products.each do |admin_product| %>
+      <tr>
+        <td><%= admin_product.product_name %></td>
+        <td><%= admin_product.product_description %></td>
+        <td><%= admin_product.category_id %></td>
+        <td><%= admin_product.quantity_per_unit %></td>
+        <td><%= admin_product.unit_price %></td>
+        <td><%= admin_product.discount %></td>
+        <td><%= admin_product.discount_available %></td>
+        <td><%= admin_product.unit_weight %></td>
+        <td><%= admin_product.unit_in_stock %></td>
+        <td><%= admin_product.product_available %></td>
+        <td><%= admin_product.picture_url %></td>
+        <td><%= link_to 'Show', admin_product_path(admin_product) %></td>
+        <td><%= link_to 'Edit', edit_admin_product_path(admin_product) %></td>
+        <td><%= link_to 'Destroy', [:admin, admin_product], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Product', new_admin_product_path %>
