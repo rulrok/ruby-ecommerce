@@ -2,21 +2,28 @@ Rails.application.routes.draw do
 
   root 'application#index'
 
-  get "log_out" =>  'sessions#destroy', :as => "log_out"
-  get "log_in"  =>  'sessions#new', :as => "log_in"
-  get "sign_up" =>  'users#new', :as => "sign_up"
-  #root :to => 'users#new'
-  get 'sessions/new'
-  get 'users/new'
+  get "log_out" => 'sessions#destroy', :as => "log_out"
+  get "log_in" => 'sessions#new', :as => "log_in"
+  get "sign_up" => 'users#new', :as => "sign_up"
 
   namespace :admin do
     get '', to: 'dashboard#index', as: '/'
+
+    resources :products
+    resources :users
+    resources :settings
+    resources :categories
+
   end
 
-  resources :users
+  post 'users' => 'users#create', :as => "users"
+  get 'profile' => 'users#index', :as => "profile"
+  get 'profile/edit' => 'users#edit', :as => "edit_profile"
+
+  get 'products' => 'products#index'
+  get 'products/:id' => 'products#show', :as => "product"
+
   resources :sessions
-  resources :settings
-  resources :products
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

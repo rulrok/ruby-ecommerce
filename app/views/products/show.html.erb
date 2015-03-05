@@ -1,9 +1,59 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @product.name %>
+  <strong>Product name:</strong>
+  <%= @product.product_name %>
 </p>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
+<p>
+  <strong>Product description:</strong>
+  <%= @product.product_description %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @product.category_id %>
+</p>
+
+<p>
+  <strong>Quantity per unit:</strong>
+  <%= @product.quantity_per_unit %>
+</p>
+
+<p>
+  <strong>Unit price:</strong>
+  <%= @product.unit_price %>
+</p>
+
+<p>
+  <strong>Discount:</strong>
+  <%= @product.discount %>
+</p>
+
+<p>
+  <strong>Discount available:</strong>
+  <%= @product.discount_available %>
+</p>
+
+<p>
+  <strong>Unit weight:</strong>
+  <%= @product.unit_weight %>
+</p>
+
+<p>
+  <strong>Unit in stock:</strong>
+  <%= @product.unit_in_stock %>
+</p>
+
+<p>
+  <strong>Product available:</strong>
+  <%= @product.product_available %>
+</p>
+
+<p>
+  <strong>Picture url:</strong>
+  <%= @product.picture_url %>
+</p>
+
+
 <%= link_to 'Back', products_path %>

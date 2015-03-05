@@ -1,0 +1,5 @@
+<%- title "Home Page" %>
+
+<% if current_user && current_user.admin? then %>
+    <p>You are a administrator. You should not be seing this page.</p>
+<% end %>
