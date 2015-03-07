@@ -27,19 +27,19 @@ ActiveRecord::Schema.define(version: 20150305051115) do
     t.integer  "quantity_per_unit"
     t.decimal  "unit_price"
     t.decimal  "discount"
-    t.boolean  "discount_available"
+    t.boolean  "discount_available",  default: false
     t.integer  "unit_weight"
     t.integer  "unit_in_stock"
     t.boolean  "product_available"
     t.string   "picture_url"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 45, default: "customer", null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
   create_table "settings", force: :cascade do |t|
@@ -49,21 +49,15 @@ ActiveRecord::Schema.define(version: 20150305051115) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tests", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
-    t.integer :role_id, default: 2
-    t.string :first_name, default: "New"
-    t.string :last_name, default: "User"
-    t.string :email
-    t.string :password_hash
-    t.string :password_salt
-
-    t.timestamps null: false
+    t.integer  "role_id",       default: 2
+    t.string   "first_name",    default: "New"
+    t.string   "last_name",     default: "User"
+    t.string   "email"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
 end

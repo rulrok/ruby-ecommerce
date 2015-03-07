@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    resources :users
+  end
+
   root 'application#index'
 
   get "log_out" => 'sessions#destroy', :as => "log_out"
@@ -13,7 +17,7 @@ Rails.application.routes.draw do
     resources :users
     resources :settings
     resources :categories
-
+    resources :users
   end
 
   post 'users' => 'users#create', :as => "users"
