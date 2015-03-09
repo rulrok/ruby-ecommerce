@@ -1,6 +1,5 @@
-class Admin::CategoriesController < ApplicationController
+class Admin::CategoriesController < Admin::AdminController
   before_action :set_admin_category, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin
 
   # GET /admin/admin_categories
   # GET /admin/admin_categories.json

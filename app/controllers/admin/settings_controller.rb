@@ -1,6 +1,5 @@
-class Admin::SettingsController < ApplicationController
+class Admin::SettingsController < Admin::AdminController
   before_action :set_admin_setting, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin
 
   # GET /admin/settings
   # GET /admin/settings.json
@@ -63,13 +62,19 @@ class Admin::SettingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_setting
-      @admin_setting = Setting.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin_setting
+    id = params[:id].to_i
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def admin_setting_params
-      params.require(:setting).permit(:key, :value)
+    if id != 0
+      @admin_setting = Setting.find(id)
+    else
+      @admin_setting = Setting.find_by_key(params[:id])
     end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def admin_setting_params
+    params.require(:setting).permit(:key, :value)
+  end
 end

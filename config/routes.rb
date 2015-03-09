@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    resources :users
-  end
-
   root 'application#index'
 
   get "log_out" => 'sessions#destroy', :as => "log_out"
@@ -17,17 +13,17 @@ Rails.application.routes.draw do
     resources :users
     resources :settings
     resources :categories
-    resources :users
   end
 
-  post 'users' => 'users#create', :as => "users"
-  get 'profile' => 'users#index', :as => "profile"
+  post 'users' => 'users#create'
+  get 'profile' => 'users#profile', :as => "profile"
   get 'profile/edit' => 'users#edit', :as => "edit_profile"
 
   get 'products' => 'products#index'
   get 'products/:id' => 'products#show', :as => "product"
 
   resources :sessions
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

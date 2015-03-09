@@ -1,27 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= content_for?(:title) ? content_for(:title) : Setting.find_by_key('title').value %></title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <title>My website</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-<div id="user_nav">
-  <% if current_user %>
-    Logged in as <%= current_user.email %> (<%= current_user.role.name %>).
-    <%= link_to "Log out", log_out_path %>
-  <% else %>
-    <%= link_to "Sign up", sign_up_path %> or
-    <%= link_to "log in", log_in_path %>
-  <% end %>
+<body class="container">
+<br>
+<header class="container-fluid">
+  <div id="flash-messages" class="row">
+    <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}", :class => "col-md-12 alert alert-info" %>
+    <% end %>
+  </div>
+  <div class="row">
+    <div id="logo-wrapper" class="col-md-3">
+      <%= link_to '/' do %>
+          <%= image_tag "logo.jpg", alt: 'Logo', class: 'center-block' %>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <%= form_tag('/search', method: :get, class: 'form-horizontal form-search', role: :search) do %>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="input-group">
+                  <%= search_field_tag :search, "", placeholder: "Search for...", class: 'form-control' %>
+                  <div class="input-group-btn">
+                    <%= button_tag type: :submit, name: :search, class: 'btn btn-default' do %>
+                        <i class="fa fa-search"></i>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+
+          <div class="list-group list-group-horizontal">
+            <a href="#" class="list-group-item active">Home</a>
+            <a href="#" class="list-group-item">Product Categories</a>
+            <a href="#" class="list-group-item">Offers/Sales</a>
+            <a href="#" class="list-group-item">About</a>
+            <a href="#" class="list-group-item">Contact us</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="container-fluid" id="user_nav">
+        <i class="fa fa-user fa-5x col-sm-4"></i>
+        <% if current_user %>
+            Logged in as <%= current_user.email %> (<%= current_user.role.name %>).
+            <%= link_to "Log out", log_out_path %>
+        <% else %>
+            <%= link_to "Sign up", sign_up_path %> or
+            <%= link_to "log in", log_in_path %>
+        <% end %>
+      </div>
+      <div class="container-fluid" id="cart-wrapper">
+        <i class="fa fa-shopping-cart fa-5x"></i>
+      </div>
+    </div>
+
+  </div>
+</header>
+<hr>
+<div class="container-fluid well">
+
+  <%= yield %>
+
 </div>
-
-<% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, :id => "flash_#{name}" %>
-<% end %>
-
-<%= yield %>
-
+<hr>
+<footer class="container-fluid">
+  <p class="text-center">&copy; Copyright 2015 - My eCommerce</p>
+</footer>
 </body>
 </html>

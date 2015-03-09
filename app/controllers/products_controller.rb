@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class ProductsController < CustomerController
 
   before_action :redirect_admin
 

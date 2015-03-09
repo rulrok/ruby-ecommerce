@@ -1,4 +1,13 @@
 source 'https://rubygems.org'
+
+#Nice CSS icons
+gem 'font-awesome-sass'
+
+#Gems for integrating bootstrap with rails
+#based on that tutorial http://www.gotealeaf.com/blog/integrating-rails-and-bootstrap-part-1
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
+
 gem 'bcrypt', :require => "bcrypt"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

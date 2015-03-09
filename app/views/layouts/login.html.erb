@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @action_name %></title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="login-overlay" class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true"></span><span class="sr-only"></span></button>
+      <h4 class="modal-title" id="myModalLabel"><%= @action_name %> to <%= @ecommerce_name %></h4>
+    </div>
+    <div class="modal-body">
+
+      <% if flash.count > 0 %>
+          <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <% flash.each do |name, msg| %>
+                <%= content_tag :div, msg, :id => "flash_#{name}" %>
+            <% end %>
+          </div>
+      <% end %>
+
+      <%= yield %>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
