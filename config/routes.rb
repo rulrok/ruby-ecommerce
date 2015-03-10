@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root 'application#index'
   get 'about' => 'application#about', as: 'about'
   get 'contact' => 'application#contact', as: 'contact'
+  get 'sales' => 'application#sales', as: 'sales'
+  get 'categories' => 'application#categories', as: 'categories'
 
   get "log_out" => 'sessions#destroy', :as => "log_out"
   get "log_in" => 'sessions#new', :as => "log_in"

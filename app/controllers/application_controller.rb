@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
     @contact_content = Setting.obtain('contact-content').html_safe
   end
 
+  def sales
+
+  end
+
+  def categories
+
+  end
+
   protected
 
   # @return [User]
