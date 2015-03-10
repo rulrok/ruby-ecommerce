@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+#CKEditor and dependencies for image upload capabilities
+#https://github.com/galetahub/ckeditor
+gem 'ckeditor'
+gem 'paperclip'
+gem 'responders'
+
 #Nice CSS icons
 gem 'font-awesome-sass'
 

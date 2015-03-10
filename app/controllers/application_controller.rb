@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
     redirect_admin #A administrator is not allowed to browse through the store.
   end
 
+  def about
+    @about_content = Setting.obtain('about-content').html_safe #Maybe .html_safe could go directly in the method obtain. Not sure yet
+  end
+
+  def contact
+    @contact_content = Setting.obtain('contact-content').html_safe
+  end
+
   protected
 
   # @return [User]

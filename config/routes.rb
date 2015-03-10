@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
   root 'application#index'
+  get 'about' => 'application#about', as: 'about'
+  get 'contact' => 'application#contact', as: 'contact'
 
   get "log_out" => 'sessions#destroy', :as => "log_out"
   get "log_in" => 'sessions#new', :as => "log_in"
@@ -11,6 +14,8 @@ Rails.application.routes.draw do
 
     resources :products
     resources :users
+    get 'settings/about' => 'settings#about' , as: 'about'
+    get 'settings/contact' => 'settings#contact' , as: 'contact'
     resources :settings
     resources :categories
   end
