@@ -4,12 +4,20 @@ class Admin::SettingsController < Admin::AdminController
   # GET /admin/settings
   # GET /admin/settings.json
   def index
-    @admin_settings = Setting.all
+    # @admin_settings = Setting.all
   end
 
   # GET /admin/settings/1
   # GET /admin/settings/1.json
   def show
+  end
+
+  def about
+    @content = Setting.find_by_key('about-content')
+  end
+
+  def contact
+    @content = Setting.find_by_key('contact-content')
   end
 
   # GET /admin/settings/new
@@ -42,7 +50,7 @@ class Admin::SettingsController < Admin::AdminController
   def update
     respond_to do |format|
       if @admin_setting.update(admin_setting_params)
-        format.html { redirect_to admin_setting_path(@admin_setting), notice: 'Setting was successfully updated.' }
+        format.html { redirect_to [:admin, :settings], notice: 'Setting was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin_setting }
       else
         format.html { render :edit }

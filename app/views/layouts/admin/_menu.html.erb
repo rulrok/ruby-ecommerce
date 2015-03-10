@@ -1,0 +1,36 @@
+<div class="col-md-2">
+  <br>
+  <ul class="nav nav-pills nav-stacked">
+    <li><a><i class="fa fa-user fa-2x"></i> <%= "#{current_user.first_name} #{current_user.last_name}" %>
+      (<%= current_user.email %>)</a></li>
+    <li>
+      <hr>
+    </li>
+    <li id="dashboard">
+      <%= link_to :admin do %><i class="fa fa-home fa-fw"></i>Dashboard
+      <% end %></li>
+    <li id="products">
+      <%= link_to [:admin, :products] do %>
+          <i class="fa fa-rocket fa-fw"></i>Products
+      <% end %>
+    </li>
+    <li id="categories">
+      <%= link_to [:admin, :categories] do %>
+          <i class="fa fa-list fa-fw"></i>Categories
+      <% end %>
+    </li>
+    <li>
+      <hr>
+    </li>
+    <li id="settings">
+      <%= link_to [:admin, :settings] do %>
+          <i class="fa fa-gear fa-fw"></i>Settings
+      <% end %>
+    </li>
+    <li>
+      <%= link_to '/log_out', data: {confirm: "Do you really want to log out?"} do %>
+          <i class="fa fa-coffee fa-fw"></i>Log out
+      <% end %>
+    </li>
+  </ul>
+</div>
