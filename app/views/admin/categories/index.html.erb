@@ -15,10 +15,14 @@
   </thead>
 
   <tbody>
-  <% @admin_categories.each do |category| %>
+  <% @all_categories.each do |category| %>
+      <% next if category.root? %>
       <tr>
         <td><%= category.name %></td>
-        <td><%= category.parent_id %></td>
+        <td>
+          <%= category.parent.name #unless category.parent.nil?
+          %>
+        </td>
         <td><%= link_to 'Show', admin_category_path(category) %></td>
         <td><%= link_to 'Edit', edit_admin_category_path(category) %></td>
         <td><%= link_to 'Destroy', admin_category_path(category), method: :delete, data: {confirm: 'Are you sure?'} %></td>

@@ -17,7 +17,15 @@
   </div>
   <div class="field">
     <%= f.label :parent_id %><br>
-    <%= f.number_field :parent_id %>
+    <%= collection_select(
+                :category, #object
+                :parent_id, #method
+                Category.primary_categories, #collection
+                :id, #value_method
+                :name, #text_method
+        )
+        #documentation http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_select
+    %>
   </div>
   <div class="actions">
     <%= f.submit %>

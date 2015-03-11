@@ -12,7 +12,14 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @product.category.name %>
+  <%=
+     @product.category.path.from_depth(1).first.name
+  %>
+</p><p>
+  <strong>Sub-Category:</strong>
+  <%=
+     @product.category.path.from_depth(1).last.name
+  %>
 </p>
 
 <p>

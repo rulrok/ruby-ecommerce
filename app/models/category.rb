@@ -1,26 +1,30 @@
 class Category < ActiveRecord::Base
 
+  has_ancestry :orphan_strategy => :restrict, :cache_depth => true
+
   has_many :products
 
-  belongs_to :parent, class_name: :Category, foreign_key: :parent_id
-  has_many :children, class_name: :Category, foreign_key: :parent_id
+  validates_presence_of :name
+
+  # belongs_to :parent, class_name: :Category, foreign_key: :parent_id
+  # has_many :children, class_name: :Category, foreign_key: :parent_id
 
   public
 
   def self.primary_categories
-    Category.where(:parent => root_category)
+    Category.at_depth(1)
   end
 
   def self.secondary_categories
-    Category.where.not(:parent => root_category) #The sweetness of a not statement, what a joy :D
+    Category.at_depth(2)
   end
 
-  def self.children parent_id
-    Category.where(:parent => parent_id)
-  end
-  protected
+  # def self.children parent_id
+  #   Category.where(:parent => parent_id)
+  # end
 
   def self.root_category
-    Category.where(:parent => nil)
+    Category.at_depth(0)
   end
+
 end

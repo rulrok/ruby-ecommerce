@@ -3,11 +3,14 @@ source 'https://rubygems.org'
 #jsTree
 #https://github.com/tristanm/jstree-rails
 gem 'jstree-rails', :git => 'git://github.com/tristanm/jstree-rails.git'
+#Gem for ancestry on model for categories
+gem 'ancestry'
 
 #CKEditor and dependencies for image upload capabilities
 #https://github.com/galetahub/ckeditor
 gem 'ckeditor'
 gem 'paperclip'
+#Good tutorial for paperclip http://thewebfellas.com/blog/2008/11/2/goodbye-attachment_fu-hello-paperclip
 gem 'responders'
 
 #Nice CSS icons
