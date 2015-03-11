@@ -15,7 +15,7 @@
       <th>Unit weight</th>
       <th>Unit in stock</th>
       <th>Product available</th>
-      <th>Picture url</th>
+      <th>Picture</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -25,7 +25,7 @@
       <tr>
         <td><%= admin_product.product_name %></td>
         <td><%= admin_product.product_description %></td>
-        <td><%= admin_product.category_id %></td>
+        <td><%= admin_product.category.name  %></td>
         <td><%= admin_product.quantity_per_unit %></td>
         <td><%= admin_product.unit_price %></td>
         <td><%= admin_product.discount %></td>
@@ -33,7 +33,8 @@
         <td><%= admin_product.unit_weight %></td>
         <td><%= admin_product.unit_in_stock %></td>
         <td><%= admin_product.product_available %></td>
-        <td><%= admin_product.picture_url %></td>
+        <td><%= image_tag admin_product.photo(:small) %></td>
+
         <td><%= link_to 'Show', admin_product_path(admin_product) %></td>
         <td><%= link_to 'Edit', edit_admin_product_path(admin_product) %></td>
         <td><%= link_to 'Destroy', [:admin, admin_product], method: :delete, data: { confirm: 'Are you sure?' } %></td>

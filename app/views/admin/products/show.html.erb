@@ -12,7 +12,7 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @product.category_id %>
+  <%= @product.category.name %>
 </p>
 
 <p>
@@ -49,10 +49,9 @@
   <strong>Product available:</strong>
   <%= @product.product_available %>
 </p>
-
 <p>
-  <strong>Picture url:</strong>
-  <%= @product.picture_url %>
+  <strong>Photo</strong>
+  <%= image_tag @product.photo %>
 </p>
 
 <%= link_to 'Edit', edit_admin_product_path(@product) %> |
