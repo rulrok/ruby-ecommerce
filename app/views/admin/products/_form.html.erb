@@ -1,4 +1,4 @@
-<%= form_for [:admin, @product], :html => { :multipart => true } do |f| %>
+<%= form_for [:admin, @product], :html => {:multipart => true} do |f| %>
     <% if @product.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@product.errors.count, "error") %> prohibited this admin_product from being saved:</h2>
@@ -21,7 +21,19 @@
     </div>
     <div class="field">
       <%= f.label :category_id %><br>
-      <%= f.number_field :category_id %>
+      <%= grouped_collection_select(
+                  :product, #The instance of the class to be used for the select tag
+                  :category_id, #The attribute of object corresponding to the select tag
+                  Category.primary_categories, #An array of objects representing the <optgroup> tags.
+                  :children, #The method to be called on each of the elements above to generate the children
+                  :name, #Name from group element to be used as the value for the <optgroup>
+                  :id, #The name of a method which, when called on a child object of a member of collection, returns a value to be used as the value attribute for its <option> tag.
+                  :name #The name of a method which, when called on a child object of a member of collection, returns a value to be used as the contents of its <option> tag.
+
+
+          )
+          #documentation http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-grouped_collection_select
+      %>
     </div>
     <div class="field">
       <%= f.label :quantity_per_unit %><br>

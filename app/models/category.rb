@@ -8,7 +8,6 @@ class Category < ActiveRecord::Base
   public
 
   def self.primary_categories
-    root = Category.where(:parent => nil)
     Category.where(:parent => root_category)
   end
 
