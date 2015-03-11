@@ -20,7 +20,7 @@
     <%= collection_select(
                 :category, #object
                 :parent_id, #method
-                Category.primary_categories, #collection
+                Category.from_depth(0).to_depth(1), #collection
                 :id, #value_method
                 :name, #text_method
         )

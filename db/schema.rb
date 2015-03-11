@@ -11,14 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311051953) do
+ActiveRecord::Schema.define(version: 20150311174948) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "ancestry"
+    t.string   "ancestry_depth", limit: 45
   end
+
+  add_index "categories", ["name", "ancestry"], name: "index_categories_on_name_and_ancestry", unique: true
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",               null: false

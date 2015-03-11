@@ -4,7 +4,10 @@ class Category < ActiveRecord::Base
 
   has_many :products
 
-  validates_presence_of :name
+  validates_presence_of :name, :ancestry, :ancestry_depth
+
+  #Ensures that we cannot have a duplicated category on the same level of the category tree
+  validates_uniqueness_of :name, :scope => [:ancestry]
 
   # belongs_to :parent, class_name: :Category, foreign_key: :parent_id
   # has_many :children, class_name: :Category, foreign_key: :parent_id
