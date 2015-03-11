@@ -22,9 +22,14 @@ class Category < ActiveRecord::Base
     Category.at_depth(2)
   end
 
-  # def self.children parent_id
-  #   Category.where(:parent => parent_id)
-  # end
+  def self.find_children parent_id
+    begin
+      parent = Category.find(parent_id)
+      parent.children
+    rescue
+      nil
+    end
+  end
 
   def self.root_category
     Category.at_depth(0)

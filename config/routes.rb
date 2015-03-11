@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     get 'settings/contact' => 'settings#contact' , as: 'contact'
     resources :settings
     get 'categories/children/' => 'categories#children'
-    get 'categories/children/:parent_id' => 'categories#children'
+    get 'categories/children/:parent_id(.:format)' => 'categories#children'
     resources :categories
   end
 

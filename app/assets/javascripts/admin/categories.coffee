@@ -5,7 +5,7 @@ $(document).ready ->
   $('#tree').jstree({
     'core': {
       'data': {
-        'url': 'http://127.0.0.1:3000/admin/categories.json'
+        'url': '/admin/categories.json'
       }
       , 'check_callback': (operation, node, node_parent, node_position) ->
         check_passed = false
@@ -48,8 +48,13 @@ $(document).ready ->
         "max_depth": 2
       }
     }
-    , 'plugins': ['contextmenu', 'types', 'dnd']
-  });
+    , 'plugins': ['contextmenu', 'types', 'dnd', 'unique']
+  }).on 'move_node.jstree', (e, data) ->
+    if !fn_move(data.node, data.parent)
+      exibirPopup 'Falha ao mover.<br/>Recarregue a página.', 'erro'
+      false
+    else
+      true
 
 menu_create =
   'separator_before': false
@@ -114,10 +119,9 @@ fn_rename = (id, new_name) ->
     type: 'PATCH'
     url: '/admin/categories/' + id + '.json'
     data:
-      'category': {
+      'category':
         id: id
         name: new_name
-      }
     dataType: 'json'
     success: (json) ->
       success = true
@@ -141,6 +145,25 @@ fn_create = (parent, new_obj) ->
         'name': new_obj.text
     success: (json) ->
       new_obj.id = json.id
+      success = true
+      return
+    error: (xhr, ajaxOptions, thrownError) ->
+      success = false
+      false
+  success
+
+fn_move = (obj, new_parent_id) ->
+  success = undefined
+  $.ajax
+    async: false
+    type: 'PATCH'
+    url: '/admin/categories/' + obj.id + '.json'
+    data:
+      category:
+        id: obj.id
+        parent_id: new_parent_id
+    dataType: 'json'
+    success: (json) ->
       success = true
       return
     error: (xhr, ajaxOptions, thrownError) ->

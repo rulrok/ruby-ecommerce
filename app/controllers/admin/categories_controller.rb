@@ -1,39 +1,40 @@
 class Admin::CategoriesController < Admin::AdminController
   before_action :set_admin_category, only: [:show, :edit, :update, :destroy]
 
-  # GET /admin/admin_categories
-  # GET /admin/admin_categories.json
+  # GET /admin/categories
+  # GET /admin/categories.json
   def index
     @all_categories = Category.all
   end
 
-  # GET /admin/admin_categories/1
-  # GET /admin/admin_categories/1.json
+  # GET /admin/categories/1
+  # GET /admin/categories/1.json
   def show
   end
 
-  # GET /admin/admin_categories/new
+  # GET /admin/categories/new
   def new
     @category = Category.new
   end
 
-  # GET /admin/admin_categories/1/edit
+  # GET /admin/categories/1/edit
   def edit
   end
 
+  # GET /admin/categories/children/:parent_id.json
   def children
     respond_to do |format|
       format.json do
         render nothing: true, status: :bad_request if params[:parent_id].nil?
-        @children = Category.children(params[:parent_id])
+        @children = Category.find_children(params[:parent_id])
       end
       format.html { render nothing: true, status: :OK }
     end
 
   end
 
-  # POST /admin/admin_categories
-  # POST /admin/admin_categories.json
+  # POST /admin/categories
+  # POST /admin/categories.json
   def create
     @category = Category.new(admin_category_params)
 
@@ -48,8 +49,8 @@ class Admin::CategoriesController < Admin::AdminController
     end
   end
 
-  # PATCH/PUT /admin/admin_categories/1
-  # PATCH/PUT /admin/admin_categories/1.json
+  # PATCH/PUT /admin/categories/1
+  # PATCH/PUT /admin/categories/1.json
   def update
     respond_to do |format|
       if @category.update(admin_category_params)
@@ -62,8 +63,8 @@ class Admin::CategoriesController < Admin::AdminController
     end
   end
 
-  # DELETE /admin/admin_categories/1
-  # DELETE /admin/admin_categories/1.json
+  # DELETE /admin/categories/1
+  # DELETE /admin/categories/1.json
   def destroy
     @category.destroy
     respond_to do |format|
