@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     get 'settings/about' => 'settings#about' , as: 'about'
     get 'settings/contact' => 'settings#contact' , as: 'contact'
     resources :settings
+    get 'categories/children/' => 'categories#children'
+    get 'categories/children/:parent_id' => 'categories#children'
     resources :categories
   end
 

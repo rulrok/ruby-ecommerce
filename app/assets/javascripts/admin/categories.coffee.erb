@@ -1,0 +1,21 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+$(document).ready ->
+    $(' #tree').jstree({
+        'core': {
+            'data': {
+                'url': 'http://127.0.0.1:3000/admin/categories.json'
+            }
+            , 'check_callback': true
+        }
+        , 'contextmenu': {
+#            items: {
+#
+#            }
+
+        }
+        ,
+        'plugins': ['contextmenu']
+    });
+

@@ -14,10 +14,10 @@
 //
 //= require jquery.js
 //= require jquery_ujs
+//= require jstree
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require ckeditor/init
-//#= require_directory ./../ckeditor
 //The following line is commented because each page under admin will only load the appropriated script
 //Just to keep things more organized and evict possible script conflicts
 //# require_tree .

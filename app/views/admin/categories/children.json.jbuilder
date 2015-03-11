@@ -1,10 +1,10 @@
-json.array!(@admin_categories) do |admin_category|
+json.array!(@children) do |child|
   # json.extract! admin_category, :id, :name, :parent_id
-  json.id admin_category.id
-  json.text admin_category.name
+  json.id child.id
+  json.text child.name
 
-  if admin_category.parent_id?
-    json.parent admin_category.parent_id
+  if child.parent_id?
+    json.parent child.parent_id
   else
     json.parent '#'
     json.state { json.opened true }

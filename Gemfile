@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+#jsTree
+#https://github.com/tristanm/jstree-rails
+gem 'jstree-rails', :git => 'git://github.com/tristanm/jstree-rails.git'
+
 #CKEditor and dependencies for image upload capabilities
 #https://github.com/galetahub/ckeditor
 gem 'ckeditor'

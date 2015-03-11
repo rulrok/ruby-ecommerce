@@ -2,25 +2,28 @@
 
 <h1>Listing Admin Categories</h1>
 
+<div id="tree">
+
+</div>
 <table>
   <thead>
-    <tr>
-      <th>Name</th>
-      <th>Parent</th>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>Parent</th>
+    <th colspan="3"></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @admin_categories.each do |category| %>
+  <% @admin_categories.each do |category| %>
       <tr>
         <td><%= category.name %></td>
         <td><%= category.parent_id %></td>
         <td><%= link_to 'Show', admin_category_path(category) %></td>
         <td><%= link_to 'Edit', edit_admin_category_path(category) %></td>
-        <td><%= link_to 'Destroy', admin_category_path(category ), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', admin_category_path(category), method: :delete, data: {confirm: 'Are you sure?'} %></td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 

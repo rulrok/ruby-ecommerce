@@ -4,6 +4,7 @@ class Admin::CategoriesController < Admin::AdminController
   # GET /admin/admin_categories
   # GET /admin/admin_categories.json
   def index
+    @categories = Category.secondary_categories
     @admin_categories = Category.all
   end
 
@@ -19,6 +20,17 @@ class Admin::CategoriesController < Admin::AdminController
 
   # GET /admin/admin_categories/1/edit
   def edit
+  end
+
+  def children
+    respond_to do |format|
+      format.json do
+        render nothing: true, status: :bad_request if params[:parent_id].nil?
+        @children = Category.children(params[:parent_id])
+      end
+      format.html { render nothing: true, status: :OK }
+    end
+
   end
 
   # POST /admin/admin_categories
@@ -62,13 +74,13 @@ class Admin::CategoriesController < Admin::AdminController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_category
-      @category = Category.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin_category
+    @category = Category.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def admin_category_params
-      params.require(:category).permit(:name, :parent_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def admin_category_params
+    params.require(:category).permit(:name, :parent_id)
+  end
 end
