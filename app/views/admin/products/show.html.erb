@@ -1,65 +1,154 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Product name:</strong>
-  <%= @product.product_name %>
-</p>
+<h1>Product display</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="well well-sm">
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <%= image_tag @product.photo, class: 'img-rounded img-responsive' %>
+            <!--<img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />-->
+          </div>
+          <div class="col-sm-6 col-md-8">
+            <h4><%= @product.product_name %></h4>
 
-<p>
-  <strong>Product description:</strong>
-  <%= @product.product_description %>
-</p>
+            <p>
+              <strong>Product description:</strong>
+              <%= @product.product_description %>
+            </p>
 
-<p>
-  <strong>Category:</strong>
-  <%=
-     @product.category.path.from_depth(1).first.name
-  %>
-</p><p>
+            <p>
+              <strong>Category:</strong>
+              <%=
+                  @product.category.path.from_depth(1).first.name
+              %>
+            </p>
+
+            <p>
+              <strong>Sub-Category:</strong>
+              <%=
+                  @product.category.path.from_depth(1).last.name
+              %>
+            </p>
+
+            <p>
+              <strong>Quantity per unit:</strong>
+              <%= @product.quantity_per_unit %>
+            </p>
+
+            <p>
+              <strong>Unit price:</strong>
+              <%= number_to_currency(@product.unit_price) %>
+            </p>
+
+            <p>
+              <strong>Discount:</strong>
+              <%= number_to_currency(@product.discount) %>
+            </p>
+
+            <p>
+              <strong>Discount available:</strong>
+              <% if @product.discount_available %>
+                  <i class="fa fa-check-circle"></i>
+              <% else %>
+                  <i class="fa fa-times-circle"></i>
+              <% end %>
+            </p>
+
+            <p>
+              <strong>Unit weight (g):</strong>
+              <%= @product.unit_weight %>
+            </p>
+
+            <p>
+              <strong>Unit in stock:</strong>
+              <%= @product.unit_in_stock %>
+            </p>
+
+            <p>
+              <strong>Product available:</strong>
+              <% if @product.product_available %>
+                  <i class="fa fa-check-circle"></i>
+              <% else %>
+                  <i class="fa fa-times-circle"></i>
+              <% end %>
+            </p>
+            <!-- Split button -->
+
+            <div class="btn-group">
+              <%= link_to 'Edit', edit_admin_product_path(@product), class: 'btn btn-success' %>
+              <%= link_to 'Back', admin_products_path, class: 'btn btn-default' %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% if false %>
+    <p>
+      <strong>Product name:</strong>
+      <%= @product.product_name %>
+    </p>
+
+    <p>
+      <strong>Product description:</strong>
+      <%= @product.product_description %>
+    </p>
+
+    <p>
+      <strong>Category:</strong>
+      <%=
+          @product.category.path.from_depth(1).first.name
+      %>
+    </p><p>
   <strong>Sub-Category:</strong>
   <%=
-     @product.category.path.from_depth(1).last.name
+      @product.category.path.from_depth(1).last.name
   %>
 </p>
 
-<p>
-  <strong>Quantity per unit:</strong>
-  <%= @product.quantity_per_unit %> g
-</p>
+    <p>
+      <strong>Quantity per unit:</strong>
+      <%= @product.quantity_per_unit %> g
+    </p>
 
-<p>
-  <strong>Unit price:</strong>
-  <%= number_to_currency(@product.unit_price) %>
-</p>
+    <p>
+      <strong>Unit price:</strong>
+      <%= number_to_currency(@product.unit_price) %>
+    </p>
 
-<p>
-  <strong>Discount:</strong>
-  <%= @product.discount %>
-</p>
+    <p>
+      <strong>Discount:</strong>
+      <%= @product.discount %>
+    </p>
 
-<p>
-  <strong>Discount available:</strong>
-  <%= @product.discount_available %>
-</p>
+    <p>
+      <strong>Discount available:</strong>
+      <%= @product.discount_available %>
+    </p>
 
-<p>
-  <strong>Unit weight:</strong>
-  <%= @product.unit_weight %>
-</p>
+    <p>
+      <strong>Unit weight:</strong>
+      <%= @product.unit_weight %>
+    </p>
 
-<p>
-  <strong>Unit in stock:</strong>
-  <%= @product.unit_in_stock %>
-</p>
+    <p>
+      <strong>Unit in stock:</strong>
+      <%= @product.unit_in_stock %>
+    </p>
 
-<p>
-  <strong>Product available:</strong>
-  <%= @product.product_available %>
-</p>
-<p>
-  <strong>Photo</strong>
-  <%= image_tag @product.photo %>
-</p>
+    <p>
+      <strong>Product available:</strong>
+      <%= @product.product_available %>
+    </p>
+    <div>
+      <strong>Photo</strong>
+      <%= image_tag @product.photo, class: 'img-rounded' %>
+    </div>
 
-<%= link_to 'Edit', edit_admin_product_path(@product) %> |
-<%= link_to 'Back', admin_products_path %>
+    <%= link_to 'Edit', edit_admin_product_path(@product) %> |
+    <%= link_to 'Back', admin_products_path %>
+<% end %>
