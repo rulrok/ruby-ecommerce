@@ -20,6 +20,10 @@ class Admin::SettingsController < Admin::AdminController
     @content = Setting.find_by_key('contact-content')
   end
 
+  def title
+    @content = Setting.find_by_key('title')
+  end
+
   # GET /admin/settings/new
   def new
     @admin_setting = Setting.new

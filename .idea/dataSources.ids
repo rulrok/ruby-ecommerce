@@ -10,8 +10,9 @@
       <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
       <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
       <column name="ancestry" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="ancestry_depth" sqlType="VARCHAR (45)" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="ancestry_depth" sqlType="VARCHAR (11)" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
       <primary-key columns="id"/>
+      <index name="index_categories_on_name_and_ancestry" unique="true" columns="name,ancestry"/>
     </table>
     <table name="ckeditor_assets" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>

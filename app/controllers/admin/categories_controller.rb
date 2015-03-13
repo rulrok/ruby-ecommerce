@@ -7,6 +7,20 @@ class Admin::CategoriesController < Admin::AdminController
     @all_categories = Category.all
   end
 
+  # GET /admin/categories/except/:id
+  def except
+    respond_to do |format|
+      format.json do
+        render nothing: true, status: :bad_request if params[:id].nil?
+        @element = Category.find(params[:id])
+        @sub_tree = @element.ancestors
+        @children = Category.find_children(params[:id])
+      end
+      format.html { render nothing: true, status: :OK }
+    end
+
+  end
+
   # GET /admin/categories/1
   # GET /admin/categories/1.json
   def show
@@ -66,10 +80,22 @@ class Admin::CategoriesController < Admin::AdminController
   # DELETE /admin/categories/1
   # DELETE /admin/categories/1.json
   def destroy
-    @category.destroy
+    destroyed = begin
+      @category.destroy
+      true
+    rescue
+      false
+    end
+
     respond_to do |format|
-      format.html { redirect_to admin_categories_url, notice: 'Category was successfully destroyed.' }
-      format.json { head :no_content }
+      if destroyed
+        format.html { redirect_to admin_categories_url, notice: 'Category was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        message = 'Category could not be destroyed. Verify if one of its subcategories already exist in the upper level of the tree. Also, verify if that category has no products registered with it.'
+        format.html { redirect_to admin_categories_url, notice: message, status: :unprocessable_entity }
+        format.json { render json: message, status: :unprocessable_entity }
+      end
     end
   end
 

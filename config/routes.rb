@@ -18,9 +18,11 @@ Rails.application.routes.draw do
     resources :users
     get 'settings/about' => 'settings#about' , as: 'about'
     get 'settings/contact' => 'settings#contact' , as: 'contact'
+    get 'settings/title' => 'settings#title' , as: 'title'
     resources :settings
     get 'categories/children/' => 'categories#children'
     get 'categories/children/:parent_id(.:format)' => 'categories#children'
+    get 'categories/except/:id(.:format)' => 'categories#except'
     resources :categories
   end
 

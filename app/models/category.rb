@@ -1,8 +1,8 @@
 class Category < ActiveRecord::Base
 
-  has_ancestry :orphan_strategy => :restrict, :cache_depth => true
+  has_ancestry :orphan_strategy => :adopt, :cache_depth => true
 
-  has_many :products
+  has_many :products, :dependent => :restrict_with_exception
 
   validates_presence_of :name, :ancestry, :ancestry_depth
 

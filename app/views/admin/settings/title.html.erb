@@ -1,0 +1,7 @@
+<%= form_for [:admin, @content] do |f| -%>
+
+    <%= f.text_area :value %>
+    <br>
+    <%= f.submit "Save changes", class: 'btn btn-success btn-block' %>
+    <%= link_to 'Cancel', :back , class: 'btn btn-default btn-block' %>
+<% end -%>

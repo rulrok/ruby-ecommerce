@@ -14,15 +14,17 @@ $(document).ready ->
             if node.original != undefined and node_parent.original != undefined and node.original.depth - 1 == node_parent.original.depth
               check_passed = true
           when 'delete_node'
-            if !confirmadoRemocao
-              montarArvoreAuxiliar node.id
-              escolherSubstituto()
-              check_passed = false
-            else
-              idDescritor = $('#jstree_div').jstree(true).get_selected().toString()
-              idDescritorSubs = $('#jstree_div_aux').jstree(true).get_selected().toString().substr(2)
-              check_passed = removerDescritor(idDescritor, idDescritorSubs)
-              confirmadoRemocao = false
+            check_passed = confirm("Are you sure?") && fn_remove(node.id)
+
+#            if !confirm_remove
+#              create_aux_tree node.id
+#              choose_replacement
+#              check_passed = false
+#            else
+#              idDescritor = $('#jstree_div').jstree(true).get_selected().toString()
+#              idDescritorSubs = $('#jstree_div_aux').jstree(true).get_selected().toString().substr(2)
+#              check_passed = removerDescritor(idDescritor, idDescritorSubs)
+#              confirm_remove = false
           when 'create_node'
             check_passed = fn_create(node_parent, node)
           when 'rename_node'
@@ -48,13 +50,36 @@ $(document).ready ->
         "max_depth": 2
       }
     }
-    , 'plugins': ['contextmenu', 'types', 'dnd', 'unique']
+    , 'plugins': ['contextmenu', 'types', 'dnd', 'unique', 'state', 'search', 'sort']
   }).on 'move_node.jstree', (e, data) ->
-    if !fn_move(data.node, data.parent)
-      exibirPopup 'Falha ao mover.<br/>Recarregue a página.', 'erro'
-      false
-    else
-      true
+    fn_move(data.node, data.parent)
+
+  to = false
+  $('#category-search').keyup ->
+    if to
+      clearTimeout to
+    to = setTimeout((->
+      v = $('#category-search').val()
+      $('#tree').jstree(true).search v
+      return
+    ), 250)
+    return
+
+  $('#expand-tree').on 'click', ->
+    tree = $.jstree.reference('tree')
+    $(this).addClass 'hidden'
+    $('#collapse-tree').removeClass 'hidden'
+    tree.open_all undefined, false
+    return
+
+  $('#collapse-tree').on 'click', ->
+    tree = $.jstree.reference('tree')
+    $(this).addClass 'hidden'
+    $('#expand-tree').removeClass 'hidden'
+    tree.close_all()
+    tree.open_node tree.get_json('#'), undefined, false
+    return
+
 
 menu_create =
   'separator_before': false
@@ -125,12 +150,9 @@ fn_rename = (id, new_name) ->
     dataType: 'json'
     success: (json) ->
       success = true
-      console.log(json)
-      return
     error: (xhr, ajaxOptions, thrownError) ->
+      show_error_modal("Ooops!", xhr.responseText)
       success = false
-      console.log('error')
-      return
   success
 
 fn_create = (parent, new_obj) ->
@@ -145,11 +167,16 @@ fn_create = (parent, new_obj) ->
         'name': new_obj.text
     success: (json) ->
       new_obj.id = json.id
+      setTimeout(()->
+        new_obj_parent = $.jstree.reference('tree').get_node(parent.id)
+        new_obj_node = $.jstree.reference('tree').get_node(json.id)
+        new_obj_node.original.depth = new_obj_parent.original.depth + 1
+      )
       success = true
       return
     error: (xhr, ajaxOptions, thrownError) ->
+      show_error_modal("Ooops!", xhr.responseText)
       success = false
-      false
   success
 
 fn_move = (obj, new_parent_id) ->
@@ -165,8 +192,27 @@ fn_move = (obj, new_parent_id) ->
     dataType: 'json'
     success: (json) ->
       success = true
-      return
     error: (xhr, ajaxOptions, thrownError) ->
+      show_error_modal("Ooops!", xhr.responseText)
       success = false
-      false
+
+  success
+
+fn_remove = (obj_id) ->
+  success = undefined
+  $.ajax
+    async: false
+    type: 'DELETE'
+    url: '/admin/categories/' + obj_id + '.json'
+    data:
+      category:
+        id: obj_id
+      dataType: 'json'
+    success: (json) ->
+      setTimeout(() -> $.jstree.reference('tree').refresh())
+      success = true
+    error: (xhr, ajaxOptions, thrownError) ->
+#      console.log xhr
+      show_error_modal("Ooops!", xhr.responseText)
+      success = false
   success
