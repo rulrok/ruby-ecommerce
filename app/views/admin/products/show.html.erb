@@ -24,12 +24,12 @@
 
 <p>
   <strong>Quantity per unit:</strong>
-  <%= @product.quantity_per_unit %>
+  <%= @product.quantity_per_unit %> g
 </p>
 
 <p>
   <strong>Unit price:</strong>
-  <%= @product.unit_price %>
+  <%= number_to_currency(@product.unit_price) %>
 </p>
 
 <p>

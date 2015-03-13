@@ -27,10 +27,10 @@
         <td><%= admin_product.product_description %></td>
         <td><%= admin_product.category.name  %></td>
         <td><%= admin_product.quantity_per_unit %></td>
-        <td><%= admin_product.unit_price %></td>
+        <td><%= number_to_currency(admin_product.unit_price) %></td>
         <td><%= admin_product.discount %></td>
         <td><%= admin_product.discount_available %></td>
-        <td><%= admin_product.unit_weight %></td>
+        <td><%= admin_product.unit_weight %> g</td>
         <td><%= admin_product.unit_in_stock %></td>
         <td><%= admin_product.product_available %></td>
         <td><%= image_tag admin_product.photo(:small) %></td>

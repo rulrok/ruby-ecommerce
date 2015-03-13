@@ -11,4 +11,5 @@ class Product < ActiveRecord::Base
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
 
   validates_presence_of :category
+
 end
