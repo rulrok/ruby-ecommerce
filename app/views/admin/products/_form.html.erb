@@ -63,11 +63,13 @@
       <%= f.label :product_available %><br>
       <%= f.check_box :product_available %>
     </div>
+    <% if @product.photo? %>
     <div class="field">
-        <%= f.label :image_delete %>
+        <%= f.label :image_delete, 'Delete image' %><br>
         <%= f.check_box :image_delete %>
     </div>
-    <div class="field">
+        <% end %>
+    <div id="photo_field" class="field">
       <%= f.label :photo %><br>
       <%= f.file_field :photo %>
       <%= image_tag @product.photo(:small), class: 'img-rounded' %>
