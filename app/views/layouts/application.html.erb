@@ -53,6 +53,10 @@
   </div>
 </header>
 <hr>
+<ol class="breadcrumb">
+  <%= render_breadcrumbs :tag => :li, :separator => "" %>
+</ol>
+<hr>
 <div class="container-fluid">
 
   <%= yield %>

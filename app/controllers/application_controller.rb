@@ -5,25 +5,31 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :logged_in?
 
+  add_breadcrumb "Home", :root_path
+
   def index
     redirect_admin #A administrator is not allowed to browse through the store.
     @products_categories = Product.limit(9)
   end
 
   def about
+    add_breadcrumb "About", about_path
+
     @about_content = Setting.obtain('about-content').html_safe #Maybe .html_safe could go directly in the method obtain. Not sure yet
   end
 
   def contact
+    add_breadcrumb "Contact", contact_path
+
     @contact_content = Setting.obtain('contact-content').html_safe
   end
 
   def sales
-
+    add_breadcrumb "Sales", sales_path
   end
 
   def categories
-
+    add_breadcrumb "Categories", categories_path
   end
 
   protected

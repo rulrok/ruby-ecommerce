@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+#Nice and simple breadcrumbs for rails
+#http://simonecarletti.com/code/breadcrumbs_on_rails/
+gem "breadcrumbs_on_rails"
+
 #jsTree
 #https://github.com/tristanm/jstree-rails
 gem 'jstree-rails', :git => 'git://github.com/tristanm/jstree-rails.git'
