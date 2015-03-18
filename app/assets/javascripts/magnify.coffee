@@ -8,7 +8,7 @@ https://github.com/marcaube/bootstrap-magnify
   # jshint ;_;
 
   ### MAGNIFY PUBLIC CLASS DEFINITION
-  # =============================== 
+  # ===============================
   ###
 
   Magnify = (element, options) ->
@@ -69,7 +69,7 @@ https://github.com/marcaube/bootstrap-magnify
       return
 
   ### MAGNIFY PLUGIN DEFINITION
-  # ========================= 
+  # =========================
   ###
 
   $.fn.magnify = (option) ->
@@ -87,7 +87,7 @@ https://github.com/marcaube/bootstrap-magnify
   $.fn.magnify.defaults = delay: 0
 
   ### MAGNIFY DATA-API
-  # ================ 
+  # ================
   ###
 
   $(window).on 'load', ->

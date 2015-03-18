@@ -17,23 +17,11 @@
 @import "bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
-//
-//.container,
-//.container-fluid {
-//  border: 1px solid #000000;
-//}
-//
-//[class^="col-"] {
-//  border: 1px solid #cc0000;
-//}
-//
-//[class^="row"] {
-//  border: 2px solid #6C8C22;
-//}
 
 .list-group {
   margin: 0;
 }
+
 .list-group-horizontal .list-group-item {
   display: inline-block;
 }
@@ -57,4 +45,18 @@
 .form-search {
   margin-top: 50px;
   margin-bottom: 20px;
+}
+
+//Bootstrap class for rows with the same height
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+//Fix for magnify script to display the lens over other elements
+.magnify-large {
+//  background-color: #FFF!important;
+  z-index: 999;
 }

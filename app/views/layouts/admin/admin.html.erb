@@ -2,9 +2,9 @@
 <html>
 <head>
   <title>Dashboard for <%= current_user.first_name + " " + current_user.last_name %></title>
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'admin/admin.js', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag params[:controller], 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'admin/admin.js' %>
+  <%= javascript_include_tag params[:controller] %>
   <%= csrf_meta_tags %>
 </head>
 <body>
