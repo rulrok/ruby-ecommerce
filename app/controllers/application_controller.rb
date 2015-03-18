@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   def index
     redirect_admin #A administrator is not allowed to browse through the store.
+    @products_categories = Product.limit(9)
   end
 
   def about

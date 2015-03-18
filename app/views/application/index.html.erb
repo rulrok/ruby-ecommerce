@@ -1,5 +1,46 @@
 <%= title "Home Page" %>
-<p>Page under development.</p>
-<% if current_user && current_user.admin? then %>
-    <p>You are a administrator. You should not be seing this page.</p>
-<% end %>
+<h2>Offers</h2>
+<div class="well">
+
+</div>
+<h2>Categories</h2>
+<div class="well">
+  <div class="row">
+    <% @products_categories.each do |product| %>
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <%= link_to (product.category) do %>
+                <h4 class="text-center"><span class="label label-info"><%= product.category.name %></span></h4>
+            <% end %>
+            <%= image_tag product.photo(:small) %>
+
+            <div class="caption">
+              <div>
+                <div>
+                  <h3 class="text-center"><%= product.product_name %></h3>
+                </div>
+                <div class="price">
+                  <h3>
+                    <b><%= number_to_currency(product.unit_price) %></b>
+                  </h3>
+                </div>
+              </div>
+              <p><%= truncate(product.product_description, length: 140) %></p>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <a class="btn btn-primary btn-block"><span class="fa fa-star-o"></span> Favourite it</a>
+                </div>
+                <div class="col-md-6">
+                  <a href="#" class="btn btn-success btn-block"><span class="fa fa-shopping-cart"></span> Add to
+                    cart</a>
+                </div>
+              </div>
+
+              <p></p>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
