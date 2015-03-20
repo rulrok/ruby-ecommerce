@@ -31,20 +31,15 @@
             <!--<div class="counter_ply"><i class="glyphicon glyphicon-play"></i> 1312</div>-->
             <!--<div class="counter_like"><i class="glyphicon glyphicon-heart"></i> 2256</div>-->
             <!--</div>-->
-          </div>
-          <!--<div class="bot-links">-->
 
-          <!--<a href="#">Sit amet</a>-->
-          <!--<a href="#">Amet</a>-->
-          <!--<a href="#">Lorem</a>-->
-          <!--<a href="#">Ipsum dolor</a>-->
-          <!--<a href="#">Lorem</a>-->
-          <!--<a href="#">Amet</a>-->
-          <!--<a href="#">Sit amet</a>-->
-          <!--<a href="#">Ipsum dolor</a>-->
-          <!--<a href="#">Lorem</a>-->
-          <!--<a href="#">Ipsum dolor sit</a>-->
-          <!--</div>-->
+            <div class="bot-links">
+              <% product.category.path.from_depth(1).each do |category| %>
+                  <%= link_to (category) do %>
+                      <%= category.name %>
+                  <% end %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
   <% end %>
