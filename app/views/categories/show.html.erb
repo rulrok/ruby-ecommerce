@@ -1,3 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Back', categories_path %>
+<div class="row">
+  <% @products.each do |product| %>
+
+      <div class="col-xs-12 col-md-12">
+        <div class="product-data pull-left">
+          <div class="product-pic pull-left">
+            <!-- TODO: add links to those things -->
+            <!--<span class="product-like"><a href="#"><i class="glyphicon glyphicon-heart-empty"></i></a></span>-->
+            <!--<span class="product-share"><a href="#"><i class="glyphicon glyphicon-share"></i></a></span>-->
+            <!--<span class="product-plus"><a href="#"><i class="glyphicon glyphicon-plus-sign"></i></a></span>-->
+
+            <%= link_to (product) do %>
+                <%= image_tag product.photo(:small), class: 'img-responsive' %>
+            <% end %>
+          </div>
+          <div class="product-profile pull-right">
+            <div class="product-title">
+              <%= link_to (product) do %>
+                  <%= product.product_name %>
+              <% end %>
+              <span class="product-sub">
+
+                 <span class="product-description">Product description</span> <%= product.product_description %>
+
+                <span class="daysago"><%= "Package size: #{product.quantity_per_unit}" %></span></span>
+            </div>
+            <!--<div class="counter-tab">-->
+            <!--<div class="counter_comnt"><i class="glyphicon glyphicon-comment"></i> 359</div>-->
+            <!--<div class="counter_ply"><i class="glyphicon glyphicon-play"></i> 1312</div>-->
+            <!--<div class="counter_like"><i class="glyphicon glyphicon-heart"></i> 2256</div>-->
+            <!--</div>-->
+          </div>
+          <!--<div class="bot-links">-->
+
+          <!--<a href="#">Sit amet</a>-->
+          <!--<a href="#">Amet</a>-->
+          <!--<a href="#">Lorem</a>-->
+          <!--<a href="#">Ipsum dolor</a>-->
+          <!--<a href="#">Lorem</a>-->
+          <!--<a href="#">Amet</a>-->
+          <!--<a href="#">Sit amet</a>-->
+          <!--<a href="#">Ipsum dolor</a>-->
+          <!--<a href="#">Lorem</a>-->
+          <!--<a href="#">Ipsum dolor sit</a>-->
+          <!--</div>-->
+        </div>
+      </div>
+  <% end %>
+</div>

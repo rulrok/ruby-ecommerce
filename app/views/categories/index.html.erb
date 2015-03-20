@@ -1,22 +1,24 @@
+<%= title 'Categories' %>
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Categories</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<tr>
+  <td></td>
+</tr>
 
-  <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= link_to 'Show', category %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="panel-body">
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <% @categories.each do |category| %>
+          <%= link_to( category, class: 'btn btn-danger btn-lg', role: 'button' ) do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
+                <br/><%= category.name %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <br>
 

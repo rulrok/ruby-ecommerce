@@ -18,6 +18,8 @@ class CategoriesController < ApplicationController
     path.each do |category|
       add_breadcrumb category.name,  category
     end
+
+    @products = Product.where(category: @category)
   end
 
   # GET /categories/new

@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   get 'contact' => 'application#contact', as: 'contact'
   get 'sales' => 'application#sales', as: 'sales'
 
-
-  get 'categories' => 'application#categories', as: 'categories'
+  #Customer pages to see the categories
+  get 'categories' => 'categories#index', as: 'categories'
   get 'categories/:id' => 'categories#show', as: 'category'
 
   get "log_out" => 'sessions#destroy', :as => "log_out"

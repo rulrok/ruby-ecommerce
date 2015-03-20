@@ -31,10 +31,6 @@ class ApplicationController < ActionController::Base
     add_breadcrumb "Sales", sales_path
   end
 
-  def categories
-    add_breadcrumb "Categories", categories_path
-  end
-
   protected
 
   # @return [User]
