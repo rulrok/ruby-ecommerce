@@ -14,8 +14,12 @@
             <h4><%= @product.product_name %></h4>
 
             <p>
+              <strong>Product short description:</strong>
+              <%= @product.short_description %>
+            </p>
+            <p>
               <strong>Product description:</strong>
-              <%= @product.product_description %>
+              <%= @product.product_long_description %>
             </p>
 
             <p>

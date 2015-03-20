@@ -6,6 +6,7 @@
   <thead>
   <tr>
     <th>Product name</th>
+    <th>Short description</th>
     <th>Product description</th>
     <th>Category</th>
     <th>Quantity per unit</th>
@@ -24,7 +25,8 @@
   <% @admin_products.each do |admin_product| %>
       <tr>
         <td><%= admin_product.product_name %></td>
-        <td><%= admin_product.product_description %></td>
+        <td><%= admin_product.short_description %></td>
+        <td><%= admin_product.product_long_description %></td>
         <td><%= admin_product.category.name %></td>
         <td><%= admin_product.quantity_per_unit %></td>
         <td><%= number_to_currency(admin_product.unit_price) %></td>

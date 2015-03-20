@@ -10,8 +10,10 @@ class ApplicationController < ActionController::Base
   add_breadcrumb "Home", :root_path
 
   def index
-    redirect_admin #A administrator is not allowed to browse through the store.
-    @popular_products = Product.limit(9)
+    #A administrator is not allowed to browse through the store.
+    redirect_admin
+
+    @popular_products = Product.where(product_available: true).limit(9)
 
   end
 
