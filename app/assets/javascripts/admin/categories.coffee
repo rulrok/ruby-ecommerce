@@ -11,7 +11,7 @@ $(document).ready ->
         check_passed = false
         switch operation
           when 'move_node'
-            if node.original != undefined and node_parent.original != undefined and node.original.depth - 1 == node_parent.original.depth
+            if node.original != undefined and node_parent.original != undefined #and node.original.depth - 1 == node_parent.original.depth
               check_passed = true
           when 'delete_node'
             check_passed = confirm("Are you sure?") && fn_remove(node.id)

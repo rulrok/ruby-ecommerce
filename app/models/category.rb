@@ -9,9 +9,6 @@ class Category < ActiveRecord::Base
   #Ensures that we cannot have a duplicated category on the same level of the category tree
   validates_uniqueness_of :name, :scope => [:ancestry]
 
-  # belongs_to :parent, class_name: :Category, foreign_key: :parent_id
-  # has_many :children, class_name: :Category, foreign_key: :parent_id
-
   public
 
   def self.primary_categories

@@ -3,13 +3,16 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_action :categories_search_bar
+
   helper_method :current_user, :logged_in?
 
   add_breadcrumb "Home", :root_path
 
   def index
     redirect_admin #A administrator is not allowed to browse through the store.
-    @products_categories = Product.limit(9)
+    @popular_products = Product.limit(9)
+
   end
 
   def about
@@ -73,5 +76,11 @@ class ApplicationController < ActionController::Base
   def redirect_admin
     redirect_to '/admin' if current_user.admin? unless current_user.nil?
     return
+  end
+
+  private
+
+  def categories_search_bar
+    @categories_search = Category.from_depth(1)
   end
 end

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
 
   get 'categories' => 'application#categories', as: 'categories'
-  get 'categories/:name' => 'categories#show', as: 'category'
+  get 'categories/:id' => 'categories#show', as: 'category'
 
   get "log_out" => 'sessions#destroy', :as => "log_out"
   get "log_in" => 'sessions#new', :as => "log_in"
