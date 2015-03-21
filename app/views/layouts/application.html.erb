@@ -9,6 +9,7 @@
 <body class="container">
 <br>
 <header class="container-fluid">
+  <!-- Messages flash -->
   <div id="flash-messages" class="row">
     <% flash.each do |name, msg| %>
         <div id="flash_<%= name %>" class="alert alert-info alert-dismissible fade in" role="alert">
@@ -18,6 +19,7 @@
         </div>
     <% end %>
   </div>
+  <!--Left part-->
   <div class="row">
     <div id="logo-wrapper" class="col-md-3">
       <!-- Logo column -->
@@ -25,11 +27,12 @@
           <%= image_tag "logo.jpg", alt: 'Logo', class: 'center-block' %>
       <% end %>
     </div>
+
+    <!-- Middle column -->
     <div class="col-md-6">
-      <!-- Middle column -->
       <div class="row">
         <!-- Search form -->
-        <%= render :partial => "layouts/search" %>
+        <%= render :partial => "layouts/searchform" %>
       </div>
       <div class="row">
         <!-- Menu -->
@@ -37,8 +40,8 @@
       </div>
     </div>
 
+    <!-- Right column -->
     <div class="col-md-3">
-      <!-- Right column -->
       <div class="container-fluid" id="user-wrapper">
         <i class="fa fa-user fa-5x col-sm-4"></i>
         <% if current_user %>

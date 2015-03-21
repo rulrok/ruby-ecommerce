@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <!--Filter-->
+    <div class="col-md-3">
+      <h2>Filters</h2>
+      <div class="well">
+
+        <%= label_tag :offers do %>
+            <%= check_box_tag :offers, false, params[:offers], form: :search_form %>
+            Offers only
+        <% end %>
+      </div>
+    </div>
+    <!--Body-->
+    <div class="col-md-9">
+      <div>
+        <span class="label label-primary">Search terms: </span>
+        &nbsp;
+        <% @search_terms.each do |term| %>
+            <span class="label label-info"><%= term %></span>
+        <% end %>
+      </div>
+      <br>
+      <br>
+
+      <% if @products && @products.any? %>
+          <% @products.each do |product| %>
+              <%= content_tag(:p, product.product_name) %>
+          <% end %>
+      <% else %>
+          <p>No results found</p>
+      <% end %>
+    </div>
+  </div>
+</div>

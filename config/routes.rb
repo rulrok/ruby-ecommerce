@@ -10,9 +10,13 @@ Rails.application.routes.draw do
   get 'categories' => 'categories#index', as: 'categories'
   get 'categories/:id' => 'categories#show', as: 'category'
 
+  #Session
   get "log_out" => 'sessions#destroy', :as => "log_out"
   get "log_in" => 'sessions#new', :as => "log_in"
   get "sign_up" => 'users#new', :as => "sign_up"
+
+  #Search
+  get 'search' => 'application#search'
 
   namespace :admin do
     get '', to: 'dashboard#index', as: '/'
