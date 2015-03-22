@@ -18,6 +18,4 @@ class ProductsController < CustomerController
 
   def not_available
   end
-
-  private
 end
