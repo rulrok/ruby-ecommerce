@@ -1,10 +1,9 @@
 class SessionsController < ApplicationController
+  layout 'login'
 
-  layout "login"
-
-  #Login page
+  # Login page
   def new
-    @action_name = "Login"
+    @action_name = 'Login'
     @ecommerce_name = Setting.obtain :title
     redirect_to root_url unless current_user.nil?
   end
@@ -21,17 +20,17 @@ class SessionsController < ApplicationController
       if user.admin?
         redirect_admin
       else
-        redirect_to root_url, :notice => "Logged in!"
+        redirect_to root_url, notice: 'Logged in!'
       end
     else
-      flash.now.alert = "Invalid email or password"
-      render "new"
+      flash.now.alert = 'Invalid email or password'
+      render 'new'
     end
   end
 
   def destroy
-    session.clear()
+    session.clear
     session[:user_id] = nil
-    redirect_to root_url, :notice => "Logged out!"
+    redirect_to root_url, notice: 'Logged out!'
   end
 end

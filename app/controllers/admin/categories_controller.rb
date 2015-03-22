@@ -18,7 +18,6 @@ class Admin::CategoriesController < Admin::AdminController
       end
       format.html { render nothing: true, status: :OK }
     end
-
   end
 
   # GET /admin/categories/1
@@ -44,7 +43,6 @@ class Admin::CategoriesController < Admin::AdminController
       end
       format.html { render nothing: true, status: :OK }
     end
-
   end
 
   # POST /admin/categories
@@ -100,6 +98,7 @@ class Admin::CategoriesController < Admin::AdminController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_admin_category
     @category = Category.find(params[:id])

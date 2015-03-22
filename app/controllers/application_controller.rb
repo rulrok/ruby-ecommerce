@@ -7,42 +7,40 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :logged_in?
 
-  add_breadcrumb "Home", :root_path
+  add_breadcrumb 'Home', :root_path
 
   def index
-    #A administrator is not allowed to browse through the store.
+    # A administrator is not allowed to browse through the store.
     redirect_admin
 
     @popular_products = Product.where(product_available: true).limit(9)
-
   end
 
   def about
-    add_breadcrumb "About", about_path
+    add_breadcrumb 'About', about_path
 
-    @about_content = Setting.obtain('about-content').html_safe #Maybe .html_safe could go directly in the method obtain. Not sure yet
+    @about_content = Setting.obtain('about-content').html_safe # Maybe .html_safe could go directly in the method obtain. Not sure yet
   end
 
   def contact
-    add_breadcrumb "Contact", contact_path
+    add_breadcrumb 'Contact', contact_path
 
     @contact_content = Setting.obtain('contact-content').html_safe
   end
 
   def sales
-    add_breadcrumb "Sales", sales_path
+    add_breadcrumb 'Sales', sales_path
   end
 
   def search
-    add_breadcrumb "Search"
+    add_breadcrumb 'Search'
 
-    #search terms
+    # search terms
     search_expression = params[:search].delete(',').lstrip.rstrip.gsub(/\s+/, '|')
     @search_terms = search_expression.split('|')
     search_expression = "(#{search_expression})"
 
-
-    #category
+    # category
     category_filter = params[:category]
 
     begin
@@ -52,7 +50,6 @@ class ApplicationController < ActionController::Base
     rescue
       @products = Product.where('product_name RLIKE :terms', terms: search_expression)
     end
-
   end
 
   protected
@@ -68,17 +65,17 @@ class ApplicationController < ActionController::Base
     current_user != nil
   end
 
-  def expel (message = "You must be logged in")
-    #I've tried to use redirect with code 401 to be concise with HTTP codes, but it will not work.
-    #See http://stackoverflow.com/questions/6113014/what-http-code-to-use-in-not-authenticated-and-not-authorized-cases for details
-    redirect_to :log_in, alert: message #, status: :unauthorized
+  def expel(message = 'You must be logged in')
+    # I've tried to use redirect with code 401 to be concise with HTTP codes, but it will not work.
+    # See http://stackoverflow.com/questions/6113014/what-http-code-to-use-in-not-authenticated-and-not-authorized-cases for details
+    redirect_to :log_in, alert: message # , status: :unauthorized
   end
 
   def ensure_session_time
-    #Idea got from here http://stackoverflow.com/questions/17480487/rails-4-session-expiry
+    # Idea got from here http://stackoverflow.com/questions/17480487/rails-4-session-expiry
 
     if session[:expires_at] < Time.current
-      expel "You session has finished"
+      expel 'You session has finished'
     end
   end
 
@@ -88,15 +85,14 @@ class ApplicationController < ActionController::Base
 
   def authenticate_admin
     if current_user.nil? || !current_user.admin?
-      #Redirects the user to a '404' page, giving the sensation that '/admin' does not exist
-      redirect_to '/404' #, :notice => "You do not have authorization to do so!"
+      # Redirects the user to a '404' page, giving the sensation that '/admin' does not exist
+      redirect_to '/404' # , :notice => "You do not have authorization to do so!"
     end
   end
 
   def redirect_admin
     redirect_to '/admin' if current_user.admin? unless current_user.nil?
-    return
-  end
+      end
 
   private
 

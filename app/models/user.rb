@@ -1,17 +1,16 @@
 class User < ActiveRecord::Base
-
   attr_accessor :password
-  before_save   :encrypt_password
+  before_save :encrypt_password
 
   validates_confirmation_of :password
-  validates_presence_of     :password, :on => :create
-  validates_presence_of     :email
-  validates_uniqueness_of   :email
+  validates_presence_of :password, on: :create
+  validates_presence_of :email
+  validates_uniqueness_of :email
 
   belongs_to :role
 
   def admin?
-    self.role.name == 'administrator'
+    role.name == 'administrator'
   end
 
   def self.authenticate(email, password)
@@ -29,5 +28,4 @@ class User < ActiveRecord::Base
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
-
 end

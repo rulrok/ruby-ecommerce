@@ -28,7 +28,7 @@ class Admin::ProductsController < Admin::AdminController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to [:admin,@product], notice: 'Product was successfully created.' }
+        format.html { redirect_to [:admin, @product], notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -62,13 +62,14 @@ class Admin::ProductsController < Admin::AdminController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_product
-      @product = Product.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def admin_product_params
-      params.require(:product).permit(:product_name, :short_description, :product_long_description, :category_id, :quantity_per_unit, :unit_price, :discount, :discount_available, :unit_weight, :unit_in_stock, :product_available, :picture_url, :photo, :image_delete)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin_product
+    @product = Product.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def admin_product_params
+    params.require(:product).permit(:product_name, :short_description, :product_long_description, :category_id, :quantity_per_unit, :unit_price, :discount, :discount_available, :unit_weight, :unit_in_stock, :product_available, :picture_url, :photo, :image_delete)
+  end
 end

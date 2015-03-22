@@ -1,6 +1,5 @@
 class CategoriesController < ApplicationController
-
-  add_breadcrumb "Categories", :categories_path
+  add_breadcrumb 'Categories', :categories_path
 
   # GET /categories
   def index
@@ -15,7 +14,7 @@ class CategoriesController < ApplicationController
       add_breadcrumb category.name,  category
     end
 
-    #TODO Verify if the subtree is working properly
+    # TODO Verify if the subtree is working properly
     category_tree = @category.subtree
     @products = Product.where(category: category_tree, product_available: true)
   end
@@ -24,5 +23,4 @@ class CategoriesController < ApplicationController
   def new
     @category = Category.new
   end
-
 end

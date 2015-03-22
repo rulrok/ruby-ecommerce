@@ -1,5 +1,4 @@
 class ProductsController < CustomerController
-
   before_action :redirect_admin
 
   # GET /products
@@ -21,8 +20,4 @@ class ProductsController < CustomerController
   end
 
   private
-
-
-
-
 end

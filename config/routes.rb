@@ -1,21 +1,20 @@
 Rails.application.routes.draw do
-
   mount Ckeditor::Engine => '/ckeditor'
   root 'application#index'
   get 'about' => 'application#about', as: 'about'
   get 'contact' => 'application#contact', as: 'contact'
   get 'sales' => 'application#sales', as: 'sales'
 
-  #Customer pages to see the categories
+  # Customer pages to see the categories
   get 'categories' => 'categories#index', as: 'categories'
   get 'categories/:id' => 'categories#show', as: 'category'
 
-  #Session
-  get "log_out" => 'sessions#destroy', :as => "log_out"
-  get "log_in" => 'sessions#new', :as => "log_in"
-  get "sign_up" => 'users#new', :as => "sign_up"
+  # Session
+  get 'log_out' => 'sessions#destroy', :as => 'log_out'
+  get 'log_in' => 'sessions#new', :as => 'log_in'
+  get 'sign_up' => 'users#new', :as => 'sign_up'
 
-  #Search
+  # Search
   get 'search' => 'application#search'
 
   namespace :admin do
@@ -23,9 +22,9 @@ Rails.application.routes.draw do
 
     resources :products
     resources :users
-    get 'settings/about' => 'settings#about' , as: 'about'
-    get 'settings/contact' => 'settings#contact' , as: 'contact'
-    get 'settings/title' => 'settings#title' , as: 'title'
+    get 'settings/about' => 'settings#about', as: 'about'
+    get 'settings/contact' => 'settings#contact', as: 'contact'
+    get 'settings/title' => 'settings#title', as: 'title'
     resources :settings
     get 'categories/children/' => 'categories#children'
     get 'categories/children/:parent_id(.:format)' => 'categories#children'
@@ -34,14 +33,13 @@ Rails.application.routes.draw do
   end
 
   post 'users' => 'users#create'
-  get 'profile' => 'users#profile', :as => "profile"
-  get 'profile/edit' => 'users#edit', :as => "edit_profile"
+  get 'profile' => 'users#profile', :as => 'profile'
+  get 'profile/edit' => 'users#edit', :as => 'edit_profile'
 
   get 'products' => 'products#index'
-  get 'products/:id' => 'products#show', :as => "product"
+  get 'products/:id' => 'products#show', :as => 'product'
 
   resources :sessions
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -87,6 +85,4 @@ Rails.application.routes.draw do
   #   end
   #   resources :posts, concerns: :toggleable
   #   resources :photos, concerns: :toggleable
-
-
 end

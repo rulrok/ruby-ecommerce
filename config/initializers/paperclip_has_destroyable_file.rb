@@ -1,7 +1,6 @@
 # encoding: UTF-8
-#Base on that discussion http://stackoverflow.com/questions/4435826/rails-paperclip-how-to-delete-attachment
+# Base on that discussion http://stackoverflow.com/questions/4435826/rails-paperclip-how-to-delete-attachment
 class ActiveRecord::Base
-
   # Class method to add destroyable paperclip attachments.
   #
   # Example:
@@ -19,9 +18,8 @@ class ActiveRecord::Base
     attachments.each do |attachment|
       attr_accessor :"#{attachment}_delete"
       before_save do
-        self.send(attachment).clear if self.send(:"#{attachment}_delete") == "1"
+        send(attachment).clear if send(:"#{attachment}_delete") == '1'
       end
     end
-
   end
 end
