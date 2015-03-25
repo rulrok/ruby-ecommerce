@@ -5,7 +5,7 @@
         <div class="form-group">
           <div class="input-group">
             <% session[:placeholder] ||= ['Search for...', 'What are you looking for today?', 'We have what you need!'].sample %>
-            <%= search_field_tag :search, "", placeholder: session[:placeholder], class: 'form-control', autofocus: true, value: params[:search] %>
+            <%= search_field_tag :search, "", placeholder: session[:placeholder], class: 'form-control', autofocus: true, required: true, value: params[:search] %>
             <span class="input-group-btn">
               <%= select_tag :category, options_from_collection_for_select(@categories_search, "id", "name"), include_blank: 'All departments', class: 'btn btn-default', style: 'height: 34px;', selected: params[:category] %>
               <%= button_tag type: :submit, name: nil, class: 'btn btn-default' do %>
