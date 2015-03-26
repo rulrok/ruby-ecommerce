@@ -32,25 +32,7 @@ class ApplicationController < ActionController::Base
     add_breadcrumb 'Sales', sales_path
   end
 
-  def search
-    add_breadcrumb 'Search'
 
-    # search terms
-    search_expression = params[:search].delete(',').lstrip.rstrip.gsub(/\s+/, '|')
-    @search_terms = search_expression.split('|')
-    search_expression = "(#{search_expression})"
-
-    # category
-    category_filter = params[:category]
-
-    begin
-      match_category = Category.find(category_filter)
-
-      @products = Product.where('product_name RLIKE :terms', terms: search_expression).where(category: match_category)
-    rescue
-      @products = Product.where('product_name RLIKE :terms', terms: search_expression)
-    end
-  end
 
   protected
 

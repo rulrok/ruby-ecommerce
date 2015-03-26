@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'sign_up' => 'users#new', :as => 'sign_up'
 
   # Search
-  get 'search' => 'application#search'
+  # get 'search' => 'application#search'
 
   namespace :admin do
     get '', to: 'dashboard#index', as: '/'
@@ -37,7 +37,9 @@ Rails.application.routes.draw do
   get 'profile/edit' => 'users#edit', :as => 'edit_profile'
 
   get 'products' => 'products#index'
+  get 'products/search' => 'products#search'
   get 'products/:id' => 'products#show', :as => 'product'
+
 
   resources :sessions
 

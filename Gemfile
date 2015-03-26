@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 #Pagination for models
 gem 'kaminari'
+#
+gem 'sunspot_rails'
 gem 'bootstrap-kaminari-views'
 
 # Quality for code
@@ -76,4 +78,8 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  #Searchable elements
+  gem 'sunspot_solr'
+
 end

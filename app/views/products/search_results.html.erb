@@ -3,6 +3,7 @@
     <!--Filter-->
     <div class="col-md-3">
       <h2>Filters</h2>
+
       <div class="well">
 
         <%= label_tag :offers do %>
@@ -23,12 +24,12 @@
       <br>
       <br>
 
-      <% if @products && @products.any? %>
+      <% if @products.nil? %>
+          <p>No results found</p>
+      <% else %>
           <% @products.each do |product| %>
               <%= content_tag(:p, product.product_name) %>
           <% end %>
-      <% else %>
-          <p>No results found</p>
       <% end %>
     </div>
   </div>
