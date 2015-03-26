@@ -30,7 +30,10 @@ class Product < ActiveRecord::Base
             :references => Category
 
     boolean :product_available
+    boolean :discount_available
 
+    time :created_at
+    time :updated_at
   end
 
   def price

@@ -23,7 +23,7 @@ class ProductsController < CustomerController
   # GET /products/search.json
   # GET /products/search.xml
   def search
-    add_breadcrumb 'Search'
+    add_breadcrumb 'Search results'
 
     # search terms. Replaces commas by spaces. Removes initial and final spaces before.
     search_expression = params[:search].lstrip.rstrip.gsub(',', ' ')
@@ -37,11 +37,17 @@ class ProductsController < CustomerController
         phrase_slop 10
       end
 
+      # ============= Filtering
       with :product_available, true
+      with :discount_available, true if params[:with_discount].present?
+      with(:created_at).greater_than_or_equal_to(Time.now - 1.day) if params[:new_products].present?
 
-      #filter category
+      # ============= Filter category
       category = Category.find(params[:category]) unless params[:category].nil? or params[:category].blank?
       with(:category_id, category.child_ids << category.id) unless category.nil?
+
+      # ============= Sorting
+      order_by(:updated_at,:desc)
     end.results
 
     respond_to do |format|
