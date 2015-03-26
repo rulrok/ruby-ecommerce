@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+#Pagination for models
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+
 # Quality for code
 gem 'rubocop'
 
