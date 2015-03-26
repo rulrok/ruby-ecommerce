@@ -19,3 +19,4 @@
 /public/assets/*
 .idea
 .idea/*
+solr/*
