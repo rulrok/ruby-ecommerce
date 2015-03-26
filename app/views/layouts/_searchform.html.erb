@@ -7,7 +7,7 @@
             <% session[:placeholder] ||= ['Search for...', 'What are you looking for today?', 'We have what you need!'].sample %>
             <%= search_field_tag :search, "", placeholder: session[:placeholder], class: 'form-control', autofocus: true, required: true, value: params[:search] %>
             <span class="input-group-btn">
-              <%= select_tag :category, options_from_collection_for_select(@categories_search, "id", "name"), include_blank: 'All departments', class: 'btn btn-default', style: 'height: 34px;', selected: params[:category] %>
+              <%= select_tag :category, options_from_collection_for_select(@categories_search, "id", "name", selected: params[:category]), include_blank: 'All departments', class: 'btn btn-default', style: 'height: 34px;', selected: params[:category] %>
               <%= button_tag type: :submit, name: nil, class: 'btn btn-default', data: {disable_with: "<i class='fa fa-spinner fa-spin'></i>".html_safe} do %>
                   <i class="fa fa-search"></i>
               <% end %>
