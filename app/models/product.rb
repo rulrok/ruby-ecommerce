@@ -15,19 +15,18 @@ class Product < ActiveRecord::Base
   validates_attachment_size :photo, less_than: 5.megabytes
   validates_attachment_content_type :photo, content_type: ['image/jpeg', 'image/png']
 
-
-  #Validations
+  # Validations
   validates_presence_of :product_name, :short_description, :category, :unit_price, :quantity_per_unit, :unit_weight
   before_save { delete_photo if image_delete == '1' }
 
-  #Search indexing
+  # Search indexing
 
   searchable do
-    text :product_name, :product_long_description, :boost => 2.0
+    text :product_name, :product_long_description, boost: 2.0
 
     integer :category_id,
-            :multiple => true,
-            :references => Category
+            multiple: true,
+            references: Category
 
     boolean :product_available
     boolean :discount_available

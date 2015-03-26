@@ -40,7 +40,6 @@ Rails.application.routes.draw do
   get 'products/search' => 'products#search'
   get 'products/:id' => 'products#show', :as => 'product'
 
-
   resources :sessions
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-#Pagination for models
+# Pagination for models
 gem 'kaminari'
 #
 gem 'sunspot_rails'
@@ -79,7 +79,6 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-  #Searchable elements
+  # Searchable elements
   gem 'sunspot_solr'
-
 end

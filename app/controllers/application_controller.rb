@@ -32,8 +32,6 @@ class ApplicationController < ActionController::Base
     add_breadcrumb 'Sales', sales_path
   end
 
-
-
   protected
 
   # @return [User]

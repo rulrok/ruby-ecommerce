@@ -83,3 +83,15 @@
 .bot-links a{display: inline-block; padding: 5px; background: #ccc; font-size: 12px; margin-bottom: 5px; color: #9c9c9c; text-decoration:none;}
 span.play-icon{position: absolute; left: 31%; top: 32%; display: none;}
 .product-pic:hover img.play-icon, .product-pic:hover span a{display: block; }
+
+
+//=================================================================================
+//  Customized
+
+.padded-top {
+  padding-top: 10px;
+}
+
+.padded-bottom {
+  padding-bottom: 10px;
+}

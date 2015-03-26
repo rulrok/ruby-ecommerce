@@ -43,12 +43,47 @@
       <br>
       <br>
 
-      <% if @products.nil? %>
-          <p>No results found</p>
+      <% if @products.total.zero? %>
+          <div class="well-lg">
+            <p class="text-center h2">No results found</p>
+          </div>
       <% else %>
-          <% @products.each do |product| %>
-              <%= content_tag(:p, product.product_name) %>
+
+          <div class="text-center">
+            <%= paginate @products.hits, :theme => 'twitter-bootstrap-3' %>
+          </div>
+
+          <% @products.results.each do |product| %>
+              <div class="panel panel-default row">
+
+                <div class="col-xs-2 col-lg-2 ">
+                  <%= image_tag (product.photo(:mini)), class: 'img-responsive center-block img-rounded padded-top padded-bottom' %>
+                </div>
+
+                <div class="col-xs-8 col-lg-8">
+                  <%= link_to (product) do %>
+                      <p class="text-center padded-top  padded-bottom gray-background">
+                        <b><%= product.product_name %></b>
+                      </p>
+                  <% end %>
+                  <p class="text-justify"><%= product.short_description %></p>
+
+                  <div class="text-center padded-top  padded-bottom gray-background">
+                    -- Actions --
+                  </div>
+                </div>
+
+                <div class="col-xs-2 col-lg-2">
+                  <p class="text-center padded-top h4"><%= number_to_currency product.price %></p>
+                </div>
+              </div>
+
+
           <% end %>
+
+          <div class="text-center">
+            <%= paginate @products.hits, :theme => 'twitter-bootstrap-3' %>
+          </div>
       <% end %>
     </div>
   </div>
