@@ -4,10 +4,10 @@ class Product < ActiveRecord::Base
   attr_accessor :image_delete
 
   # In case that a new style has to be added, look that page: https://github.com/thoughtbot/paperclip/wiki/Thumbnail-Generation
-  has_attached_file :photo, styles: { mini: '80x80>', small: '150x150>' },
-                            url: '/assets/products/:id/:style/:basename.:extension',
-                            path: ':rails_root/public/assets/products/:id/:style/:basename.:extension',
-                            default_url: '/images/no_picture.png'
+  has_attached_file :photo, styles: {mini: '80x80>', small: '150x150>'},
+                    url: '/assets/products/:id/:style/:basename.:extension',
+                    path: ':rails_root/public/assets/products/:id/:style/:basename.:extension',
+                    default_url: '/images/no_picture.png'
 
   # has_destroyable_file :photo
 
@@ -22,17 +22,24 @@ class Product < ActiveRecord::Base
   # Search indexing
 
   searchable do
-    text :product_name, :product_long_description, boost: 2.0
+    text :product_name, :product_long_description
 
     integer :category_id,
             multiple: true,
             references: Category
 
+    double :discount
+
     boolean :product_available
     boolean :discount_available
+    boost { :discount_available ? 2.0 : 1.0 }
 
     time :created_at
     time :updated_at
+  end
+
+  def price_discount
+    price - discount
   end
 
   def price

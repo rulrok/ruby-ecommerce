@@ -12,12 +12,11 @@ class ProductsController < CustomerController
   # GET /products/1.json
   def show
     @product = Product.find(params[:id])
-    category_name = @product.category.name
 
     @category = @product.category
     path = @category.path.from_depth(1)
     path.each do |category|
-      add_breadcrumb category.name,  category
+      add_breadcrumb category.name, category
     end
 
     add_breadcrumb @product.product_name
@@ -42,23 +41,31 @@ class ProductsController < CustomerController
       # ============= Searching and boosting
 
       fulltext search_expression do
-        phrase_fields product_name: 3.0
-        boost_fields product_name: 2.0
-        boost (2.0) { with(:discount_available, true) }
+        phrase_fields product_name: 2.0 # if the search terms are close related in the product name
+        boost_fields product_name: 1.5 # if the search terms are present, but not necessarily very related
+        # boost (5.0) { with(:discount_available, true) } if params[:with_discount].present?
         # phrase_slop 10
       end
 
       # ============= Filtering
       with :product_available, true
-      with :discount_available, true if params[:with_discount].present?
+      with :discount_available, true if params[:offers_only].present?
       with(:created_at).greater_than_or_equal_to(Time.now - 1.day) if params[:new_products].present?
 
-      # ============= Filter category
-      category = Category.find(params[:category]) unless params[:category].nil? || params[:category].blank?
-      with(:category_id, category.child_ids << category.id) unless category.nil?
+      # ============= Filtering category
+      # It is important to also consider all the descendant categories from the current one. This is why we must fill
+      # the second parameter of 'with' with the children ids as well the own category id (!)
+      category = Category.find(params[:category]) unless params[:category].nil? || params[:category].empty?
+      with(:category_id, category.child_ids << category.id) if category
 
       # ============= Sorting
-      order_by(:updated_at, :desc)
+
+      if params[:with_discount].present?
+        order_by(:discount, :desc)
+      else
+
+      end
+      order_by(:updated_at, :asc)
 
       # ============= Paginating
       paginate page: params[:page], per_page: 5
