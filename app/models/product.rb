@@ -29,6 +29,7 @@ class Product < ActiveRecord::Base
             references: Category
 
     double :discount
+    double :price
 
     boolean :product_available
     boolean :discount_available

@@ -50,6 +50,8 @@ class ProductsController < CustomerController
       # ============= Filtering
       with :product_available, true
       with :discount_available, true if params[:offers_only].present?
+      with(:price).greater_than_or_equal_to(params[:minimum_price].to_i) if params[:minimum_price].present?
+      with(:price).less_than_or_equal_to(params[:maximum_price].to_i) if params[:maximum_price].present?
       with(:created_at).greater_than_or_equal_to(Time.now - 1.day) if params[:new_products].present?
 
       # ============= Filtering category

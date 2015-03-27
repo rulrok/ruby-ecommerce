@@ -26,6 +26,29 @@
               With Discount First
           <% end %>
         </li>
+        <li>
+          <hr/>
+        </li>
+        <li>
+          <%= label_tag :minimum_price %>
+          <div class="input-group">
+            <div class="input-group-addon input-sm"><i class="fa fa-dollar"></i></div>
+            <%= number_field_tag :minimum_price, params[:minimum_price].to_i || 1, min: 0, step: 1, class: 'form-control input-sm', form: :search_form %>
+            <div class="input-group-addon">.00</div>
+          </div>
+        </li>
+        <li>
+          <%= label_tag :maximum_price %>
+
+          <div class="input-group">
+            <div class="input-group-addon input-sm"><i class="fa fa-dollar"></i></div>
+            <%= number_field_tag :maximum_price, params[:maximum_price].present? ? params[:maximum_price].to_i : 100, min: 1, step: 1, class: 'form-control input-sm', form: :search_form %>
+            <div class="input-group-addon">.00</div>
+          </div>
+        </li>
+        <li>
+          <hr/>
+        </li>
       </ul>
       <%= submit_tag "Apply filters", name: nil, class: 'btn btn-block btn-info', data: {:disable_with => 'Applying...'}, form: :search_form %>
     </div>
