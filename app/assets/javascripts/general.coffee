@@ -20,6 +20,11 @@ getCookie = (cname) ->
     i++
   ''
 
-$ ->
+
+$(document).ready (ev) ->
+  $('#custom_carousel').on 'slide.bs.carousel', (evt) ->
+    $('#custom_carousel .controls li.active').removeClass 'active'
+    $('#custom_carousel .controls li:eq(' + $(evt.relatedTarget).index() + ')').addClass 'active'
+    return
   $('[data-toggle="tooltip"]').tooltip()
   return

@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
     redirect_admin
 
     @popular_products = Product.where(product_available: true).limit(9)
-    @offers = Product.where(discount_available: true).limit(9)
+
+    @offers = Product.where(discount_available: true).order(:updated_at).limit(5)
   end
 
   def about

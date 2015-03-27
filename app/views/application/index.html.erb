@@ -1,54 +1,54 @@
 <%= title "Home Page" %>
 
-<div class="carousel slide panel panel-default" id="myCarousel">
+<div class="panel panel-default">
   <div class="panel-heading">
-    <h2 class="text-uppercase">Offers</h2>
+    <h2>Offers</h2>
   </div>
-  <div class="carousel-inner container">
-    <% @offers.each_slice(3).with_index do |group_offer, index| %>
-
-        <div class="item row row-eq-height <%= 'active' if index == 0 %>">
-
-          <ul class="thumbnails list-unstyled">
-            <% group_offer.each do |offer| %>
-                <li class="col-sm-3 col-md-4 ">
-                  <div class="thumbnail">
-
-                    <%= link_to (offer) do %>
-                        <%= image_tag offer.photo(:small), class: 'img-rounded img-responsive' %>
+  <div class="container-fluid">
+    <div id="custom_carousel" class="carousel slide" data-ride="carousel" data-interval="2500">
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+        <!-- Item -->
+        <% @offers.each_with_index do |offer, index| %>
+            <div class="item <%= 'active' if index == 0 %>">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-3">
+                    <%= link_to(offer) do %>
+                        <%= image_tag (offer.photo(:small)), class: 'img-responsive center-block' %>
                     <% end %>
-                    <br>
-
-
-                    <div class="caption">
-                      <h4>
-                        <%= link_to (offer) do %>
-                            <%= offer.product_name %>
-                        <% end %>
-                      </h4>
-
-                      <!--<p><%= offer.short_description %></p>-->
-                    </div>
-                    <%= link_to (offer), class: 'btn btn-warning btn-block btn-lg' do %>
-                        <strong>Only <%= number_to_currency(offer.price_discount) %></strong>
-                    <% end %>
-
                   </div>
-                </li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-  </div>
-
-  <div class="control-box panel-footer">
-    <div class="center-block">
-      <a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>
-      <a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>
+                  <div class="col-md-9">
+                    <%= link_to(offer) do %>
+                        <h2><%= offer.product_name %></h2>
+                    <% end %>
+                    <%= offer.short_description %>
+                    <p class="h3 discount-price"><%= number_to_currency offer.price_discount %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% end %>
+        <!-- End Item -->
+      </div>
+      <!-- End Carousel Inner -->
+      <div class="controls">
+        <ul class="nav">
+          <% @offers.each_with_index do |offer, index| %>
+              <li data-target="#custom_carousel" data-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>">
+                <a href="#">
+                  <%= image_tag offer.photo(:mini), class: 'img-responsive center-block', style: 'width: 50px; heigth: 50px;' %>
+                  <small><%= offer.product_name %></small>
+                </a>
+              </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
-  </div>
-  <!-- /.control-box -->
+    <!-- End Carousel -->
 
+  </div>
+  <div class="panel-footer"></div>
 </div>
 
 
@@ -67,6 +67,12 @@
                     </h4>
                 <% end %>
 
+                <h3 class="text-center">
+                  <%= link_to (product) do %>
+                      <% product.product_name %>
+                  <% end %>
+                </h3>
+
                 <div class="mag1">
                   <%= image_tag product.photo, class: 'img-responsive img-rounded center-block', data: {toggle: 'magnify'} %>
                 </div>
@@ -75,33 +81,42 @@
 
 
                   <div>
-                    <h3 class="text-center">
-                      <%= link_to (product) do %>
-                          <% product.product_name %>
-                      <% end %>
-                    </h3>
 
-                    <div class="row">
-                      <div class="col-md-6">
-                        <a class="btn btn-primary btn-block"><span class="fa fa-star-o"></span> Favourite
-                          it</a>
-                      </div>
-                      <div class="col-md-6">
-                        <a href="#" class="btn btn-success btn-block"><span class="fa fa-shopping-cart"></span>
-                          Add to
-                          cart</a>
-                      </div>
-                    </div>
-                    <div class="price">
-                      <h3>
-                        <b><%= number_to_currency(product.price) %></b>
-                      </h3>
+
+
+                    <div class="price text-center">
+                      <% if product.discount_available %>
+                          <p class="h2">
+                            <del>
+                              <%= number_to_currency(product.price) %>
+                            </del>
+                            &nbsp;
+                            <span class="discount-price"><%= number_to_currency(product.price_discount) %></span>
+                          </p>
+                      <% else %>
+                          <p class="h2">
+                            <%= number_to_currency(product.price) %>
+                          </p>
+                      <% end %>
                     </div>
                   </div>
-                  <p><%= product.short_description %></p>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <a class="btn btn-primary btn-block"><span class="fa fa-star-o"></span> Favourite
+                        it</a>
+                    </div>
+                    <div class="col-md-6">
+                      <a href="#" class="btn btn-success btn-block"><span class="fa fa-shopping-cart"></span>
+                        Add to
+                        cart</a>
+                    </div>
+                  </div>
 
 
-                  <p></p>
+                  <p class="caption"><%= product.short_description %></p>
+
+
                 </div>
               </div>
             </div>

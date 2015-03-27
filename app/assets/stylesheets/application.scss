@@ -196,64 +196,39 @@ body {
 
 //Carrousel bootstrap
 
-//
-///* Container */
-//.container-fluid {
-//  background: #FFFFFF;
-//  margin: 40px auto 10px;
-//  padding: 20px 40px 0;
-//  max-width: 960px;
-//  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-//}
-//
-//
-///* Page Header */
-//.page-header {
-//  background: #f9f9f9;
-//  margin: -30px -40px 40px;
-//  padding: 20px 40px;
-//  border-top: 4px solid #ccc;
-//  color: #999;
-//  text-transform: uppercase;
-//}
-//.page-header h3 {
-//  line-height: 0.88rem;
-//  color: #000;
-//}
-//
-//
-//
-/* Thumbnail Box */
-.caption h4 {
-  text-align: justify;
-  font-size: 1em;
-  color: #444;
-}
-.caption p {
-  font-size: 0.85em;
-  color: #999;
-}
-.btn.btn-mini {
-  font-size: 0.63rem;
+#custom_carousel .item {
+
+  color: #000;
+//  background-color: #eee;
+  padding: 20px 0;
 }
 
-/* Carousel Control */
-.control-box {
-  text-align: right;
-  width: 100%;
+#custom_carousel .controls {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  text-align: center;
+  position: relative;
+  background: #ddd
 }
 
-.carousel-control {
-  background: #666;
-  border: 0px;
-  border-radius: 0px;
-  display: inline-block;
-  font-size: 34px;
-  font-weight: 200;
-  line-height: 18px;
-  opacity: 0.5;
-  padding: 4px 10px 0px;
-  position: static;
-  height: 30px;
-//  width: 15px;
+#custom_carousel .controls li {
+  display: table-cell;
+  width: 1%;
+  max-width: 90px
+}
+
+#custom_carousel .controls li.active {
+  background-color: #eee;
+  border-top: 3px solid orange;
+}
+
+#custom_carousel .controls a small {
+  overflow: hidden;
+  display: block;
+  font-size: 10px;
+  margin-top: 5px;
+  font-weight: bold
 }
