@@ -57,33 +57,119 @@
 
 //Fix for magnify script to display the lens over other elements
 .magnify-large {
-//  background-color: #FFF!important;
+  //  background-color: #FFF!important;
   z-index: 999;
 }
-
 
 //=================================================================================
 //  Product listing
 
-.product-title {color:#231f20; font-size:20px; font-weight:700;}
-.product-data {width:100%; padding-bottom: 25px;}
-.product-pic {width:10%;position: relative;}
-.product-pic span a{color: #fff; font-size: 16px; display: none;}
-.product-pic-buttons span{background-color: cornflowerblue;}
-.product-pic span.product-like {position: absolute; left: 11%; bottom: 10px;}
-.product-pic span.product-share {position: absolute; left:46%; bottom: 10px;}
-.product-pic span.product-plus {position: absolute; right: 9%; bottom: 10px;}
-.product-profile {width:88%;}
-.product-profile span.product-sub {font-size:15px; color:#bbb; float:left; width:100%; font-weight:normal; padding:5px 0;}
-.product-profile span.product-sub span.product-description {font-weight:700; color:#aaa;}
-.product-profile span.product-sub span.daysago{float:right; font-size:12px;}
-.counter-tab{float: left; width: 100%; padding-top: 45px;}
-.counter-tab div{float: left; width: 33%; color: #aaa; font-size: 12px;}
-.bot-links{float: left; width: 100%; padding-top: 10px;}
-.bot-links a{display: inline-block; padding: 5px; background: #ccc; font-size: 12px; margin-bottom: 5px; color: #9c9c9c; text-decoration:none;}
-span.play-icon{position: absolute; left: 31%; top: 32%; display: none;}
-.product-pic:hover img.play-icon, .product-pic:hover span a{display: block; }
+.product-title {
+  color: #231f20;
+  font-size: 20px;
+  font-weight: 700;
+}
 
+.product-data {
+  width: 100%;
+  padding-bottom: 25px;
+}
+
+.product-pic {
+  width: 10%;
+  position: relative;
+}
+
+.product-pic span a {
+  color: #fff;
+  font-size: 16px;
+  display: none;
+}
+
+.product-pic-buttons span {
+  background-color: cornflowerblue;
+}
+
+.product-pic span.product-like {
+  position: absolute;
+  left: 11%;
+  bottom: 10px;
+}
+
+.product-pic span.product-share {
+  position: absolute;
+  left: 46%;
+  bottom: 10px;
+}
+
+.product-pic span.product-plus {
+  position: absolute;
+  right: 9%;
+  bottom: 10px;
+}
+
+.product-profile {
+  width: 88%;
+}
+
+.product-profile span.product-sub {
+  font-size: 15px;
+  color: #bbb;
+  float: left;
+  width: 100%;
+  font-weight: normal;
+  padding: 5px 0;
+}
+
+.product-profile span.product-sub span.product-description {
+  font-weight: 700;
+  color: #aaa;
+}
+
+.product-profile span.product-sub span.daysago {
+  float: right;
+  font-size: 12px;
+}
+
+.counter-tab {
+  float: left;
+  width: 100%;
+  padding-top: 45px;
+}
+
+.counter-tab div {
+  float: left;
+  width: 33%;
+  color: #aaa;
+  font-size: 12px;
+}
+
+.bot-links {
+  float: left;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.bot-links a {
+  display: inline-block;
+  padding: 5px;
+  background: #ccc;
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: #9c9c9c;
+  text-decoration: none;
+}
+
+span.play-icon {
+  position: absolute;
+  left: 31%;
+  top: 32%;
+  display: none;
+}
+
+.product-pic:hover img.play-icon, .product-pic:hover span a {
+  display: block;
+}
 
 //=================================================================================
 //  Customized
@@ -98,13 +184,76 @@ span.play-icon{position: absolute; left: 31%; top: 32%; display: none;}
 
 //Bootstrap custom to remove gutter
 .no-gutter > [class*='col-'] {
-  padding-right:0;
-  padding-left:0;
+  padding-right: 0;
+  padding-left: 0;
 }
-
 
 //Always display vertical horizontal bar to make all pages look exactly the same
 body {
   overflow: scroll;
 
+}
+
+//Carrousel bootstrap
+
+//
+///* Container */
+//.container-fluid {
+//  background: #FFFFFF;
+//  margin: 40px auto 10px;
+//  padding: 20px 40px 0;
+//  max-width: 960px;
+//  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+//}
+//
+//
+///* Page Header */
+//.page-header {
+//  background: #f9f9f9;
+//  margin: -30px -40px 40px;
+//  padding: 20px 40px;
+//  border-top: 4px solid #ccc;
+//  color: #999;
+//  text-transform: uppercase;
+//}
+//.page-header h3 {
+//  line-height: 0.88rem;
+//  color: #000;
+//}
+//
+//
+//
+/* Thumbnail Box */
+.caption h4 {
+  text-align: justify;
+  font-size: 1em;
+  color: #444;
+}
+.caption p {
+  font-size: 0.85em;
+  color: #999;
+}
+.btn.btn-mini {
+  font-size: 0.63rem;
+}
+
+/* Carousel Control */
+.control-box {
+  text-align: right;
+  width: 100%;
+}
+
+.carousel-control {
+  background: #666;
+  border: 0px;
+  border-radius: 0px;
+  display: inline-block;
+  font-size: 34px;
+  font-weight: 200;
+  line-height: 18px;
+  opacity: 0.5;
+  padding: 4px 10px 0px;
+  position: static;
+  height: 30px;
+//  width: 15px;
 }

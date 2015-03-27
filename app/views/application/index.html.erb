@@ -1,17 +1,70 @@
 <%= title "Home Page" %>
-<h2>Offers</h2>
-<div class="well">
+
+<div class="carousel slide panel panel-default" id="myCarousel">
+  <div class="panel-heading">
+    <h2 class="text-uppercase">Offers</h2>
+  </div>
+  <div class="carousel-inner container">
+    <% @offers.each_slice(3).with_index do |group_offer, index| %>
+
+        <div class="item row row-eq-height <%= 'active' if index == 0 %>">
+
+          <ul class="thumbnails list-unstyled">
+            <% group_offer.each do |offer| %>
+                <li class="col-sm-3 col-md-4 ">
+                  <div class="thumbnail">
+
+                    <%= link_to (offer) do %>
+                        <%= image_tag offer.photo(:small), class: 'img-rounded img-responsive' %>
+                    <% end %>
+                    <br>
+
+
+                    <div class="caption">
+                      <h4>
+                        <%= link_to (offer) do %>
+                            <%= offer.product_name %>
+                        <% end %>
+                      </h4>
+
+                      <!--<p><%= offer.short_description %></p>-->
+                    </div>
+                    <%= link_to (offer), class: 'btn btn-warning btn-block btn-lg' do %>
+                        <strong>Only <%= number_to_currency(offer.price_discount) %></strong>
+                    <% end %>
+
+                  </div>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+  </div>
+
+  <div class="control-box panel-footer">
+    <div class="center-block">
+      <a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>
+      <a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>
+    </div>
+  </div>
+  <!-- /.control-box -->
 
 </div>
-<h2>Popular Products</h2>
-<div class="well">
+
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="text-uppercase">Popular Products</h2>
+  </div>
   <% @popular_products.each_slice(3) do |slice| %>
-      <div class="row row-eq-height">
+      <div class="row row-eq-height well-lg">
         <% slice.each do |product| %>
             <div class="col-sm-6 col-md-4 row-eq-height">
               <div class="thumbnail">
                 <%= link_to (product.category) do %>
-                    <h4 class="text-center"><span class="label label-info"><%= product.category.name %></span></h4>
+                    <h4 class="text-center"><span class="label label-info"><%= product.category.name %></span>
+                    </h4>
                 <% end %>
 
                 <div class="mag1">
@@ -19,13 +72,25 @@
                 </div>
 
                 <div class="caption">
+
+
                   <div>
-                    <div>
-                      <h3 class="text-center">
-                        <%= link_to (product) do %>
-                            <% product.product_name %>
-                        <% end %>
-                      </h3>
+                    <h3 class="text-center">
+                      <%= link_to (product) do %>
+                          <% product.product_name %>
+                      <% end %>
+                    </h3>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <a class="btn btn-primary btn-block"><span class="fa fa-star-o"></span> Favourite
+                          it</a>
+                      </div>
+                      <div class="col-md-6">
+                        <a href="#" class="btn btn-success btn-block"><span class="fa fa-shopping-cart"></span>
+                          Add to
+                          cart</a>
+                      </div>
                     </div>
                     <div class="price">
                       <h3>
@@ -35,15 +100,6 @@
                   </div>
                   <p><%= product.short_description %></p>
 
-                  <div class="row">
-                    <div class="col-md-6">
-                      <a class="btn btn-primary btn-block"><span class="fa fa-star-o"></span> Favourite it</a>
-                    </div>
-                    <div class="col-md-6">
-                      <a href="#" class="btn btn-success btn-block"><span class="fa fa-shopping-cart"></span> Add to
-                        cart</a>
-                    </div>
-                  </div>
 
                   <p></p>
                 </div>
@@ -52,4 +108,5 @@
         <% end %>
       </div>
   <% end %>
+  <div class="panel-footer"></div>
 </div>
