@@ -1,5 +1,10 @@
 <p id="notice"><%= notice %></p>
 
+<div class="text-center">
+  <p><%= page_entries_info @products %></p>
+  <%= paginate @products, :theme => 'twitter-bootstrap-3' %>
+</div>
+
 <div class="row">
   <% @products.each do |product| %>
 
@@ -43,4 +48,9 @@
         </div>
       </div>
   <% end %>
+</div>
+
+<div class="text-center">
+  <p><%= page_entries_info @products %></p>
+  <%= paginate @products, :theme => 'twitter-bootstrap-3' %>
 </div>
