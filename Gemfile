@@ -2,9 +2,12 @@ source 'https://rubygems.org'
 
 # Pagination for models
 gem 'kaminari'
-#
-gem 'sunspot_rails'
 gem 'bootstrap-kaminari-views'
+
+# Searchable models
+gem 'sunspot_rails'
+gem 'progress_bar'
+
 
 # Quality for code
 gem 'rubocop'
