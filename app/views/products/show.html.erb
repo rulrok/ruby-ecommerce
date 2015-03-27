@@ -57,8 +57,37 @@
         </div>
         <div class="tab-pane fade" id="service-two">
 
-          <section class="container">
-
+          <section class="container-fluid">
+            <table class="table table-hover table-responsive table-striped">
+              <thead>
+              <tr>
+                <th>Characteristic</th>
+                <th>Details</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Product weight (metric units)</td>
+                <td><%= number_to_human(@product.unit_weight, units: {unit: 'g', thousand: 'Kg'}) %></td>
+              </tr>
+              <tr>
+                <td>Unit price</td>
+                <td><%= number_to_currency(@product.unit_price) %></td>
+              </tr>
+              <tr>
+                <td>Quantity per unit</td>
+                <td><%= @product.quantity_per_unit %></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+              </tbody>
+            </table>
           </section>
 
         </div>
@@ -70,55 +99,5 @@
     </div>
   </div>
 </div>
-<p>
-  <strong>Product name:</strong>
-  <%= @product.product_name %>
-</p>
-
-<p>
-  <strong>Product description:</strong>
-  <%= @product.product_long_description %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @product.category_id %>
-</p>
-
-<p>
-  <strong>Quantity per unit:</strong>
-  <%= @product.quantity_per_unit %>
-</p>
-
-<p>
-  <strong>Unit price:</strong>
-  <%= @product.unit_price %>
-</p>
-
-<p>
-  <strong>Discount:</strong>
-  <%= @product.discount %>
-</p>
-
-<p>
-  <strong>Discount available:</strong>
-  <%= @product.discount_available %>
-</p>
-
-<p>
-  <strong>Unit weight:</strong>
-  <%= @product.unit_weight %>
-</p>
-
-<p>
-  <strong>Unit in stock:</strong>
-  <%= @product.unit_in_stock %>
-</p>
-
-<p>
-  <strong>Product available:</strong>
-  <%= @product.product_available %>
-</p>
-
 
 <%= link_to 'Back', products_path %>
