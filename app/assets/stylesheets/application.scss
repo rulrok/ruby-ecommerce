@@ -95,3 +95,16 @@ span.play-icon{position: absolute; left: 31%; top: 32%; display: none;}
 .padded-bottom {
   padding-bottom: 10px;
 }
+
+//Bootstrap custom to remove gutter
+.no-gutter > [class*='col-'] {
+  padding-right:0;
+  padding-left:0;
+}
+
+
+//Always display vertical horizontal bar to make all pages look exactly the same
+body {
+  overflow: scroll;
+
+}

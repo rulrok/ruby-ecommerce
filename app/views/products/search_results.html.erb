@@ -1,90 +1,103 @@
 <div class="container-fluid">
   <div class="row">
     <!--Filter-->
-    <div class="col-md-3">
-      <h2>Filters</h2>
+    <aside id="filters">
+      <div class="col-md-3">
+        <h2>Filters</h2>
 
-      <div class="well">
+        <div class="well">
 
-        <ul class="list-unstyled">
+          <ul class="list-unstyled">
 
-          <li>
-            <%= label_tag :new_products do %>
-                <%= check_box_tag :new_products, true, params[:new_products], form: :search_form %>
-                New products only
-            <% end %>
-          </li>
-          <li>
-            <%= label_tag :offers do %>
-                <%= check_box_tag :offers, true, params[:offers], form: :search_form %>
-                Offers only
-            <% end %>
-          </li>
+            <li>
+              <%= label_tag :new_products do %>
+                  <%= check_box_tag :new_products, true, params[:new_products], form: :search_form %>
+                  New products only
+              <% end %>
+            </li>
 
-          <li>
-            <%= label_tag :with_discount do %>
-                <%= check_box_tag :with_discount, true, params[:with_discount], form: :search_form %>
-                Discount
-            <% end %>
-          </li>
-        </ul>
-        <%= submit_tag "Apply filters", name: nil, class: 'btn btn-block btn-info', data: {:disable_with => 'Applying...'}, form: :search_form %>
+            <li>
+              <%= label_tag :offers do %>
+                  <%= check_box_tag :offers_only, true, params[:offers_only], form: :search_form %>
+                  Offers only
+              <% end %>
+            </li>
+
+            <li>
+              <%= label_tag :with_discount do %>
+                  <%= check_box_tag :with_discount, true, params[:with_discount], form: :search_form %>
+                  With Discount First
+              <% end %>
+            </li>
+          </ul>
+          <%= submit_tag "Apply filters", name: nil, class: 'btn btn-block btn-info', data: {:disable_with => 'Applying...'}, form: :search_form %>
+        </div>
       </div>
-    </div>
+    </aside>
     <!--Body-->
-    <div class="col-md-9">
-      <div>
-        <span class="label label-primary">Search terms: </span>
-        &nbsp;
-        <% @search_terms.each do |term| %>
-            <span class="label label-info"><%= term %></span>
-        <% end %>
-      </div>
-      <br>
-      <br>
+    <section id="search-results">
+      <div class="col-md-9">
+        <div>
+          <span class="label label-primary">Search terms: </span>
+          &nbsp;
+          <% @search_terms.each do |term| %>
+              <span class="label label-info"><%= term %></span>
+          <% end %>
+        </div>
+        <br>
+        <br>
 
-      <% if @products.total.zero? %>
-          <div class="well-lg">
-            <p class="text-center h2">No results found</p>
-          </div>
-      <% else %>
+        <% if @products.total.zero? %>
+            <div class="well-lg">
+              <p class="text-center h2">No results found</p>
+            </div>
+        <% else %>
 
-          <div class="text-center">
-            <%= paginate @products.hits, :theme => 'twitter-bootstrap-3' %>
-          </div>
+            <div class="text-center">
+              <%= paginate @products.hits, :theme => 'twitter-bootstrap-3' %>
+            </div>
 
-          <% @products.results.each do |product| %>
-              <div class="panel panel-default row">
+            <% @products.results.each do |product| %>
+                <div class="panel panel-default row no-gutter">
 
-                <div class="col-xs-2 col-lg-2 ">
-                  <%= image_tag (product.photo(:mini)), class: 'img-responsive center-block img-rounded padded-top padded-bottom' %>
-                </div>
+                  <div class="col-xs-2 col-lg-2 ">
+                    <%= image_tag (product.photo(:mini)), class: 'img-responsive center-block img-rounded padded-top padded-bottom' %>
+                  </div>
 
-                <div class="col-xs-8 col-lg-8">
-                  <%= link_to (product) do %>
-                      <p class="text-center padded-top  padded-bottom gray-background">
-                        <b><%= product.product_name %></b>
-                      </p>
-                  <% end %>
-                  <p class="text-justify"><%= product.short_description %></p>
+                  <div class="col-xs-8 col-lg-8">
+                    <%= link_to (product) do %>
+                        <p class="text-center padded-top  padded-bottom gray-background">
+                          <b><%= product.product_name %></b>
+                        </p>
+                    <% end %>
+                    <p class="text-justify"><%= product.short_description %></p>
 
-                  <div class="text-center padded-top  padded-bottom gray-background">
-                    -- Actions --
+                    <div class="text-center padded-top  padded-bottom gray-background">
+                      -- Actions --
+                    </div>
+                  </div>
+
+                  <div class="col-xs-2 col-lg-2">
+                    <% if product.discount_available? %>
+                        <p class="text-center padded-top h4">
+                          <del><%= number_to_currency product.price %></del>
+                        </p>
+                        <p class="text-center padded-top h3 discount-price">
+                          <strong><%= number_to_currency product.price_discount %></strong></p>
+                    <% else %>
+                        <p class="text-center padded-top h4"><%= number_to_currency product.price %></p>
+                    <% end %>
                   </div>
                 </div>
 
-                <div class="col-xs-2 col-lg-2">
-                  <p class="text-center padded-top h4"><%= number_to_currency product.price %></p>
-                </div>
-              </div>
 
+            <% end %>
 
-          <% end %>
-
-          <div class="text-center">
-            <%= paginate @products.hits, :theme => 'twitter-bootstrap-3' %>
-          </div>
-      <% end %>
-    </div>
+            <div class="text-center">
+              <%= paginate @products.hits, :theme => 'twitter-bootstrap-3' %>
+            </div>
+        <% end %>
+      </div>
+    </section>
   </div>
 </div>
