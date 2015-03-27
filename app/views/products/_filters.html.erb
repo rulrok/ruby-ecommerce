@@ -1,0 +1,33 @@
+<aside id="filters">
+  <div class="col-md-3">
+    <h2>Filters</h2>
+
+    <div class="well">
+
+      <ul class="list-unstyled">
+
+        <li>
+          <%= label_tag :new_products do %>
+              <%= check_box_tag :new_products, true, params[:new_products], form: :search_form %>
+              New products only
+          <% end %>
+        </li>
+
+        <li>
+          <%= label_tag :offers_only do %>
+              <%= check_box_tag :offers_only, true, params[:offers_only], form: :search_form %>
+              Offers only
+          <% end %>
+        </li>
+
+        <li>
+          <%= label_tag :with_discount do %>
+              <%= check_box_tag :with_discount, true, params[:with_discount], form: :search_form %>
+              With Discount First
+          <% end %>
+        </li>
+      </ul>
+      <%= submit_tag "Apply filters", name: nil, class: 'btn btn-block btn-info', data: {:disable_with => 'Applying...'}, form: :search_form %>
+    </div>
+  </div>
+</aside>
