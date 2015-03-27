@@ -14,90 +14,114 @@
         <div class="product-title"><%= @product.product_name %></div>
         <div class="product-desc"><%= @product.short_description %></div>
         <!-- TODO: Add rating capaility for products -->
-        <!--<div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i>-->
-        <!--<i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i>-->
-        <!--</div>-->
+        <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i>
+          <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i>
+        </div>
         <hr>
-        <div class="product-price"><%= number_to_currency(@product.price) %></div>
+        <div class="price text-left">
+          <% if @product.discount_available %>
+              <p class="h2">
+                <del>
+                  <%= number_to_currency(@product.price) %>
+                </del>
+                &nbsp;
+                <span class="discount-price"><%= number_to_currency(@product.price_discount) %></span>
+              </p>
+          <% else %>
+              <p class="h2">
+                <%= number_to_currency(@product.price) %>
+              </p>
+          <% end %>
+        </div>
+        <hr>
         <% if @product.unit_in_stock.zero? %>
             <div class="product-out-stock">Out of Stock</div>
         <% else %>
             <div class="product-stock">In Stock</div>
         <% end %>
         <hr>
-        <div class="btn-group cart">
-          <button type="button" class="btn btn-success">
-            Add to cart
+
+        <form class="form-inline">
+          <div class="form-group">
+            <label class="sr-only" for="exampleInputAmount">Quantity</label>
+
+            <!--<div class="input-group">-->
+            <!--<div class="input-group-addon input-lg"><i class="fa fa-cart-plus"></i></div>-->
+            <!--<input type="number" min="1" step="1" class="form-control input-lg" id="amount" placeholder="Amount" value="1">-->
+
+            <!--&lt;!&ndash;<div class="input-group-addon">.00</div>&ndash;&gt;-->
+            <!--</div>-->
+            <input type="number" min="1" step="1" class="form-control input-lg text-center " id="amount" placeholder="Amount" value="1">
+          </div>
+          <button type="submit" class="btn btn-success input-lg">
+            <i class="fa fa-cart-plus"> Add to cart</i>
           </button>
-        </div>
-        <div class="btn-group wishlist">
-          <button type="button" class="btn btn-danger">
-            Add to favourites
+          <button type="submit" class="btn btn-info input-lg">
+            <i class="fa fa-star"> Add to favourites</i>
           </button>
-        </div>
+        </form>
       </div>
-    </div>
-  </div>
-  <div class="container-fluid">
-    <div class="col-md-12 product-info">
-      <ul id="myTab" class="nav nav-tabs nav_tabs">
 
-        <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
-        <li><a href="#service-two" data-toggle="tab">PRODUCT INFO</a></li>
-        <li><a href="#service-three" data-toggle="tab">REVIEWS</a></li>
-
-      </ul>
-      <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade in active" id="service-one">
-
-          <section class="container product-info">
-            <%= @product.product_long_description %>
-          </section>
-
-        </div>
-        <div class="tab-pane fade" id="service-two">
-
-          <section class="container-fluid">
-            <table class="table table-hover table-responsive table-striped">
-              <thead>
-              <tr>
-                <th>Characteristic</th>
-                <th>Details</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>Product weight (metric units)</td>
-                <td><%= number_to_human(@product.unit_weight, units: {unit: 'g', thousand: 'Kg'}) %></td>
-              </tr>
-              <tr>
-                <td>Unit price</td>
-                <td><%= number_to_currency(@product.unit_price) %></td>
-              </tr>
-              <tr>
-                <td>Quantity per unit</td>
-                <td><%= @product.quantity_per_unit %></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-              </tr>
-              </tbody>
-            </table>
-          </section>
-
-        </div>
-        <div class="tab-pane fade" id="service-three">
-
-        </div>
-      </div>
-      <hr>
     </div>
   </div>
 </div>
+<div class="container-fluid">
+  <div class="col-md-12 product-info">
+    <ul id="myTab" class="nav nav-tabs nav_tabs">
 
-<%= link_to 'Back', products_path %>
+      <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
+      <li><a href="#service-two" data-toggle="tab">PRODUCT INFO</a></li>
+      <!--<li><a href="#service-three" data-toggle="tab">REVIEWS</a></li>-->
+
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane fade in active" id="service-one">
+
+        <section class="container product-info">
+          <%= @product.product_long_description %>
+        </section>
+
+      </div>
+      <div class="tab-pane fade" id="service-two">
+
+        <section class="container-fluid">
+          <table class="table table-hover table-responsive table-striped">
+            <thead>
+            <tr>
+              <th>Characteristic</th>
+              <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Product weight (metric units)</td>
+              <td><%= number_to_human(@product.unit_weight, units: {unit: 'g', thousand: 'Kg'}) %></td>
+            </tr>
+            <tr>
+              <td>Unit price</td>
+              <td><%= number_to_currency(@product.unit_price) %></td>
+            </tr>
+            <tr>
+              <td>Quantity per unit</td>
+              <td><%= @product.quantity_per_unit %></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+      <!--<div class="tab-pane fade" id="service-three">-->
+
+      <!--</div>-->
+    </div>
+    <hr>
+  </div>
+</div>

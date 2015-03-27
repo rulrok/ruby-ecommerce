@@ -1,57 +1,6 @@
 <%= title "Home Page" %>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2>Offers</h2>
-  </div>
-  <div class="container-fluid">
-    <div id="custom_carousel" class="carousel slide" data-ride="carousel" data-interval="2500">
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner">
-        <!-- Item -->
-        <% @offers.each_with_index do |offer, index| %>
-            <div class="item <%= 'active' if index == 0 %>">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-3">
-                    <%= link_to(offer) do %>
-                        <%= image_tag (offer.photo(:small)), class: 'img-responsive center-block' %>
-                    <% end %>
-                  </div>
-                  <div class="col-md-9">
-                    <%= link_to(offer) do %>
-                        <h2><%= offer.product_name %></h2>
-                    <% end %>
-                    <%= offer.short_description %>
-                    <p class="h3 discount-price"><%= number_to_currency offer.price_discount %></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-        <% end %>
-        <!-- End Item -->
-      </div>
-      <!-- End Carousel Inner -->
-      <div class="controls">
-        <ul class="nav">
-          <% @offers.each_with_index do |offer, index| %>
-              <li data-target="#custom_carousel" data-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>">
-                <a href="#">
-                  <%= image_tag offer.photo(:mini), class: 'img-responsive center-block', style: 'width: 50px; heigth: 50px;' %>
-                  <small><%= offer.product_name %></small>
-                </a>
-              </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-    <!-- End Carousel -->
-
-  </div>
-  <div class="panel-footer"></div>
-</div>
-
-
+<%= render 'application/offers_slider' %>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -60,13 +9,13 @@
   <% @popular_products.each_slice(3) do |slice| %>
       <div class="row row-eq-height well-lg">
         <% slice.each do |product| %>
+            <!-- Product box -->
             <div class="col-sm-6 col-md-4 row-eq-height">
+              <!-- Thumbnail frame -->
               <div class="thumbnail">
                 <%= link_to (product.category) do %>
-                    <h4 class="text-center"><span class="label label-info"><%= product.category.name %></span>
-                    </h4>
+                    <h4 class="text-center"><span class="label label-info"><%= product.category.name %></span></h4>
                 <% end %>
-
                 <h3 class="text-center">
                   <%= link_to (product) do %>
                       <% product.product_name %>
@@ -74,33 +23,28 @@
                 </h3>
 
                 <div class="mag1">
-                  <%= image_tag product.photo, class: 'img-responsive img-rounded center-block', data: {toggle: 'magnify'} %>
+                  <%= image_tag product.photo,
+                                class: 'img-responsive img-rounded center-block',
+                                data: {toggle: 'magnify'} %>
                 </div>
-
                 <div class="caption">
-
-
-                  <div>
-
-
-
-                    <div class="price text-center">
-                      <% if product.discount_available %>
-                          <p class="h2">
-                            <del>
-                              <%= number_to_currency(product.price) %>
-                            </del>
-                            &nbsp;
-                            <span class="discount-price"><%= number_to_currency(product.price_discount) %></span>
-                          </p>
-                      <% else %>
-                          <p class="h2">
+                  <div class="price text-center">
+                    <% if product.discount_available %>
+                        <p class="h2">
+                          <del>
                             <%= number_to_currency(product.price) %>
-                          </p>
-                      <% end %>
-                    </div>
+                          </del>
+                          &nbsp;
+                          <span class="discount-price"><%= number_to_currency(product.price_discount) %></span>
+                        </p>
+                    <% else %>
+                        <p class="h2">
+                          <%= number_to_currency(product.price) %>
+                        </p>
+                    <% end %>
                   </div>
 
+                  <!-- Buttons -->
                   <div class="row">
                     <div class="col-md-6">
                       <a class="btn btn-primary btn-block"><span class="fa fa-star-o"></span> Favourite
@@ -113,15 +57,17 @@
                     </div>
                   </div>
 
-
                   <p class="caption"><%= product.short_description %></p>
 
-
                 </div>
+                <!-- End caption -->
               </div>
+              <!-- End thumbnail -->
             </div>
+            <!-- End product box -->
         <% end %>
       </div>
+      <!-- End line of products -->
   <% end %>
   <div class="panel-footer"></div>
 </div>
