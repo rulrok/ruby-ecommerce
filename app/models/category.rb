@@ -3,12 +3,11 @@ class Category < ActiveRecord::Base
 
   has_many :products, dependent: :restrict_with_exception
 
-  validates_presence_of :name, :ancestry, :ancestry_depth
+  validates :name, :ancestry, :ancestry_depth, presence: true
 
-  # Ensures that we cannot have a duplicated category on the same level of the category tree
-  validates_uniqueness_of :name, scope: [:ancestry]
-
-  public
+  # Ensures that we cannot have a duplicated category
+  # on the same level of the category tree
+  validates :name, uniqueness: { scope: [:ancestry] }
 
   def self.primary_categories
     Category.at_depth(1)
