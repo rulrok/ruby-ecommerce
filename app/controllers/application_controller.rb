@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :categories_search_bar
 
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :current_order, :logged_in?
 
   add_breadcrumb 'Home', :root_path
 
@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
     @popular_products = Product.where(product_available: true).limit(9)
 
     @offers = Product.where(discount_available: true).order(:updated_at).limit(5)
+
+    @order_item = current_order.order_items.new
   end
 
   def about
@@ -35,6 +37,16 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def current_order
+    order = Order.find(session[:order_id]) unless session[:order_id].nil?
+    order ||= Order.new
+    # if !session[:order_id].nil?
+    #   Order.find(session[:order_id])
+    # else
+    #   Order.new
+    # end
+  end
 
   # @return [User]
   def current_user

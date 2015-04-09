@@ -11,3 +11,9 @@ Role.create(id: 2, name: 'customer')
 User.create(id: 1, role_id: 1, first_name: 'Reuel', last_name: 'Ribeiro', email: 'rulrok@gmail.com', password: '123')
 Setting.create(key: 'title', value: 'My eCommerce site')
 Category.create(id: 1, name: 'Product', ancestry: nil, 'ancestry_depth' => 0)
+
+OrderStatus.delete_all
+OrderStatus.create! id: 1, name: "In Progress"
+OrderStatus.create! id: 2, name: "Placed"
+OrderStatus.create! id: 3, name: "Shipped"
+OrderStatus.create! id: 4, name: "Cancelled"

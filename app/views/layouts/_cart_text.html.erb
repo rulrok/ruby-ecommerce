@@ -1,0 +1,1 @@
+<%= link_to "#{pluralize(current_order.order_items.size, 'Item')} in Cart ( #{number_to_currency current_order.subtotal} )", cart_path, class: "btn btn-link" %>

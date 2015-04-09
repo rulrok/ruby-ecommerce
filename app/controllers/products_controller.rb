@@ -19,6 +19,8 @@ class ProductsController < CustomerController
       add_breadcrumb category.name, category
     end
 
+    @order_item = current_order.order_items.new
+
     add_breadcrumb @product.product_name
     render 'not_available' unless @product.product_available?
   end

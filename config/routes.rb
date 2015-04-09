@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+
   mount Ckeditor::Engine => '/ckeditor'
   root 'application#index'
   get 'about' => 'application#about', as: 'about'
@@ -39,6 +41,9 @@ Rails.application.routes.draw do
   get 'products' => 'products#index'
   get 'products/search' => 'products#search'
   get 'products/:id' => 'products#show', :as => 'product'
+
+  resource :cart, only: [:show]
+  resources :order_items, only: [:create, :update, :destroy]
 
   resources :sessions
 
