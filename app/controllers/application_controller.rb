@@ -15,7 +15,8 @@ class ApplicationController < ActionController::Base
 
     @popular_products = Product.where(product_available: true).limit(9)
 
-    @offers = Product.where(discount_available: true).order(:updated_at).limit(5)
+    @offers = Product.where(discount_available: true)
+              .order(:updated_at).limit(5)
 
     @order_item = current_order.order_items.new
   end
@@ -23,7 +24,8 @@ class ApplicationController < ActionController::Base
   def about
     add_breadcrumb 'About', about_path
 
-    @about_content = Setting.obtain('about-content').html_safe # Maybe .html_safe could go directly in the method obtain. Not sure yet
+    # Maybe .html_safe could go directly in the method obtain. Not sure yet
+    @about_content = Setting.obtain('about-content').html_safe
   end
 
   def contact
@@ -39,20 +41,16 @@ class ApplicationController < ActionController::Base
   protected
 
   def current_order
-    order = Order.find(session[:order_id]) unless session[:order_id].nil?
-    order ||= Order.new
-    # if !session[:order_id].nil?
-    #   Order.find(session[:order_id])
-    # else
-    #   Order.new
-    # end
+    if session[:order_id].nil?
+      Order.new
+    else
+      Order.find(session[:order_id])
+    end
   end
 
   # @return [User]
   def current_user
-    if session[:user_id]
-      @current_user ||= User.find(session[:user_id])
-    end
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
   def logged_in?
@@ -60,17 +58,17 @@ class ApplicationController < ActionController::Base
   end
 
   def expel(message = 'You must be logged in')
-    # I've tried to use redirect with code 401 to be concise with HTTP codes, but it will not work.
-    # See http://stackoverflow.com/questions/6113014/what-http-code-to-use-in-not-authenticated-and-not-authorized-cases for details
+    # I've tried to use redirect with code 401 to be concise with HTTP codes,
+    # but it will not work.
+    # See http://bit.ly/1NgoeBi for details
     redirect_to :log_in, alert: message # , status: :unauthorized
   end
 
   def ensure_session_time
-    # Idea got from here http://stackoverflow.com/questions/17480487/rails-4-session-expiry
+    # Idea got from here
+    # http://stackoverflow.com/questions/17480487/rails-4-session-expiry
 
-    if session[:expires_at] < Time.current
-      expel 'You session has finished'
-    end
+    expel 'You session has finished' if session[:expires_at] < Time.current
   end
 
   def authenticate_user
@@ -78,15 +76,15 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin
-    if current_user.nil? || !current_user.admin?
-      # Redirects the user to a '404' page, giving the sensation that '/admin' does not exist
-      redirect_to '/404' # , :notice => "You do not have authorization to do so!"
-    end
+    # Redirects the user to a '404' page,
+    # giving the sensation that '/admin' does not exist
+
+    redirect_to '/404' if current_user.nil? || !current_user.admin?
   end
 
   def redirect_admin
     redirect_to '/admin' if current_user.admin? unless current_user.nil?
-      end
+  end
 
   private
 

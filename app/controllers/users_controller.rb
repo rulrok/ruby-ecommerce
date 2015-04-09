@@ -13,7 +13,8 @@ class UsersController < CustomerController
   end
 
   def create
-    @user = User.new(params.require(:user).permit(:email, :password, :password_confirmation))
+    @user = User.new(params.require(:user)
+                         .permit(:email, :password, :password_confirmation))
     if @user.save
       redirect_to :log_in, notice: 'Signed up! You can log into the site'
     else
