@@ -1,4 +1,2 @@
-module Admin
-  class ProductsHelper
-  end
+module Admin::ProductsHelper
 end
