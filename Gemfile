@@ -30,7 +30,8 @@ gem 'paperclip'
 gem 'responders'
 
 # Nice CSS icons
-gem 'font-awesome-sass'
+#gem 'font-awesome-sass'
+gem 'font-awesome-rails'
 
 # Gems for integrating bootstrap with rails
 # based on that tutorial

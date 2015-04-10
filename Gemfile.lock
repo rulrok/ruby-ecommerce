@@ -85,8 +85,8 @@ GEM
     debugger-linecache (1.2.0)
     erubis (2.7.0)
     execjs (2.3.0)
-    font-awesome-sass (4.3.1)
-      sass (~> 3.2)
+    font-awesome-rails (4.3.0.0)
+      railties (>= 3.2, < 5.0)
     globalid (0.3.3)
       activesupport (>= 4.1.0)
     highline (1.6.21)
@@ -225,7 +225,7 @@ DEPENDENCIES
   byebug
   ckeditor
   coffee-rails (~> 4.1.0)
-  font-awesome-sass
+  font-awesome-rails
   jbuilder (~> 2.0)
   jquery-rails
   jstree-rails!
