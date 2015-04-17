@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-
-
   mount Ckeditor::Engine => '/ckeditor'
   root 'application#index'
   get 'about' => 'application#about', as: 'about'

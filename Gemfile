@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
-
-#Heroku stuff
+# Heroku stuff
 gem 'rails_12factor', group: :production
 gem 'rvm'
 
@@ -35,7 +34,7 @@ gem 'paperclip'
 gem 'responders'
 
 # Nice CSS icons
-#gem 'font-awesome-sass'
+# gem 'font-awesome-sass'
 gem 'font-awesome-rails'
 
 # Gems for integrating bootstrap with rails
@@ -95,4 +94,3 @@ group :development, :test do
   # Searchable elements
   gem 'sunspot_solr'
 end
-
