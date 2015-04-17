@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+
+#Heroku stuff
+gem 'rails_12factor', group: :production
+gem 'rvm'
+
 # Pagination for models
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
@@ -90,3 +95,4 @@ group :development, :test do
   # Searchable elements
   gem 'sunspot_solr'
 end
+
