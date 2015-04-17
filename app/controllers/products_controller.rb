@@ -25,9 +25,6 @@ class ProductsController < CustomerController
     render 'not_available' unless @product.product_available?
   end
 
-  def not_available
-  end
-
   # GET /products/search
   # GET /products/search.json
   # GET /products/search.xml
@@ -35,11 +32,10 @@ class ProductsController < CustomerController
     add_breadcrumb 'Search results'
 
     # Replaces commas by spaces. Removes initial and final spaces before.
-    search_expression = params[:search].lstrip.rstrip.gsub(',', ' ')
+    search_expression = filter_search_terms
     @search_terms = search_expression.split(' ')
 
-    category = Category.find(params[:category]) \
-        unless params[:category].nil? || params[:category].empty?
+    category = Category.find(params[:category]) if params[:category].present?
 
     @products = Product.search_product search_expression,
                                        category: category,
@@ -53,5 +49,11 @@ class ProductsController < CustomerController
       format.html { render action: 'search_results' }
       format.json { render json: @products }
     end
+  end
+
+  private
+
+  def filter_search_terms
+    params[:search].lstrip.rstrip.gsub(',', ' ')
   end
 end

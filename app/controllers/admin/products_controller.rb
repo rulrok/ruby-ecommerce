@@ -24,29 +24,18 @@ module Admin
     end
 
     # POST /admin/products
-    # POST /admin/products.json
     def create
       @product = Product.new(admin_product_params)
-
       respond_to do |format|
         if @product.save
-          format.html do
-            redirect_to [:admin, @product],
-                        notice: 'Product was successfully created.'
-          end
-          format.json { render :show, status: :created, location: @product }
+          format.html { redirect_to [:admin, @product], notice: 'Product created.' }
         else
           format.html { render :new }
-          format.json do
-            render json: @product.errors,
-                   status: :unprocessable_entity
-          end
         end
       end
     end
 
     # PATCH/PUT /admin/products/1
-    # PATCH/PUT /admin/products/1.json
     def update
       respond_to do |format|
         if @product.update(admin_product_params)
@@ -54,13 +43,9 @@ module Admin
             redirect_to admin_product_path(@product),
                         notice: 'Product was successfully updated.'
           end
-          format.json { render :show, status: :ok, location: @product }
         else
           format.html { render :edit }
-          format.json do
-            render json: @product.errors,
-                   status: :unprocessable_entity
-          end
+
         end
       end
     end

@@ -5,7 +5,7 @@ module Admin
     # GET /admin/settings
     # GET /admin/settings.json
     def index
-      # @admin_settings = Setting.all
+      # @adm_set = Setting.all
     end
 
     # GET /admin/settings/1
@@ -27,7 +27,7 @@ module Admin
 
     # GET /admin/settings/new
     def new
-      @admin_setting = Setting.new
+      @adm_sets = Setting.new
     end
 
     # GET /admin/settings/1/edit
@@ -37,14 +37,14 @@ module Admin
     # POST /admin/settings
     # POST /admin/settings.json
     def create
-      @admin_setting = Setting.new(admin_setting_params)
+      @adm_sets = Setting.new(admin_setting_params)
       respond_to do |format|
-        if @admin_setting.save
-          format.html { redirect_to admin_setting_path(@admin_setting), notice: 'Setting was successfully created.' }
-          format.json { render :show, status: :created, location: @admin_setting }
+        if @adm_sets.save
+          format.html { redirect_to admin_setting_path(@adm_sets), notice: 'Setting created.' }
+          format.json { render :show, status: :created, location: @adm_sets }
         else
           format.html { render :new }
-          format.json { render json: @admin_setting.errors, status: :unprocessable_entity }
+          format.json { render json: @adm_sets.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -53,12 +53,12 @@ module Admin
     # PATCH/PUT /admin/settings/1.json
     def update
       respond_to do |format|
-        if @admin_setting.update(admin_setting_params)
-          format.html { redirect_to [:admin, :settings], notice: 'Setting was successfully updated.' }
-          format.json { render :show, status: :ok, location: @admin_setting }
+        if @adm_sets.update(admin_setting_params)
+          format.html { redirect_to [:admin, :settings], notice: 'Setting updated.' }
+          format.json { render :show, status: :ok, location: @adm_sets }
         else
           format.html { render :edit }
-          format.json { render json: @admin_setting.errors, status: :unprocessable_entity }
+          format.json { render json: @adm_sets.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -66,9 +66,9 @@ module Admin
     # DELETE /admin/settings/1
     # DELETE /admin/settings/1.json
     def destroy
-      @admin_setting.destroy
+      @adm_sets.destroy
       respond_to do |format|
-        format.html { redirect_to admin_settings_url, notice: 'Setting was successfully destroyed.' }
+        format.html { redirect_to admin_settings_url, notice: 'Setting destroyed.' }
         format.json { head :no_content }
       end
     end
@@ -80,9 +80,9 @@ module Admin
       id = params[:id].to_i
 
       if id != 0
-        @admin_setting = Setting.find(id)
+        @adm_sets = Setting.find(id)
       else
-        @admin_setting = Setting.find_by_key(params[:id])
+        @adm_sets = Setting.find_by_key(params[:id])
       end
     end
 

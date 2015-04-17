@@ -8,19 +8,6 @@ module Admin
       @all_categories = Category.all
     end
 
-    # GET /admin/categories/except/:id
-    def except
-      respond_to do |format|
-        format.json do
-          render nothing: true, status: :bad_request if params[:id].nil?
-          @element = Category.find(params[:id])
-          @sub_tree = @element.ancestors
-          @children = Category.find_children(params[:id])
-        end
-        format.html { render nothing: true, status: :OK }
-      end
-    end
-
     # GET /admin/categories/1
     # GET /admin/categories/1.json
     def show
@@ -28,7 +15,7 @@ module Admin
 
     # GET /admin/categories/new
     def new
-      @category = Category.new
+      @cat = Category.new
     end
 
     # GET /admin/categories/1/edit
@@ -49,21 +36,15 @@ module Admin
     # POST /admin/categories
     # POST /admin/categories.json
     def create
-      @category = Category.new(admin_category_params)
+      @cat = Category.new(admin_category_params)
 
       respond_to do |format|
-        if @category.save
-          format.html do
-            redirect_to admin_category_path(@category), notice: 'Category was successfully created.'
-          end
-          format.json do
-            render :show, status: :created, location: [:admin, @category]
-          end
+        if @cat.save
+          format.html { redirect_to admin_category_path(@cat), notice: 'Category created.' }
+          format.json { render :show, status: :created, location: [:admin, @cat] }
         else
-          format.html { render :new }
-          format.json do
-            render json: @category.errors, status: :unprocessable_entity
-          end
+          # format.html { render :new }
+          format.json { render json: @cat.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -72,19 +53,14 @@ module Admin
     # PATCH/PUT /admin/categories/1.json
     def update
       respond_to do |format|
-        if @category.update(admin_category_params)
-          format.html do
-            redirect_to admin_category_path(@category),
-                        notice: 'Category was successfully updated.'
-          end
+        if @cat.update(admin_category_params)
+          format.html { redirect_to admin_category_path(@cat), notice: 'Category updated.' }
           format.json do
-            render :show, status: :ok, location: [:admin, @category]
+            render :show, status: :ok, location: [:admin, @cat]
           end
         else
-          format.html { render :edit }
-          format.json do
-            render json: @category.errors, status: :unprocessable_entity
-          end
+          # format.html { render :edit }
+          format.json { render json: @cat.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -92,23 +68,14 @@ module Admin
     # DELETE /admin/categories/1
     # DELETE /admin/categories/1.json
     def destroy
-      @category.destroy
-
       respond_to do |format|
-        if @category.destroyed?
-          format.html do
-            redirect_to admin_categories_url,
-                        notice: 'Category was successfully destroyed.'
-          end
+        if @cat.destroy || @cat.destroyed?
+          format.html { redirect_to admin_categories_url, notice: 'Category destroyed.' }
           format.json { head :no_content }
         else
-          message = 'Category could not be destroyed. Verify if one of its subcategories already exist in the upper level of the tree. Also, verify if that category has no products registered with it.'
-          format.html do
-            redirect_to admin_categories_url,
-                        notice: message,
-                        status: :unprocessable_entity
-          end
-          format.json { render json: message, status: :unprocessable_entity }
+          m = 'Category could not be destroyed. It has children or products using it.'
+          format.html { redirect_to admin_categories_url, notice: m, status: 422 }
+          format.json { render json: m, status: :unprocessable_entity }
         end
       end
     end
@@ -117,7 +84,7 @@ module Admin
 
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_category
-      @category = Category.find(params[:id])
+      @cat = Category.find(params[:id])
     end
 
     # Never trust parameters from the scary internet,

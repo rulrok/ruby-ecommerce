@@ -11,17 +11,8 @@ class SessionsController < ApplicationController
   def create
     user = User.authenticate(params[:email], params[:password])
     if user
-      session[:user_id] = user.id
-      if params[:remember].nil?
-        session[:expires_at] = Time.now + 24.hours
-      else
-        session[:expires_at] = Time.now + 9999.days
-      end
-      if user.admin?
-        redirect_admin
-      else
-        redirect_to root_url, notice: 'Logged in!'
-      end
+      start_session user
+
     else
       flash.now.alert = 'Invalid email or password'
       render 'new'
@@ -32,5 +23,17 @@ class SessionsController < ApplicationController
     session.clear
     session[:user_id] = nil
     redirect_to root_url, notice: 'Logged out!'
+  end
+
+  private
+
+  def start_session(user)
+    session[:user_id] = user.id
+    session[:expires_at] = Time.now + (params[:remember].nil? ? 24.hours : 9999.days)
+    if user.admin?
+      redirect_admin
+    else
+      redirect_to root_url, notice: 'Logged in!'
+    end
   end
 end

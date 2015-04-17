@@ -12,3 +12,6 @@ Encoding:
 
 Documentation:
   Enabled: false
+
+Metrics/LineLength:
+  Max: 95

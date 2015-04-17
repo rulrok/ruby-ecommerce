@@ -79,24 +79,42 @@ class Product < ActiveRecord::Base
         phrase_fields product_name: 2.0
         # if the search terms are present, but not necessarily very related
         boost_fields product_name: 1.5
-        boost(5.0) do
-          with(:discount_available, true)
-        end if options[:with_discount].present?
+        # boost(5.0) do
+        #   with(:discount_available, true)
+        # end if options[:with_discount].present?
 
         # phrase_slop 10
       end
 
       # ============= Filtering
-      with :product_available, true
-      with :discount_available, true if options[:offers_only].present?
-      with(:price)
-        .greater_than_or_equal_to(options[:minimum_price].to_i) \
+
+      apply_filter.call(self, options)
+
+      # ============= Sorting
+
+      sort_search.call(self, options)
+
+      # ============= Paginating
+      paginate page: options[:page], per_page: 5
+    end
+  end
+
+  def self.sort_search
+    lambda do |context, options|
+      context.order_by(:discount, :desc) if options[:with_discount].present?
+      context.order_by(:updated_at, :asc)
+    end
+  end
+
+  def self.apply_filter
+    lambda do |context, options|
+      context.with :product_available, true
+      context.with :discount_available, true if options[:offers_only].present?
+      context.with(:price).greater_than_or_equal_to(options[:minimum_price].to_i) \
           if options[:minimum_price].present?
-      with(:price)
-        .less_than_or_equal_to(options[:maximum_price].to_i) \
+      context.with(:price).less_than_or_equal_to(options[:maximum_price].to_i) \
           if options[:maximum_price].present?
-      with(:created_at)
-        .greater_than_or_equal_to(Time.now - 1.day) \
+      context.with(:created_at).greater_than_or_equal_to(Time.now - 1.day) \
           if options[:new_products].present?
 
       # ============= Filtering category
@@ -105,15 +123,7 @@ class Product < ActiveRecord::Base
       # 'with' with the children ids as well the own category id (!)
 
       category = options[:category]
-      with(:category_id, category.child_ids << category.id) if category
-
-      # ============= Sorting
-
-      order_by(:discount, :desc) if options[:with_discount].present?
-      order_by(:updated_at, :asc)
-
-      # ============= Paginating
-      paginate page: options[:page], per_page: 5
+      context.with(:category_id, category.child_ids << category.id) if category
     end
   end
 end
