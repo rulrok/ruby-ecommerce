@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  street_line_1: MyString
+  street_line_1: MyString
+
+two:
+  street_line_1: MyString
+  street_line_1: MyString

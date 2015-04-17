@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   belongs_to :role
   has_many :orders
+  has_many :addresses
 
   def admin?
     role.name == 'administrator'
