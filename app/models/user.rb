@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
 
   belongs_to :role
+  has_many :orders
 
   def admin?
     role.name == 'administrator'

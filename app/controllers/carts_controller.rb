@@ -4,4 +4,8 @@ class CartsController < ApplicationController
 
     add_breadcrumb 'Shopping cart'
   end
+
+  def checkout
+
+  end
 end

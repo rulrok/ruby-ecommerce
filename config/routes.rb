@@ -42,7 +42,8 @@ Rails.application.routes.draw do
   get 'products/search' => 'products#search'
   get 'products/:id' => 'products#show', :as => 'product'
 
-  resource :cart, only: [:show]
+  get 'cart' => 'carts#show'
+  get 'cart/checkout' => 'carts#checkout'
   resources :order_items, only: [:create, :update, :destroy]
 
   resources :sessions
