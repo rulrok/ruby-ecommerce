@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150418004226) do
+ActiveRecord::Schema.define(version: 20150418211434) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_line_1", limit: 255
     t.string   "street_line_2", limit: 255
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "postalcode_id", limit: 4
+    t.integer  "province_id",   limit: 4
   end
 
   create_table "categories", force: :cascade do |t|
@@ -96,10 +98,10 @@ ActiveRecord::Schema.define(version: 20150418004226) do
   end
 
   create_table "postalcodes", force: :cascade do |t|
-    t.string   "postalcode", limit: 255
-    t.string   "city",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "postalcode_name", limit: 255
+    t.string   "city",            limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -128,11 +130,11 @@ ActiveRecord::Schema.define(version: 20150418004226) do
   create_table "provinces", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "code",       limit: 255
-    t.decimal  "pst",                    precision: 10
-    t.decimal  "gst",                    precision: 10
-    t.decimal  "hst",                    precision: 10
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.decimal  "pst",                    precision: 5, scale: 2
+    t.decimal  "gst",                    precision: 5, scale: 2
+    t.decimal  "hst",                    precision: 5, scale: 2
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
   end
 
   create_table "roles", force: :cascade do |t|

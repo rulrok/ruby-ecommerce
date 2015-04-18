@@ -27,4 +27,11 @@ $(document).ready (ev) ->
     $('#custom_carousel .controls li:eq(' + $(evt.relatedTarget).index() + ')').addClass 'active'
     return
   $('[data-toggle="tooltip"]').tooltip()
+
+
+  $('.chosen-select').chosen
+    allow_single_deselect: true
+    no_results_text: 'No results matched'
+    width: '200px'
+
   return

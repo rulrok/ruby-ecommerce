@@ -14,6 +14,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.validate.min
+//= require chosen-jquery
 // require turbolinks
 //= require bootstrap-sprockets
 //= require ckeditor/init

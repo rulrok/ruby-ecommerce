@@ -35,14 +35,23 @@ Rails.application.routes.draw do
   post 'users' => 'users#create'
   get 'profile' => 'users#profile', :as => 'profile'
   get 'profile/edit' => 'users#edit', :as => 'edit_profile'
+  # get 'profile/addresses' => 'addresses#index'
+  # get 'profile/address/:id' => 'addresses#show', :as => 'addresses'
+
 
   get 'products' => 'products#index'
   get 'products/search' => 'products#search'
   get 'products/:id' => 'products#show', :as => 'product'
 
-  get 'cart' => 'carts#show'
-  get 'cart/checkout' => 'carts#checkout'
+  get 'cart' => 'carts#show', :as => 'cart'
+  get 'cart/checkout' => 'carts#checkout', :as => 'checkout'
+  post 'cart/checkout' => 'carts#checkout_address'
+  get 'cart/checkout/payment' => 'carts#checkout_payment', :as => 'checkout_payment'
+
+  # get 'address/:id' => 'addresses#show', :as => 'addresses'
   resources :order_items, only: [:create, :update, :destroy]
+
+  resource :addresses, only: [:create, :update, :destroy]
 
   resources :sessions
 

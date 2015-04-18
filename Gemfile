@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+#Improved select tags with jQuery plugin
+gem 'chosen-rails'
+
 # Heroku stuff
 gem 'rails_12factor', group: :production
 gem 'rvm'
