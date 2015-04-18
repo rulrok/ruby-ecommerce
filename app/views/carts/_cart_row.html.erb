@@ -1,28 +1,53 @@
-<div class="well">
+<tr>
+  <td class="col-sm-8 col-md-6">
+    <div class="media">
 
-  <div class="row">
-    <div class="col-xs-8">
-      <h4><%= product.product_name %></h4>
-    </div>
-    <div class="col-xs-4">
-
-      <%= form_for order_item, remote: true do |f| %>
-          <h4 class="text-right">Unit Price: <span style="color: green"><%= number_to_currency order_item.unit_price %></span></h4>
-          <div class="row">
-            <div class="col-xs-4">
-              <%= f.number_field :quantity, value: order_item.quantity.to_i, class: "form-control", min: 1 %>
-              <%= f.hidden_field :product_id, value: product.id %>
-            </div>
-            <div class="col-xs-8 text-right">
-              <div class="btn-group">
-                <%= f.submit "Update Quantity", class: "btn btn-primary" %>
-                <%= link_to "Delete", order_item, { data: { confirm: "Are you sure you wish to delete the product '#{order_item.product.product_name}' from your cart?" }, method: :delete, remote: true, class: "btn btn-danger" } %>
-              </div>
-            </div>
-          </div>
-          <h4 class="text-right">Total Price: <span style="color: green"><%= number_to_currency order_item.total_price %></span></h4>
+      <%= link_to (product), class: 'thumbnail pull-left' do %>
+          <%= image_tag product.photo(:mini), class: 'img-responsive img-rounded center-block' %>
       <% end %>
-    </div>
 
-  </div>
-</div>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= link_to (product) do %>
+              <%= product.product_name %>
+          <% end %>
+        </h4>
+        <h5 class="media-heading">
+          <%= link_to (product.category), class: 'text-left' do %>
+
+              <span class="label label-info"><%= product.category.name %></span>
+
+          <% end %>
+        </h5>
+        <% if product.unit_in_stock.zero? %>
+            <div class="product-out-stock">Out of Stock</div>
+        <% else %>
+            <div class="product-stock">In Stock</div>
+        <% end %>
+      </div>
+    </div>
+  </td>
+
+
+  <td class="col-sm-1 col-md-1 form-group" style="text-align: center">
+    <%= form_for order_item, remote: true, class: 'form-inline' do |f| %>
+        <div class="form-group">
+          <%= f.hidden_field :product_id, value: product.id, id: "order-item-product-#{product.id}" %>
+        </div>
+        <div class="form-group">
+          <%= f.number_field :quantity, value: order_item.quantity.to_i, class: "form-control", min: 1, id: "order-item-quantity-#{product.id}" %>
+        </div>
+        <%= f.submit "Update Quantity", class: "btn btn-primary" %>
+    <% end %>
+  </td>
+
+  <td class="col-sm-1 col-md-1 text-center form-group">
+    <strong><%= number_to_currency order_item.unit_price %></strong></td>
+  <td class="col-sm-1 col-md-1 text-center form-group">
+    <strong><%= number_to_currency order_item.total_price %></strong></td>
+  <td class="col-sm-1 col-md-1 form-group">
+    <%= link_to "Delete", order_item, {data: {confirm: "Are you sure you wish to delete the product '#{order_item.product.product_name}' from your cart?"}, method: :delete, remote: true, class: "btn btn-danger"} %>
+  </td>
+
+
+</tr>
