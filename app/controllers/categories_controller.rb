@@ -8,15 +8,16 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    path = Category.find(params[:id]).path.from_depth(1)
+    @category = Category.find(params[:id])
+    path = @category.path.from_depth(1)
     path.each do |category|
       add_breadcrumb category.name, category
     end
 
     category_tree = @category.subtree
     @products = Product.where(category: category_tree, product_available: true)
-                .page(params[:page].to_i)
-                .per(7)
+                    .page(params[:page].to_i)
+                    .per(7)
   end
 
   # GET /categories/new
