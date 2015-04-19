@@ -16,11 +16,16 @@ class CartsController < ApplicationController
   # POST /cart/checkout
   def checkout_address
     shipping_address = mount_shipping_address
+    billing_address = mount_billing_address
+
+    shipping_address.user = current_user
+    billing_address.user = current_user
+
     order = current_order
     order.shipping_address = shipping_address
-    shipping_address.user = current_user
+    order.billing_address = billing_address
 
-    render json: shipping_address
+    render json: order
 
     # if shipping_address.save && order.save
     #   redirect_to :checkout_payment
@@ -45,11 +50,29 @@ class CartsController < ApplicationController
     shipping_address
   end
 
+  def mount_billing_address
+    billing_address = if params[:billing_address][:address_id].present?
+                        Address.find(params[:billing_address][:address_id])
+                      else
+                        Address.new(billing_address_params)
+                      end
+    billing_address.postalcode = Postalcode.new(billing_postalcode_params)
+    billing_address
+  end
+
   def shipping_address_params
     params.require(:shipping_address).permit(:street_line_1, :street_line_2, :province_id)
   end
 
   def shipping_postalcode_params
     params.require(:shipping_address).permit(:postalcode, :city)
+  end
+
+  def billing_address_params
+    params.require(:billing_address).permit(:street_line_1, :street_line_2, :province_id)
+  end
+
+  def billing_postalcode_params
+    params.require(:billing_address).permit(:postalcode, :city)
   end
 end

@@ -3,178 +3,206 @@
 <% if @user_addresses %>
 
 <% end %>
-<div class="row">
-  <div class="col-md-offset-1 col-md-10 col-md-offset-1">
-    <p class='h2'>Shipping Address Details</p>
-    <br>
+<div class="panel-default">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10 col-md-offset-1">
+      <p class='h2'>Shipping Address Details</p>
+      <br>
 
-    <div role="tabpanel">
+      <div role="tabpanel">
 
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active">
-          <a href="#your-addresses" aria-controls="your-addresses" role="tab" data-toggle="tab">Your
-            addresses</a></li>
-        <li role="presentation">
-          <a href="#new-address" aria-controls="new-address" role="tab" data-toggle="tab">New
-            address</a></li>
-      </ul>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#your-addresses" aria-controls="your-addresses" role="tab" data-toggle="tab">Your
+              addresses</a></li>
+          <li role="presentation">
+            <a href="#new-address" aria-controls="new-address" role="tab" data-toggle="tab">New
+              address</a></li>
+        </ul>
 
-      <!-- Tab panes -->
-      <div class="tab-content well-lg">
-        <div role="tabpanel" class="tab-pane active" id="your-addresses">
-          <div class="form-group">
-            <%= label_tag 'existing_shipping_address', 'Select your address', class: 'col-sm-2 control-label' %>
-            <div class="">
-              <%= collection_select :shipping_address, :address_id, @user_addresses, :id, :to_s, {include_blank: true}, {id: :existing_shipping_address, class: 'chosen-select-lg', form: :shipping_address_form} %>
+        <!-- Tab panes -->
+        <div class="tab-content well-lg">
+          <div role="tabpanel" class="tab-pane active" id="your-addresses">
+            <div class="form-group">
+              <%= label_tag 'existing_shipping_address', 'Select your address', class: 'col-sm-2 control-label' %>
+              <div class="">
+                <%= collection_select :shipping_address, :address_id, @user_addresses, :id, :to_s, {include_blank: 'Select an address'}, {id: :existing_shipping_address, class: 'chosen-select-lg', form: :addresses_form} %>
+              </div>
             </div>
+
+
           </div>
+          <div role="tabpanel" class="tab-pane" id="new-address">
+            <%= form_tag '/cart/checkout', method: :post, name: :addresses_form, id: :addresses_form, class: 'form-horizontal', role: 'form' do |f| %>
+                <% fields_for :shipping_address do |sa| %>
+                    <fieldset>
 
+                      <!-- Form Name -->
 
-        </div>
-        <div role="tabpanel" class="tab-pane" id="new-address">
-          <%= form_tag '/cart/checkout', method: :post, name: 'shipping_address', id: 'shipping_address_form', class: 'form-horizontal', role: 'shipping_address' do |f| %>
-              <% fields_for :shipping_address do |sa| %>
-                  <fieldset>
-
-                    <!-- Form Name -->
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                      <%= sa.label 'street_line_1', 'Line 1', class: 'col-sm-2 control-label' %>
-                      <div class="col-sm-10">
-                        <%= sa.text_field :street_line_1, class: 'form-control', placeholder: 'Address Line 1' %>
-                      </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                      <%= sa.label :street_line_2, 'Line 2', class: 'col-sm-2 control-label' %>
-                      <div class="col-sm-10">
-                        <%= sa.text_field :street_line_2, class: 'form-control', placeholder: 'Address Line 2' %>
-                      </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-
-                      <%= sa.label :city, 'City', class: 'col-sm-2 control-label' %>
-                      <div class="col-sm-10">
-                        <%= sa.text_field :city, class: 'form-control', placeholder: 'City' %>
+                      <!-- Text input-->
+                      <div class="form-group">
+                        <%= sa.label 'street_line_1', 'Line 1', class: 'col-sm-2 control-label' %>
+                        <div class="col-sm-10">
+                          <%= sa.text_field :street_line_1, class: 'form-control', placeholder: 'Address Line 1' %>
+                        </div>
                       </div>
 
-                    </div>
+                      <!-- Text input-->
+                      <div class="form-group">
+                        <%= sa.label :street_line_2, 'Line 2', class: 'col-sm-2 control-label' %>
+                        <div class="col-sm-10">
+                          <%= sa.text_field :street_line_2, class: 'form-control', placeholder: 'Address Line 2' %>
+                        </div>
+                      </div>
 
-                    <!-- Text input-->
-                    <div class="form-group">
-                      <%= #f.fields_for :postalcode do |p|
-                      %>
-                      <%= sa.label :province, 'Province', class: 'col-sm-2 control-label' %>
+                      <!-- Text input-->
+                      <div class="form-group">
 
-                      <div class="col-sm-4">
-                        <%= collection_select :shipping_address, :province_id, Province.all, :id, :full_name, {include_blank: true}, {class: 'chosen-select'} %>
-                        <%= #text_field_tag :province, nil, class: 'form-control', placeholder: 'Province'
+                        <%= sa.label :city, 'City', class: 'col-sm-2 control-label' %>
+                        <div class="col-sm-10">
+                          <%= sa.text_field :city, class: 'form-control', placeholder: 'City' %>
+                        </div>
+
+                      </div>
+
+                      <!-- Text input-->
+                      <div class="form-group">
+                        <%= #f.fields_for :postalcode do |p|
+                        %>
+                        <%= sa.label :province_id, 'Province', class: 'col-sm-2 control-label' %>
+
+                        <div class="col-sm-4">
+                          <%= collection_select :shipping_address, :province_id, Province.all, :id, :full_name, {include_blank: 'Select an address'}, {class: 'chosen-select', form: :addresses_form} %>
+                          <%= #text_field_tag :province, nil, class: 'form-control', placeholder: 'Province'
+                          %>
+                        </div>
+
+                        <%= sa.label :postalcode, 'Postal code', class: 'col-sm-2 control-label' %>
+
+                        <div class="col-sm-4">
+                          <%= sa.text_field :postalcode, class: 'form-control', placeholder: 'Postal code' %>
+                        </div>
+                        <% #end
                         %>
                       </div>
 
-                      <%= sa.label :postalcode, 'Postal code', class: 'col-sm-2 control-label' %>
 
-                      <div class="col-sm-4">
-                        <%= sa.text_field :postalcode, class: 'form-control', placeholder: 'Postal code' %>
-                      </div>
-                      <% #end
-                      %>
-                    </div>
-
-
-                  </fieldset>
-              <% end %>
-          <% end %>
+                    </fieldset>
+                <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <div class="pull-right">
-            <%= submit_tag :Proceed, class: 'btn btn-primary btn-large', form: :shipping_address_form %>
+
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10 col-md-offset-1">
+      <p class='h2'>Billing Address Details</p>
+      <br>
+
+      <div role="tabpanel">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#your-addresses-billing" aria-controls="your-addresses" role="tab" data-toggle="tab">Your
+              addresses</a></li>
+          <li role="presentation">
+            <a href="#new-address-billing" aria-controls="new-address" role="tab" data-toggle="tab">New
+              address</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content well-lg">
+          <div role="tabpanel" class="tab-pane active" id="your-addresses-billing">
+            <div class="form-group">
+              <%= label_tag 'existing_shipping_address', 'Select your address', class: 'col-sm-2 control-label' %>
+              <div class="">
+                <%= collection_select :billing_address, :address_id, @user_addresses, :id, :to_s, {include_blank: 'Select an address'}, {id: :existing_billing_address, class: 'chosen-select-lg', form: :addresses_form} %>
+              </div>
+            </div>
+
+
+          </div>
+          <div role="tabpanel" class="tab-pane" id="new-address-billing">
+            <%= form_tag '/cart/checkout', method: :post, name: :addresses_form, id: 'billing_address_form', class: 'form-horizontal', role: 'form' do |f| %>
+
+                <% fields_for :billing_address do |ba| %>
+                    <fieldset>
+
+                      <!-- Form Name -->
+
+                      <!-- Text input-->
+                      <div class="form-group">
+                        <%= ba.label 'street_line_1', 'Line 1', class: 'col-sm-2 control-label' %>
+                        <div class="col-sm-10">
+                          <%= ba.text_field :street_line_1, class: 'form-control', placeholder: 'Address Line 1', form: :addresses_form %>
+                        </div>
+                      </div>
+
+                      <!-- Text input-->
+                      <div class="form-group">
+                        <%= ba.label :street_line_2, 'Line 2', class: 'col-sm-2 control-label' %>
+                        <div class="col-sm-10">
+                          <%= ba.text_field :street_line_2, class: 'form-control', placeholder: 'Address Line 2', form: :addresses_form %>
+                        </div>
+                      </div>
+
+                      <!-- Text input-->
+                      <div class="form-group">
+
+                        <%= ba.label :city, 'City', class: 'col-sm-2 control-label' %>
+                        <div class="col-sm-10">
+                          <%= ba.text_field :city, class: 'form-control', placeholder: 'City', form: :addresses_form %>
+                        </div>
+
+                      </div>
+
+                      <!-- Text input-->
+                      <div class="form-group">
+                        <%= #f.fields_for :postalcode do |p|
+                        %>
+                        <%= ba.label :province_id, 'Province', class: 'col-sm-2 control-label' %>
+
+                        <div class="col-sm-4">
+                          <%= collection_select :billing_address, :province_id, Province.all, :id, :full_name, {include_blank: 'Select an option'}, {class: 'chosen-select', form: :addresses_form} %>
+                          <%= #text_field_tag :province, nil, class: 'form-control', placeholder: 'Province'
+                          %>
+                        </div>
+
+                        <%= ba.label :postalcode, 'Postal code', class: 'col-sm-2 control-label' %>
+
+                        <div class="col-sm-4">
+                          <%= ba.text_field :postalcode, class: 'form-control', placeholder: 'Postal code', form: :addresses_form %>
+                        </div>
+                        <% #end
+                        %>
+                      </div>
+
+
+                    </fieldset>
+                <% end %>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
-
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <div class="pull-right">
+            <%= button_tag nil, class: 'btn btn-primary btn-lg', type: :submit, form: :addresses_form do %>
+                Proceed <i class="fa fa-arrow-circle-right"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<hr>
-<div class="row">
-  <div class="col-md-offset-1 col-md-10 col-md-offset-1">
-    <form class="form-horizontal" role="form">
-      <fieldset>
-
-        <!-- Form Name -->
-        <legend>Billing Address Details</legend>
-
-        <!-- Text input-->
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="textinput">Line 1</label>
-
-          <div class="col-sm-10">
-            <input type="text" placeholder="Address Line 1" class="form-control">
-          </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="textinput">Line 2</label>
-
-          <div class="col-sm-10">
-            <input type="text" placeholder="Address Line 2" class="form-control">
-          </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="textinput">City</label>
-
-          <div class="col-sm-10">
-            <input type="text" placeholder="City" class="form-control">
-          </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="textinput">State</label>
-
-          <div class="col-sm-4">
-            <input type="text" placeholder="State" class="form-control">
-          </div>
-
-          <label class="col-sm-2 control-label" for="textinput">Postcode</label>
-
-          <div class="col-sm-4">
-            <input type="text" placeholder="Post Code" class="form-control">
-          </div>
-        </div>
-
-
-        <!-- Text input-->
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="textinput">Country</label>
-
-          <div class="col-sm-10">
-            <input type="text" placeholder="Country" class="form-control">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <div class="pull-right">
-              <button type="submit" class="btn btn-default">Cancel</button>
-              <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-          </div>
-        </div>
-
-      </fieldset>
-    </form>
-  </div>
-  <!-- /.col-lg-12 -->
-</div><!-- /.row -->
+<!-- /.col-lg-12 -->
