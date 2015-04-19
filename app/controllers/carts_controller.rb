@@ -10,7 +10,7 @@ class CartsController < ApplicationController
     add_breadcrumb 'Cart', cart_path
     add_breadcrumb 'Cart checkout'
 
-    @ship_address = Address.new
+    @user_addresses = Address.where(user: current_user)
   end
 
   # POST /cart/checkout
@@ -18,11 +18,15 @@ class CartsController < ApplicationController
     shipping_address = mount_shipping_address
     order = current_order
     order.shipping_address = shipping_address
-    if shipping_address.save && order.save
-      render json: order
-    else
-      render 'layouts/admin/error_modal', notice: 'Could not save address'
-    end
+    shipping_address.user = current_user
+
+    render json: shipping_address
+
+    # if shipping_address.save && order.save
+    #   redirect_to :checkout_payment
+    # else
+    #   render 'layouts/application', notice: 'We could not save address to your order.'
+    # end
   end
 
   def checkout_payment
@@ -31,7 +35,12 @@ class CartsController < ApplicationController
   private
 
   def mount_shipping_address
-    shipping_address = Address.new(shipping_address_params)
+    shipping_address = if params[:shipping_address][:address_id].present?
+                         Address.find(params[:shipping_address][:address_id])
+                       else
+                         Address.new(shipping_address_params)
+
+                       end
     shipping_address.postalcode = Postalcode.new(shipping_postalcode_params)
     shipping_address
   end

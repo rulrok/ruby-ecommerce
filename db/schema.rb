@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150418233450) do
+ActiveRecord::Schema.define(version: 20150419043807) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_line_1", limit: 255
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150418233450) do
     t.datetime "updated_at",                null: false
     t.integer  "postalcode_id", limit: 4
     t.integer  "province_id",   limit: 4
+    t.integer  "user_id",       limit: 4
   end
 
   create_table "categories", force: :cascade do |t|
