@@ -25,13 +25,14 @@ class CartsController < ApplicationController
     order.shipping_address = shipping_address
     order.billing_address = billing_address
 
-    render json: order
 
-    # if shipping_address.save && order.save
-    #   redirect_to :checkout_payment
-    # else
-    #   render 'layouts/application', notice: 'We could not save address to your order.'
-    # end
+
+    if shipping_address.save && order.save
+      render json: order
+      #redirect_to :checkout_payment
+    else
+      render 'layouts/application', notice: 'We could not save address to your order.'
+    end
   end
 
   def checkout_payment

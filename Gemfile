@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+#Generate foreign key restrictions
+gem 'immigrant'
+
 # Improved select tags with jQuery plugin
 gem 'chosen-rails'
 

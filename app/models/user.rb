@@ -8,9 +8,10 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
 
   belongs_to :role
-  has_many :orders, inverse_of: :user
-  has_many :addresses
-  has_many :creditcards
+
+  has_many :orders, inverse_of: :user, dependent: :nullify
+  has_many :addresses, dependent: :destroy
+  has_many :creditcards, dependent: :delete_all
 
   def admin?
     role.name == 'administrator'

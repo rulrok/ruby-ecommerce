@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419043807) do
+ActiveRecord::Schema.define(version: 20150419194129) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_line_1", limit: 255
@@ -22,6 +22,10 @@ ActiveRecord::Schema.define(version: 20150419043807) do
     t.integer  "province_id",   limit: 4
     t.integer  "user_id",       limit: 4
   end
+
+  add_index "addresses", ["postalcode_id"], name: "addresses_postalcode_id_fk", using: :btree
+  add_index "addresses", ["province_id"], name: "addresses_province_id_fk", using: :btree
+  add_index "addresses", ["user_id"], name: "addresses_user_id_fk", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",           limit: 255
@@ -90,7 +94,9 @@ ActiveRecord::Schema.define(version: 20150419043807) do
     t.integer  "billing_address_id",  limit: 4
   end
 
+  add_index "orders", ["billing_address_id"], name: "orders_billing_address_id_fk", using: :btree
   add_index "orders", ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree
+  add_index "orders", ["shipping_address_id"], name: "orders_shipping_address_id_fk", using: :btree
 
   create_table "payments", force: :cascade do |t|
     t.date     "date"
@@ -164,8 +170,16 @@ ActiveRecord::Schema.define(version: 20150419043807) do
     t.datetime "updated_at",                                 null: false
   end
 
+  add_index "users", ["role_id"], name: "users_role_id_fk", using: :btree
+
+  add_foreign_key "addresses", "postalcodes", name: "addresses_postalcode_id_fk"
+  add_foreign_key "addresses", "provinces", name: "addresses_province_id_fk"
+  add_foreign_key "addresses", "users", name: "addresses_user_id_fk"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "addresses", column: "billing_address_id", name: "orders_billing_address_id_fk"
+  add_foreign_key "orders", "addresses", column: "shipping_address_id", name: "orders_shipping_address_id_fk"
   add_foreign_key "orders", "order_statuses"
   add_foreign_key "products", "categories"
+  add_foreign_key "users", "roles", name: "users_role_id_fk"
 end
