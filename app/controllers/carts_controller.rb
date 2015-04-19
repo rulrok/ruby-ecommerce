@@ -25,17 +25,24 @@ class CartsController < ApplicationController
     order.shipping_address = shipping_address
     order.billing_address = billing_address
 
-
-
     if shipping_address.save && order.save
-      render json: order
-      #redirect_to :checkout_payment
+      redirect_to :checkout_payment
     else
       render 'layouts/application', notice: 'We could not save address to your order.'
     end
   end
 
+  # GET /cart/checkout/payment
   def checkout_payment
+    add_breadcrumb 'Cart', cart_path
+    add_breadcrumb 'Cart checkout'
+  end
+
+  # POST /cart/checkout/payment
+  def create_payment
+    order = current_order
+
+    creditcard = params.require(:creditcard).permit(:name_on_card, :number, :month, :year, :cvc)
   end
 
   private
@@ -45,7 +52,6 @@ class CartsController < ApplicationController
                          Address.find(params[:shipping_address][:address_id])
                        else
                          Address.new(shipping_address_params)
-
                        end
     shipping_address.postalcode = Postalcode.new(shipping_postalcode_params)
     shipping_address

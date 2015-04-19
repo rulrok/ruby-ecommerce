@@ -44,9 +44,12 @@ Rails.application.routes.draw do
   get 'products/:id' => 'products#show', :as => 'product'
 
   get 'cart' => 'carts#show', :as => 'cart'
+
   get 'cart/checkout' => 'carts#checkout', :as => 'checkout'
   post 'cart/checkout' => 'carts#checkout_address'
+
   get 'cart/checkout/payment' => 'carts#checkout_payment', :as => 'checkout_payment'
+  post 'cart/checkout/payment' => 'carts#create_payment'
 
   # get 'address/:id' => 'addresses#show', :as => 'addresses'
   resources :order_items, only: [:create, :update, :destroy]

@@ -92,17 +92,17 @@ $(document).ready (ev) ->
   ), 'Please specify a valid 2-digit year.'
   validator = $form.validate(
     rules:
-      cardNumber:
+      "creditcard[card_number]":
         required: true
         creditcard: true
         digits: true
-      expMonth:
+      "creditcard[month]":
         required: true
         month: true
-      expYear:
+      "creditcard[year]":
         required: true
         year: true
-      cvCode:
+      "creditcard[cvc]":
         required: true
         digits: true
     highlight: (element) ->
@@ -117,7 +117,7 @@ $(document).ready (ev) ->
   )
 
   paymentFormReady = ->
-    if $form.find('[name=cardNumber]').hasClass('success') and $form.find('[name=expMonth]').hasClass('success') and $form.find('[name=expYear]').hasClass('success') and $form.find('[name=cvCode]').val().length > 1
+    if $form.find("[id='card_number']").hasClass('success') and $form.find('[id=month]').hasClass('success') and $form.find('[id=year]').hasClass('success') and $form.find('[id=cvc]').val().length > 1
       true
     else
       false

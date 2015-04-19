@@ -1,3 +1,5 @@
+<%= title 'Payment' %>
+
 <h2>Payment</h2>
 
 <!-- Credit card form -->
@@ -7,65 +9,73 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">
-            <img class="pull-right" src="http://i76.imgup.net/accepted_c22e0.png">Payment
+            <img class="pull-right" src="http://i76.imgup.net/accepted_c22e0.png"> Payment
             Details</h3>
+
+          <div class="clearfix"></div>
         </div>
         <div class="panel-body">
-          <form role="form" id="payment-form">
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="form-group">
-                  <label for="couponCode">CARD HOLDER'S NAME</label>
-                  <input type="text" class="form-control" name="couponCode"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="form-group">
-                  <label for="cardNumber">CARD NUMBER</label>
+          <%= form_tag '/cart/checkout/payment', method: :post, name: :creditcard_form, id: 'payment-form', role: :form, autocomplete: :off do %>
 
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number"/>
-                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+              <fieldset>
+                <%= fields_for :creditcard do |cc| %>
+
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="form-group">
+                          <%= cc.label :name_on_card, "CARD HOLDER'S NAME" %>
+                          <!--<label for="name_on_card">CARD HOLDER'S NAME</label>-->
+                          <%= cc.text_field :name_on_card, class: 'form-control', placeholder: 'Name on card', autofocus: true, required: true %>
+                          <!--<input id="name_on_card" type="text" class="form-control" name="name_on_card"/>-->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="form-group">
+                          <%= cc.label :card_number, 'CARD NUMBER' %>
+
+                          <div class="input-group">
+                            <%= cc.text_field :card_number, id: 'card_number', class: 'form-control', placeholder: 'Valid Card Number', required: true, data: {stripe: :number} %>
+                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-7 col-md-7">
+                        <div class="form-group">
+                          <%= cc.label 'month', 'EXPIRATION DATE' %>
+
+                          <div class="col-xs-6 col-lg-6 pl-ziro">
+                            <%= cc.text_field :month, id: :month, class: 'form-control', placeholder: 'MM', required: true, data: {stripe: 'month'} %>
+                          </div>
+                          <div class="col-xs-6 col-lg-6 pl-ziro">
+                            <%= cc.text_field :year, id: :year, class: 'form-control', placeholder: 'YY', required: true, data: {stripe: 'year'} %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-5 col-md-5 pull-right">
+                        <div class="form-group">
+                          <%= cc.label :cvc, 'CV CODE' %>
+                          <%= cc.password_field :cvc, id: :cvc, class: 'form-control', placeholder: 'CVC', required: true, data: {stripe: :cvc} %>
+                        </div>
+                      </div>
+                    </div>
+                    </fieldset>
+                <% end %>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= submit_tag 'Confirm payment', class: 'btn btn-success btn-lg btn-block' %>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-7 col-md-7">
-                <div class="form-group">
-                  <label for="expMonth">EXPIRATION DATE</label>
 
-                  <div class="col-xs-6 col-lg-6 pl-ziro">
-                    <input type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month"/>
-                  </div>
-                  <div class="col-xs-6 col-lg-6 pl-ziro">
-                    <input type="text" class="form-control" name="expYear" placeholder="YYYY" required data-stripe="exp_year"/>
+                <div class="row" style="display:none;">
+                  <div class="col-xs-12">
+                    <p class="payment-errors"></p>
                   </div>
                 </div>
-              </div>
-              <div class="col-xs-5 col-md-5 pull-right">
-                <div class="form-group">
-                  <label for="cvCode">CV CODE</label>
-                  <input type="password" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc"/>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-xs-12">
-                <button class="btn btn-success btn-lg btn-block" type="submit">Start
-                  Subscription
-                </button>
-              </div>
-            </div>
-            <div class="row" style="display:none;">
-              <div class="col-xs-12">
-                <p class="payment-errors"></p>
-              </div>
-            </div>
-          </form>
+          <% end %>
         </div>
       </div>
     </div>
