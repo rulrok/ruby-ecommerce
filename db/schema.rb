@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419194129) do
+ActiveRecord::Schema.define(version: 20150419201810) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_line_1", limit: 255
@@ -86,7 +86,6 @@ ActiveRecord::Schema.define(version: 20150419194129) do
     t.decimal  "subtotal",                      precision: 12, scale: 3
     t.decimal  "tax",                           precision: 12, scale: 3
     t.decimal  "shipping",                      precision: 12, scale: 3
-    t.decimal  "total",                         precision: 12, scale: 3
     t.integer  "order_status_id",     limit: 4
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
