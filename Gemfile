@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-#Improved select tags with jQuery plugin
+# Improved select tags with jQuery plugin
 gem 'chosen-rails'
 
 # Heroku stuff

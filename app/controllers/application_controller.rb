@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     @popular_products = Product.where(product_available: true).limit(9)
 
     @offers = Product.where(discount_available: true)
-                  .order(:updated_at).limit(5)
+              .order(:updated_at).limit(5)
 
     @order_item = current_order.order_items.new
   end

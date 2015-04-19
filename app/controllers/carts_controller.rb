@@ -15,7 +15,7 @@ class CartsController < ApplicationController
 
   # POST /cart/checkout
   def checkout_address
-    shipping_address = get_shipping_address
+    shipping_address = mount_shipping_address
     order = current_order
     order.shipping_address = shipping_address
     if shipping_address.save && order.save
@@ -26,12 +26,11 @@ class CartsController < ApplicationController
   end
 
   def checkout_payment
-
   end
 
   private
 
-  def get_shipping_address
+  def mount_shipping_address
     shipping_address = Address.new(shipping_address_params)
     shipping_address.postalcode = Postalcode.new(shipping_postalcode_params)
     shipping_address
@@ -44,6 +43,4 @@ class CartsController < ApplicationController
   def shipping_postalcode_params
     params.require(:shipping_address).permit(:postalcode, :city)
   end
-
-
 end

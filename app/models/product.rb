@@ -70,7 +70,7 @@ class Product < ActiveRecord::Base
     photo.clear
   end
 
-  def self.search_product(search_expression, options = nil)
+  def self.search_product(search_expression, category, options = nil)
     Product.search do
       # ============= Searching and boosting
 
@@ -82,13 +82,12 @@ class Product < ActiveRecord::Base
         # boost(5.0) do
         #   with(:discount_available, true)
         # end if options[:with_discount].present?
-
-        # phrase_slop 10
       end
+      with :product_available, true
 
       # ============= Filtering
 
-      apply_filter.call(self, options)
+      apply_filters.call(self, category, options)
 
       # ============= Sorting
 
@@ -106,24 +105,40 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def self.apply_filter
-    lambda do |context, options|
-      context.with :product_available, true
-      context.with :discount_available, true if options[:offers_only].present?
-      context.with(:price).greater_than_or_equal_to(options[:minimum_price].to_i) \
-          if options[:minimum_price].present?
-      context.with(:price).less_than_or_equal_to(options[:maximum_price].to_i) \
-          if options[:maximum_price].present?
-      context.with(:created_at).greater_than_or_equal_to(Time.now - 1.day) \
-          if options[:new_products].present?
+  def self.apply_filters
+    lambda do |context, category, options|
+      apply_price_filters.call(context, options)
 
+      apply_product_filters.call(context, options)
+
+      apply_category_filters.call(context, category)
+    end
+  end
+
+  def self.apply_price_filters
+    lambda do |context, options|
+      options[:minimum_price].present? && context.with(:price)\
+        .greater_than_or_equal_to(options[:minimum_price].to_i)
+      options[:maximum_price].present? && context.with(:price)\
+        .less_than_or_equal_to(options[:maximum_price].to_i)
+    end
+  end
+
+  def self.apply_category_filters
+    lambda do |context, category|
       # ============= Filtering category
       # It is important to also consider all the descendant categories from
       # the current one. This is why we must fill the second parameter of
       # 'with' with the children ids as well the own category id (!)
+      category && context.with(:category_id, category.child_ids << category.id)
+    end
+  end
 
-      category = options[:category]
-      context.with(:category_id, category.child_ids << category.id) if category
+  def self.apply_product_filters
+    lambda do |context, options|
+      options[:offers_only].present? && context.with(:discount_available, true)
+      options[:new_products].present? && context\
+        .with(:created_at).greater_than_or_equal_to(Time.now - 1.day)
     end
   end
 end

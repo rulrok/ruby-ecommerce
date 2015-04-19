@@ -3,8 +3,8 @@ class Order < ActiveRecord::Base
   belongs_to :order_status
   has_one :payment
 
-  belongs_to :shipping_address, :class_name => "Address"
-  belongs_to :billing_address, class_name => "Address"
+  belongs_to :shipping_address, class_name: 'Address'
+  belongs_to :billing_address, class_name: 'Address'
 
   has_many :order_items
 

@@ -8,20 +8,30 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @category = Category.find(params[:id])
+    @category = category
+    mount_breadcrumbs
+
+    category_tree = @category.subtree
+    @products = Product.where(category: category_tree, product_available: true)
+                .page(params[:page].to_i)
+                .per(7)
+  end
+
+  def mount_breadcrumbs
     path = @category.path.from_depth(1)
     path.each do |category|
       add_breadcrumb category.name, category
     end
-
-    category_tree = @category.subtree
-    @products = Product.where(category: category_tree, product_available: true)
-                    .page(params[:page].to_i)
-                    .per(7)
   end
 
   # GET /categories/new
   def new
     @category = Category.new
+  end
+
+  private
+
+  def category
+    Category.find(params[:id])
   end
 end

@@ -11,18 +11,22 @@ class ProductsController < CustomerController
   # GET /products/1
   # GET /products/1.json
   def show
-    @product = Product.find(params[:id])
+    @product = product
 
     @category = @product.category
+    mount_breadcrumbs_show
+
+    @order_item = current_order.order_items.new
+
+    render 'not_available' unless @product.product_available?
+  end
+
+  def mount_breadcrumbs_show
     path = @category.path.from_depth(1)
     path.each do |category|
       add_breadcrumb category.name, category
     end
-
-    @order_item = current_order.order_items.new
-
     add_breadcrumb @product.product_name
-    render 'not_available' unless @product.product_available?
   end
 
   # GET /products/search
@@ -35,16 +39,7 @@ class ProductsController < CustomerController
     search_expression = filter_search_terms
     @search_terms = search_expression.split(' ')
 
-    category = Category.find(params[:category]) if params[:category].present?
-
-    @products = Product.search_product search_expression,
-                                       category: category,
-                                       with_discount: params[:with_discount],
-                                       offers_only: params[:offers_only],
-                                       minimum_price: params[:minimum_price],
-                                       maximum_price: params[:maximum_price],
-                                       new_products: params[:new_products],
-                                       page: params[:page]
+    @products = Product.search_product search_expression, category, params
     respond_to do |format|
       format.html { render action: 'search_results' }
       format.json { render json: @products }
@@ -55,5 +50,13 @@ class ProductsController < CustomerController
 
   def filter_search_terms
     params[:search].lstrip.rstrip.gsub(',', ' ')
+  end
+
+  def product
+    Product.find(params[:id])
+  end
+
+  def category
+    Category.find(params[:category]) if params[:category].present?
   end
 end

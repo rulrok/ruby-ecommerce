@@ -28,12 +28,16 @@ class SessionsController < ApplicationController
   private
 
   def start_session(user)
-    session[:user_id] = user.id
-    session[:expires_at] = Time.now + (params[:remember].nil? ? 24.hours : 9999.days)
+    prepare_session(user)
     if user.admin?
       redirect_admin
     else
       redirect_to root_url, notice: 'Logged in!'
     end
+  end
+
+  def prepare_session(user)
+    session[:user_id] = user.id
+    session[:expires_at] = Time.now + (params[:remember].nil? ? 24.hours : 9999.days)
   end
 end
