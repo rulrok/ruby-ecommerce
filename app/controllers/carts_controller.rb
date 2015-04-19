@@ -15,10 +15,35 @@ class CartsController < ApplicationController
 
   # POST /cart/checkout
   def checkout_address
-    render json: params
+    shipping_address = get_shipping_address
+    order = current_order
+    order.shipping_address = shipping_address
+    if shipping_address.save && order.save
+      render json: order
+    else
+      render 'layouts/admin/error_modal', notice: 'Could not save address'
+    end
   end
 
   def checkout_payment
 
   end
+
+  private
+
+  def get_shipping_address
+    shipping_address = Address.new(shipping_address_params)
+    shipping_address.postalcode = Postalcode.new(shipping_postalcode_params)
+    shipping_address
+  end
+
+  def shipping_address_params
+    params.require(:shipping_address).permit(:street_line_1, :street_line_2, :province_id)
+  end
+
+  def shipping_postalcode_params
+    params.require(:shipping_address).permit(:postalcode, :city)
+  end
+
+
 end

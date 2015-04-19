@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
 
   belongs_to :role
-  has_many :orders
+  has_many :orders, inverse_of: :user
   has_many :addresses
   has_many :creditcards
 

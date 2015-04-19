@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150418211434) do
+ActiveRecord::Schema.define(version: 20150418233450) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_line_1", limit: 255
@@ -78,13 +78,15 @@ ActiveRecord::Schema.define(version: 20150418211434) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.decimal  "subtotal",                  precision: 12, scale: 3
-    t.decimal  "tax",                       precision: 12, scale: 3
-    t.decimal  "shipping",                  precision: 12, scale: 3
-    t.decimal  "total",                     precision: 12, scale: 3
-    t.integer  "order_status_id", limit: 4
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.decimal  "subtotal",                      precision: 12, scale: 3
+    t.decimal  "tax",                           precision: 12, scale: 3
+    t.decimal  "shipping",                      precision: 12, scale: 3
+    t.decimal  "total",                         precision: 12, scale: 3
+    t.integer  "order_status_id",     limit: 4
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.integer  "shipping_address_id", limit: 4
+    t.integer  "billing_address_id",  limit: 4
   end
 
   add_index "orders", ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree
@@ -98,10 +100,10 @@ ActiveRecord::Schema.define(version: 20150418211434) do
   end
 
   create_table "postalcodes", force: :cascade do |t|
-    t.string   "postalcode_name", limit: 255
-    t.string   "city",            limit: 255
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.string   "postalcode", limit: 255
+    t.string   "city",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "products", force: :cascade do |t|
