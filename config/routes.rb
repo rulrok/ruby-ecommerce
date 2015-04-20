@@ -30,6 +30,9 @@ Rails.application.routes.draw do
     get 'settings/about' => 'settings#about', as: 'about'
     get 'settings/contact' => 'settings#contact', as: 'contact'
     get 'settings/title' => 'settings#title', as: 'title'
+    get 'settings/default_province' => 'settings#default_province', as: 'default_province'
+    post 'settings/default_province' => 'settings#update_default_province',
+         as: 'update_default_province'
     resources :settings
 
     get 'categories/children/' => 'categories#children'

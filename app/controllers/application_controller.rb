@@ -51,6 +51,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_province
+    if current_user.nil?
+      Province.find(Setting.obtain 'default-province')
+    else
+      current_user.add
+    end
+  end
+
   def clear_current_order
     order = Order.create
     session[:order_id] = order.id
@@ -103,7 +111,7 @@ class ApplicationController < ActionController::Base
 
   def offers
     Product.where(discount_available: true)
-      .order(:updated_at).limit(5)
+        .order(:updated_at).limit(5)
   end
 
   def popular_products

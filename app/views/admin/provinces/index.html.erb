@@ -28,7 +28,21 @@
           <td>
             <b><%= province.hst.zero? ? '----' : (number_to_percentage province.hst * 100, precision: 2) %></b>
           </td>
-          <!--<td><%= link_to 'Show', admin_province_path(province) %></td>-->
+          <td>
+
+            <%= form_tag('/admin/settings/default_province', method: :post, remote: true) do %>
+                <%= hidden_field_tag 'province[province_id]', province.id %>
+                <% if province.id.equal? @default_province_id.to_i %>
+
+                    <%= submit_tag 'Set as default', id: "set_province_#{province.id}", class: 'btn btn-info btn-sm disabled', disabled: true %>
+                <% else %>
+                    <%= submit_tag 'Set as default', id: "set_province_#{province.id}", class: 'btn btn-default btn-sm' %>
+                <% end %>
+
+            <% end %>
+
+
+          </td>
           <td><%= link_to 'Edit', edit_admin_province_path(province) %></td>
         </tr>
     <% end %>

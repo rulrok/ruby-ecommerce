@@ -9,4 +9,8 @@ class Province < ActiveRecord::Base
   def full_name
     "#{name} (#{code})"
   end
+
+  def calculate_taxes (price)
+    price * (1 + gst) * (1 + pst) * (1 + hst)
+  end
 end

@@ -34,6 +34,19 @@ module Admin
     def edit
     end
 
+    # POST /admin/settings/default_province
+    def update_default_province
+      @setting = Setting.find_or_create_by(key: 'default-province')
+      province = Province.find(params.require(:province)[:province_id])
+      @setting.update(value: province.id)
+
+    end
+
+    # GET /admin/settings/default_province
+    def default_province
+
+    end
+
     # POST /admin/settings
     # POST /admin/settings.json
     def create

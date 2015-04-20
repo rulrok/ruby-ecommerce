@@ -1,0 +1,16 @@
+<% button_id = "#set_province_#{@setting.value}" %>
+
+actualButton = $(".btn-info");
+$(actualButton).removeClass('disabled');
+$(actualButton).removeAttr('disabled');
+$(actualButton).addClass('btn-default');
+$(actualButton).removeClass('btn-info');
+
+button = $("<%= button_id %>");
+$(button).addClass('disabled');
+$(button).attr('disabled');
+$(button).removeClass('btn-default');
+$(button).addClass('btn-info');
+
+
+

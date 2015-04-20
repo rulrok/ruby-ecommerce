@@ -7,6 +7,7 @@ module Admin
     # GET /admin/provinces.json
     def index
       @provinces = Province.all
+      @default_province_id = Setting.obtain 'default-province'
     end
 
     # GET /admin/provinces/1/edit

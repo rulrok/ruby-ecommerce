@@ -4,7 +4,12 @@ class CartsController < ApplicationController
 
   def show
     @order_items = current_order.order_items
-
+    @province =
+    if current_user.nil?
+      @tax_over_products = Province.find(Setting.obtain 'default-province').calculate_taxes current_order.subtotal
+    else
+      @tax_over_products = current_user.addresses.first.province.calculate_taxes(current_order.subtotal)
+    end
     add_breadcrumb 'Shopping cart'
   end
 
@@ -50,6 +55,12 @@ class CartsController < ApplicationController
     order = current_order
     user = current_user
 
+    make_payment(order, user) unless order.paid?
+
+    redirect_to :checkout_complete, notice: 'asdf'
+  end
+
+  def make_payment(order, user)
     begin
       creditcard = Creditcard.find_or_create_by(creditcard_params)
       user.creditcards << creditcard
@@ -59,9 +70,7 @@ class CartsController < ApplicationController
       user.orders << order
 
       clear_current_order
-    end unless order.paid?
-
-    redirect_to :checkout_complete, notice: 'asdf'
+    end
   end
 
   def prepare_order_payment(creditcard, order)
