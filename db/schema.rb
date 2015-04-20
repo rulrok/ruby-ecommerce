@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419205238) do
+ActiveRecord::Schema.define(version: 20150420024404) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_line_1", limit: 255
@@ -61,7 +61,11 @@ ActiveRecord::Schema.define(version: 20150419205238) do
     t.integer  "cvc",          limit: 4
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "user_id",      limit: 4
   end
+
+  add_index "creditcards", ["number", "name_on_card", "month", "year", "user_id"], name: "unique_constraint", unique: true, using: :btree
+  add_index "creditcards", ["user_id"], name: "creditcards_user_id_fk", using: :btree
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "product_id",  limit: 4
@@ -91,6 +95,7 @@ ActiveRecord::Schema.define(version: 20150419205238) do
     t.datetime "updated_at",                                             null: false
     t.integer  "shipping_address_id", limit: 4
     t.integer  "billing_address_id",  limit: 4
+    t.integer  "user_id",             limit: 4
   end
 
   add_index "orders", ["billing_address_id"], name: "orders_billing_address_id_fk", using: :btree
@@ -99,11 +104,16 @@ ActiveRecord::Schema.define(version: 20150419205238) do
 
   create_table "payments", force: :cascade do |t|
     t.date     "date"
-    t.decimal  "total",                  precision: 10
-    t.string   "details",    limit: 255
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.decimal  "total",                     precision: 10
+    t.string   "details",       limit: 255
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.integer  "order_id",      limit: 4
+    t.integer  "creditcard_id", limit: 4
   end
+
+  add_index "payments", ["creditcard_id"], name: "fk_rails_efc0deaaf1", using: :btree
+  add_index "payments", ["order_id"], name: "fk_rails_34bba25a5b", using: :btree
 
   create_table "postalcodes", force: :cascade do |t|
     t.string   "postalcode", limit: 255
@@ -174,11 +184,14 @@ ActiveRecord::Schema.define(version: 20150419205238) do
   add_foreign_key "addresses", "postalcodes", name: "addresses_postalcode_id_fk"
   add_foreign_key "addresses", "provinces", name: "addresses_province_id_fk"
   add_foreign_key "addresses", "users", name: "addresses_user_id_fk"
+  add_foreign_key "creditcards", "users", name: "creditcards_user_id_fk"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "addresses", column: "billing_address_id", name: "orders_billing_address_id_fk"
   add_foreign_key "orders", "addresses", column: "shipping_address_id", name: "orders_shipping_address_id_fk"
   add_foreign_key "orders", "order_statuses"
+  add_foreign_key "payments", "creditcards"
+  add_foreign_key "payments", "orders"
   add_foreign_key "products", "categories"
   add_foreign_key "users", "roles", name: "users_role_id_fk"
 end

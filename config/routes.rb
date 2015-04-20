@@ -51,6 +51,8 @@ Rails.application.routes.draw do
   get 'cart/checkout/payment' => 'carts#checkout_payment', :as => 'checkout_payment'
   post 'cart/checkout/payment' => 'carts#create_payment'
 
+  get 'cart/checkout/complete' => 'carts#checkout_complete', :as => 'checkout_complete'
+
   # get 'address/:id' => 'addresses#show', :as => 'addresses'
   resources :order_items, only: [:create, :update, :destroy]
 

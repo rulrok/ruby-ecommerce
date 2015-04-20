@@ -13,13 +13,13 @@ class ApplicationController < ActionController::Base
     # A administrator is not allowed to browse through the store.
     redirect_admin
 
-    @popular_products = Product.where(product_available: true).limit(9)
+    @popular_products = popular_products
 
-    @offers = Product.where(discount_available: true)
-              .order(:updated_at).limit(5)
+    @offers = offers
 
     @order_item = current_order.order_items.new
   end
+
 
   def about
     add_breadcrumb 'About', about_path
@@ -42,14 +42,23 @@ class ApplicationController < ActionController::Base
 
   def current_order
     if session[:order_id].nil?
-      Order.new
+      order = Order.create
+      session[:order_id] = order.id
+      order
     else
       begin
         Order.find(session[:order_id])
       rescue
-        Order.new
+        clear_current_order
       end
     end
+  end
+
+  def clear_current_order
+    order = Order.new
+    order.save
+    session[:order_id] = order.id
+    order
   end
 
   # @return [User]
@@ -95,4 +104,14 @@ class ApplicationController < ActionController::Base
   def categories_search_bar
     @categories_search = Category.from_depth(1)
   end
+
+  def offers
+    Product.where(discount_available: true)
+        .order(:updated_at).limit(5)
+  end
+
+  def popular_products
+    Product.where(product_available: true).limit(9)
+  end
+
 end

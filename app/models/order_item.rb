@@ -9,7 +9,7 @@ class OrderItem < ActiveRecord::Base
   validate :product_present
   validate :order_present
 
-  before_save :finalize
+  before_save :finalize_prices
 
   def unit_price
     if persisted?
@@ -33,7 +33,7 @@ class OrderItem < ActiveRecord::Base
     errors.add(:order, 'is not a valid order.') if order.nil?
   end
 
-  def finalize
+  def finalize_prices
     self[:unit_price] = unit_price
     self[:total_price] = quantity * self[:unit_price]
   end

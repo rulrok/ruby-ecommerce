@@ -33,10 +33,10 @@
                     <div class="row">
                       <div class="col-xs-12">
                         <div class="form-group">
-                          <%= cc.label :card_number, 'CARD NUMBER' %>
+                          <%= cc.label :number, 'CARD NUMBER' %>
 
                           <div class="input-group">
-                            <%= cc.text_field :card_number, id: 'card_number', class: 'form-control', placeholder: 'Valid Card Number', required: true, data: {stripe: :number} %>
+                            <%= cc.text_field :number, id: 'card_number', class: 'form-control', placeholder: 'Valid Card Number', required: true, data: {stripe: :number} %>
                             <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                           </div>
                         </div>
