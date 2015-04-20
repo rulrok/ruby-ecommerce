@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       resources :orders
     end
 
+    resources :provinces
+
     get 'settings/about' => 'settings#about', as: 'about'
     get 'settings/contact' => 'settings#contact', as: 'contact'
     get 'settings/title' => 'settings#title', as: 'title'

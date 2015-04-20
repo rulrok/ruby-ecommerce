@@ -1,8 +1,9 @@
 <div class="col-md-2">
   <br>
   <ul class="nav nav-pills nav-stacked">
-    <li><a><i class="fa fa-user fa-2x"></i> <%= "#{current_user.first_name} #{current_user.last_name}" %>
-      (<%= current_user.email %>)</a></li>
+    <li>
+      <a><i class="fa fa-user fa-2x"></i> <%= "#{current_user.first_name} #{current_user.last_name}" %>
+        (<%= current_user.email %>)</a></li>
     <li>
       <hr>
     </li>
@@ -18,9 +19,15 @@
       <%= link_to [:admin, :categories] do %>
           <i class="fa fa-list fa-fw"></i>Categories
       <% end %>
-    </li><li id="users">
+    </li>
+    <li id="users">
       <%= link_to [:admin, :users] do %>
           <i class="fa fa-user fa-fw"></i>Users
+      <% end %>
+    </li>
+    <li id="taxes">
+      <%= link_to [:admin, :provinces] do %>
+          <i class="fa fa-money fa-fw"></i>Taxes
       <% end %>
     </li>
     <li>

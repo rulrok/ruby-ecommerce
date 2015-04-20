@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing provinces and their taxes</h1>
+<div class="panel panel-default">
+  <table class="table table-hover">
+    <thead class="panel-heading">
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>PST</th>
+      <th>GST</th>
+      <th>HST</th>
+      <th colspan="2"></th>
+    </tr>
+    </thead>
+
+    <tbody class="panel-body">
+    <% @provinces.each do |province| %>
+        <tr>
+          <td><%= province.name %></td>
+          <td><%= province.code %></td>
+          <td><b><%= number_to_percentage province.pst * 100, precision: 2 %></b></td>
+          <td><b><%= number_to_percentage province.gst * 100, precision: 2 %></b></td>
+          <td><b><%= number_to_percentage province.hst * 100, precision: 2 %></b></td>
+          <!--<td><%= link_to 'Show', admin_province_path(province) %></td>-->
+          <td><%= link_to 'Edit', edit_admin_province_path(province) %></td>
+        </tr>
+    <% end %>
+    </tbody>
+    <tfoot class="panel-footer">
+    <tr>
+      <td colspan="7"></td>
+    </tr>
+    </tfoot>
+  </table>
+</div>

@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @admin_province.name %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @admin_province.code %>
+</p>
+
+<p>
+  <strong>PST:</strong>
+  <%= @admin_province.pst %>
+</p>
+
+<p>
+  <strong>GST:</strong>
+  <%= @admin_province.gst %>
+</p><p>
+  <strong>HST:</strong>
+  <%= @admin_province.hst %>
+</p>
+
+<%= link_to 'Edit', edit_admin_province_path(@admin_province) %> |
+<%= link_to 'Back', admin_provinces_path %>
