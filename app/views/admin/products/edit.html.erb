@@ -1,6 +1,6 @@
-<h1>Editing Admin Product</h1>
+<h1>Editing Product <%= @product.product_name %></h1>
 
 <%= render 'form' %>
-
+<br/>
 <%= link_to 'Show', [:admin, @product] %> |
-<%= link_to 'Back', admin_products_path %>
+<%= link_to 'Back', admin_products_path, class: 'btn btn-default', role: :button %>
