@@ -1,6 +1,6 @@
 module Admin
   class OrdersController < Admin::AdminController
-    before_action :set_admin_order, only: [:show, :edit, :update, :destroy]
+    before_action :set_admin_user_order, only: [:show, :edit, :update, :destroy]
 
     # GET /admin/user/:id/orders
     def index
@@ -66,8 +66,9 @@ module Admin
     private
 
     # Use callbacks to share common setup or constraints between actions.
-    def set_admin_order
+    def set_admin_user_order
       @order = Order.find(params[:id])
+      @user = User.find(params[:user_id])
     end
 
     # Never trust parameters from the scary internet,

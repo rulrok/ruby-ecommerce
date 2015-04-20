@@ -11,6 +11,10 @@ class Order < ActiveRecord::Base
   before_create :set_order_status
   before_save :update_subtotal
 
+  def to_s
+    "##{id}"
+  end
+
   def subtotal
     order_items.collect do |oi|
       oi.valid? ? (oi.quantity * oi.unit_price) : 0

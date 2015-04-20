@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
   has_many :addresses, dependent: :destroy
   has_many :creditcards, dependent: :delete_all
 
+  def to_s
+    "#{first_name} #{last_name}"
+  end
+
   def admin?
     role.name == 'administrator'
   end
