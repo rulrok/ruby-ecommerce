@@ -14,15 +14,15 @@ module Admin
     end
 
     def about
-      @content = Setting.find_by_key('about-content')
+      @content = Setting.find_or_create_by(key: 'about-content') { |s| s.value = '' }
     end
 
     def contact
-      @content = Setting.find_by_key('contact-content')
+      @content = Setting.find_or_create_by(key: 'contact-content') { |s| s.value = '' }
     end
 
     def title
-      @content = Setting.find_by_key('title')
+      @content = Setting.find_or_create_by(key: 'title') { |s| s.value = '' }
     end
 
     # GET /admin/settings/new
