@@ -19,9 +19,15 @@
         <tr>
           <td><%= province.name %></td>
           <td><%= province.code %></td>
-          <td><b><%= number_to_percentage province.pst * 100, precision: 2 %></b></td>
-          <td><b><%= number_to_percentage province.gst * 100, precision: 2 %></b></td>
-          <td><b><%= number_to_percentage province.hst * 100, precision: 2 %></b></td>
+          <td>
+            <b><%= province.pst.zero? ? '----' : (number_to_percentage province.pst * 100, precision: 2) %></b>
+          </td>
+          <td>
+            <b><%= province.gst.zero? ? '----' : (number_to_percentage province.gst * 100, precision: 2) %></b>
+          </td>
+          <td>
+            <b><%= province.hst.zero? ? '----' : (number_to_percentage province.hst * 100, precision: 2) %></b>
+          </td>
           <!--<td><%= link_to 'Show', admin_province_path(province) %></td>-->
           <td><%= link_to 'Edit', edit_admin_province_path(province) %></td>
         </tr>
