@@ -20,7 +20,6 @@ class ApplicationController < ActionController::Base
     @order_item = current_order.order_items.new
   end
 
-
   def about
     add_breadcrumb 'About', about_path
 
@@ -42,9 +41,7 @@ class ApplicationController < ActionController::Base
 
   def current_order
     if session[:order_id].nil?
-      order = Order.create
-      session[:order_id] = order.id
-      order
+      clear_current_order
     else
       begin
         Order.find(session[:order_id])
@@ -55,8 +52,7 @@ class ApplicationController < ActionController::Base
   end
 
   def clear_current_order
-    order = Order.new
-    order.save
+    order = Order.create
     session[:order_id] = order.id
     order
   end
@@ -107,11 +103,10 @@ class ApplicationController < ActionController::Base
 
   def offers
     Product.where(discount_available: true)
-        .order(:updated_at).limit(5)
+      .order(:updated_at).limit(5)
   end
 
   def popular_products
     Product.where(product_available: true).limit(9)
   end
-
 end

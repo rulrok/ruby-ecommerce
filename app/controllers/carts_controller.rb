@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
-
-  before_action :verify_logged_user, only: [:checkout, :checkout_address, :checkout_payment, :checkout_complete]
+  before_action :verify_logged_user,
+                only: [:checkout, :checkout_address, :checkout_payment, :checkout_complete]
 
   def show
     @order_items = current_order.order_items
@@ -10,31 +10,33 @@ class CartsController < ApplicationController
 
   # GET /cart/checkout
   def checkout
-
     add_breadcrumb 'Cart', cart_path
     add_breadcrumb 'Cart checkout'
 
     @user_addresses = Address.where(user: current_user)
   end
 
-
   # POST /cart/checkout
   def checkout_address
     shipping_address = mount_shipping_address
     billing_address = mount_billing_address
 
-    shipping_address.user = current_user
-    billing_address.user = current_user
-
     order = current_order
-    order.shipping_address = shipping_address
-    order.billing_address = billing_address
+
+    associate_addresses(billing_address, order, shipping_address)
 
     if shipping_address.save && order.save
       redirect_to :checkout_payment
     else
       render 'layouts/application', notice: 'We could not save address to your order.'
     end
+  end
+
+  def associate_addresses(billing_address, order, shipping_address)
+    shipping_address.user = current_user
+    billing_address.user = current_user
+    order.shipping_address = shipping_address
+    order.billing_address = billing_address
   end
 
   # GET /cart/checkout/payment
@@ -52,12 +54,9 @@ class CartsController < ApplicationController
       creditcard = Creditcard.find_or_create_by(creditcard_params)
       user.creditcards << creditcard
 
-      order.payment = Payment.new
-      order.payment.creditcard = creditcard
-      order.paid!
+      prepare_order_payment(creditcard, order)
 
       user.orders << order
-      user.save
 
       clear_current_order
     end unless order.paid?
@@ -65,9 +64,13 @@ class CartsController < ApplicationController
     redirect_to :checkout_complete, notice: 'asdf'
   end
 
+  def prepare_order_payment(creditcard, order)
+    order.payment = Payment.new
+    order.payment.creditcard = creditcard
+    order.paid!
+  end
 
   def checkout_complete
-
   end
 
   private
@@ -115,5 +118,4 @@ class CartsController < ApplicationController
   def creditcard_params
     params.require(:creditcard).permit(:name_on_card, :number, :month, :year, :cvc)
   end
-
 end

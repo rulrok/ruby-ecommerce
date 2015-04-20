@@ -10,7 +10,7 @@ class OrderItemsController < ApplicationController
     @order = current_order
     @order_item = @order.order_items.find(params[:id])
     @order_item.update_attributes(order_item_params)
-    @order.in_progress! #update order status
+    @order.in_progress! # update order status
     @order_items = @order.order_items
   end
 

@@ -1,5 +1,4 @@
 class Order < ActiveRecord::Base
-
   belongs_to :user, inverse_of: :orders
   belongs_to :order_status
   belongs_to :shipping_address, class_name: 'Address'
@@ -19,47 +18,47 @@ class Order < ActiveRecord::Base
   end
 
   def set_order_status
-    self.order_status = OrderStatus.construct_status :opened if self.order_status.nil?
+    self.order_status = OrderStatus.construct_status :opened if order_status.nil?
   end
 
   def opened?
-    self.order_status.equal? OrderStatus.construct_status :opened
+    order_status.equal? OrderStatus.construct_status :opened
   end
 
   def in_progress?
-    self.order_status.equal? OrderStatus.construct_status :in_progress
+    order_status.equal? OrderStatus.construct_status :in_progress
   end
 
   def in_progress!
     self.order_status = OrderStatus.construct_status :in_progress
-    self.save
+    save
   end
 
   def paid?
-    self.order_status.equal? OrderStatus.construct_status :paid
+    order_status.equal? OrderStatus.construct_status :paid
   end
 
   def paid!
     self.order_status = OrderStatus.construct_status :paid
-    self.save
+    save
   end
 
   def shipped?
-    self.order_status.equal? OrderStatus.construct_status :shipped
+    order_status.equal? OrderStatus.construct_status :shipped
   end
 
   def shipped!
     self.order_status = OrderStatus.construct_status :shipped
-    self.save
+    save
   end
 
   def cancelled?
-    self.order_status.equal? OrderStatus.construct_status :cancelled
+    order_status.equal? OrderStatus.construct_status :cancelled
   end
 
   def cancel!
     self.order_status = OrderStatus.construct_status :cancelled
-    self.save
+    save
   end
 
   private
