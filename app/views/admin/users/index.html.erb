@@ -21,10 +21,10 @@
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.email %></td>
-        <td><%= user.created_at %></td>
+        <td><%= user.created_at.strftime("%B %d, %Y") %></td>
         <td><%= link_to 'Show', admin_user_path(user) %></td>
         <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
-        <td><%= link_to 'See orders', admin_user_orders_path(user)%></td>
+        <td><%= link_to 'See orders', admin_user_orders_path(user) %></td>
         <!--<td><%= link_to 'Destroy', [:admin, user], method: :delete, data: {confirm: 'Are you sure?'} %></td>-->
       </tr>
   <% end %>
