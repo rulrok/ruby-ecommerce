@@ -21,11 +21,15 @@ Rails.application.routes.draw do
     get '', to: 'dashboard#index', as: '/'
 
     resources :products
-    resources :users
+    resources :users do
+      resources :orders
+    end
+
     get 'settings/about' => 'settings#about', as: 'about'
     get 'settings/contact' => 'settings#contact', as: 'contact'
     get 'settings/title' => 'settings#title', as: 'title'
     resources :settings
+
     get 'categories/children/' => 'categories#children'
     get 'categories/children/:parent_id(.:format)' => 'categories#children'
     get 'categories/except/:id(.:format)' => 'categories#except'
