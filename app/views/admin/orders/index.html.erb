@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Admin Products</h1>
+<h1>Listing orders for user <%= "##{@user.id} - '#{@user.first_name} #{@user.last_name}'" %></h1>
 <div class="text-center">
   <p><%= page_entries_info @orders %></p>
   <%= paginate @orders, :theme => 'twitter-bootstrap-3' %>
@@ -39,4 +39,4 @@
 </div>
 <br>
 
-<!--<%= link_to 'New uSER', new_admin_user_path %>-->
+<%= link_to 'See all users', admin_users_path %>
