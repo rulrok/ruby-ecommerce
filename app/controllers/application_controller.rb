@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :categories_search_bar
 
-  helper_method :current_user, :current_order, :logged_in?
+  helper_method :current_user, :current_order, :current_order=, :logged_in?
 
   add_breadcrumb 'Home', :root_path
 
@@ -38,6 +38,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def current_order=(order)
+    session[:order_id] = order.id
+  end
 
   def current_order
     if session[:order_id].nil?
