@@ -51,6 +51,8 @@ class CartsController < ApplicationController
   # POST /cart/checkout/payment
   def create_payment
     order = current_order
+    order.tax = current_province.calculate_taxes order.subtotal
+    order.save
     user = current_user
 
     make_payment(order, user) unless order.paid?

@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
 
   has_many :order_items, dependent: :delete_all
 
-  before_create :set_order_status
+  # before_create :set_order_status
   before_save :update_subtotal, :update_taxes
 
   def to_s
