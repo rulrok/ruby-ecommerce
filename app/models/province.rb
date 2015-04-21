@@ -11,6 +11,6 @@ class Province < ActiveRecord::Base
   end
 
   def calculate_taxes (price)
-    price * (1 + gst) * (1 + pst) * (1 + hst)
+    price * (gst + pst + hst)
   end
 end

@@ -11,6 +11,12 @@ class SessionsController < ApplicationController
   def create
     user = User.authenticate(params[:email], params[:password])
     if user
+
+      if current_order.user.nil?
+        current_order.user = user
+        current_order.save
+      end
+
       start_session user
 
     else
@@ -20,6 +26,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+
+    current_order.user = current_user
+    current_order.save
+
     session.clear
     session[:user_id] = nil
     redirect_to root_url, notice: 'Logged out!'

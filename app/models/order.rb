@@ -9,7 +9,7 @@ class Order < ActiveRecord::Base
   has_many :order_items, dependent: :delete_all
 
   before_create :set_order_status
-  before_save :update_subtotal
+  before_save :update_subtotal, :update_taxes
 
   def to_s
     "##{id}"
@@ -69,5 +69,9 @@ class Order < ActiveRecord::Base
 
   def update_subtotal
     self[:subtotal] = subtotal
+  end
+
+  def update_taxes
+    # self[:tax] =
   end
 end

@@ -52,11 +52,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_province
-    if current_user.nil?
-      Province.find(Setting.obtain 'default-province')
-    else
-      current_user.add
-    end
+    Province.find(Setting.obtain 'default-province')
   end
 
   def clear_current_order

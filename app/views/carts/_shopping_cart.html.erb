@@ -65,8 +65,9 @@
             <td>  </td>
             <td>  </td>
             <td>  </td>
-            <td><h5>Taxes (<%= Setting.obtain 'default-province' %>)</h5></td>
-            <td class="text-right"><h5><strong><%= number_to_currency @tax_over_products %>></strong></h5></td>
+            <td><h5>Taxes (<%= @province.name %>)</h5></td>
+            <td class="text-right">
+              <h5><strong><%= number_to_currency @tax_over_products %></strong></h5></td>
           </tr>
           <tr>
             <td>  </td>
@@ -74,7 +75,7 @@
             <td>  </td>
             <td><h3>Total</h3></td>
             <td class="text-right">
-              <h3><strong><%= number_to_currency(current_order.subtotal) %></strong></h3></td>
+              <h3><strong><%= number_to_currency(current_order.subtotal + @tax_over_products) %></strong></h3></td>
           </tr>
 
           </tbody>

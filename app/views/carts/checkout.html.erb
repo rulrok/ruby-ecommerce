@@ -73,7 +73,9 @@
                         <%= sa.label :province_id, 'Province', class: 'col-sm-2 control-label' %>
 
                         <div class="col-sm-4">
-                          <%= collection_select :shipping_address, :province_id, Province.all, :id, :full_name, {include_blank: 'Select an address'}, {class: 'chosen-select', form: :addresses_form} %>
+                          <%= sa.text_field :province, class: 'form-control disabled', value: @province.name, disabled: true %>
+                          <%= #collection_select :shipping_address, :province_id, Province.all, :id, :full_name, {include_blank: 'Select an address'}, {class: 'chosen-select', form: :addresses_form}
+                          %>
                           <%= #text_field_tag :province, nil, class: 'form-control', placeholder: 'Province'
                           %>
                         </div>
@@ -168,7 +170,9 @@
                         <%= ba.label :province_id, 'Province', class: 'col-sm-2 control-label' %>
 
                         <div class="col-sm-4">
-                          <%= collection_select :billing_address, :province_id, Province.all, :id, :full_name, {include_blank: 'Select an option'}, {class: 'chosen-select', form: :addresses_form} %>
+                          <%= ba.text_field :province, class: 'form-control disabled', value: @province.name, disabled: true %>
+                          <%= #collection_select :shipping_address, :province_id, Province.all, :id, :full_name, {include_blank: 'Select an address'}, {class: 'chosen-select', form: :addresses_form}
+                          %>
                           <%= #text_field_tag :province, nil, class: 'form-control', placeholder: 'Province'
                           %>
                         </div>

@@ -3,14 +3,11 @@ class CartsController < ApplicationController
                 only: [:checkout, :checkout_address, :checkout_payment, :checkout_complete]
 
   def show
-    @order_items = current_order.order_items
-    @province =
-    if current_user.nil?
-      @tax_over_products = Province.find(Setting.obtain 'default-province').calculate_taxes current_order.subtotal
-    else
-      @tax_over_products = current_user.addresses.first.province.calculate_taxes(current_order.subtotal)
-    end
     add_breadcrumb 'Shopping cart'
+
+    @order_items = current_order.order_items
+    @province = current_province
+    @tax_over_products = @province.calculate_taxes current_order.subtotal
   end
 
   # GET /cart/checkout
@@ -18,6 +15,7 @@ class CartsController < ApplicationController
     add_breadcrumb 'Cart', cart_path
     add_breadcrumb 'Cart checkout'
 
+    @province = current_province
     @user_addresses = Address.where(user: current_user)
   end
 
@@ -57,7 +55,7 @@ class CartsController < ApplicationController
 
     make_payment(order, user) unless order.paid?
 
-    redirect_to :checkout_complete, notice: 'asdf'
+    redirect_to :checkout_complete, notice: 'Order completed'
   end
 
   def make_payment(order, user)
@@ -92,7 +90,10 @@ class CartsController < ApplicationController
     shipping_address = if params[:shipping_address][:address_id].present?
                          Address.find(params[:shipping_address][:address_id])
                        else
-                         Address.new(shipping_address_params)
+                         add = Address.new(shipping_address_params)
+                         add.province = current_province
+                         add.save
+                         add
                        end
     shipping_address.postalcode = Postalcode.new(shipping_postalcode_params)
     shipping_address
@@ -102,14 +103,17 @@ class CartsController < ApplicationController
     billing_address = if params[:billing_address][:address_id].present?
                         Address.find(params[:billing_address][:address_id])
                       else
-                        Address.new(billing_address_params)
+                        add = Address.new(billing_address_params)
+                        add.province = current_province
+                        add.save
+                        add
                       end
     billing_address.postalcode = Postalcode.new(billing_postalcode_params)
     billing_address
   end
 
   def shipping_address_params
-    params.require(:shipping_address).permit(:street_line_1, :street_line_2, :province_id)
+    params.require(:shipping_address).permit(:street_line_1, :street_line_2)
   end
 
   def shipping_postalcode_params
@@ -117,7 +121,7 @@ class CartsController < ApplicationController
   end
 
   def billing_address_params
-    params.require(:billing_address).permit(:street_line_1, :street_line_2, :province_id)
+    params.require(:billing_address).permit(:street_line_1, :street_line_2)
   end
 
   def billing_postalcode_params
