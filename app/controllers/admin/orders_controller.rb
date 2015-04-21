@@ -39,13 +39,11 @@ module Admin
     def update
       respond_to do |format|
         if @order.update(admin_order_params)
-          format.html do
-            redirect_to admin_order_path(@order),
-                        notice: 'Order was successfully updated.'
-          end
+          format.html { redirect_to admin_order_path(@order), notice: 'Order updated.' }
+          format.json { head :no_content }
         else
           format.html { render :edit }
-
+          format.json { head :no_content }
         end
       end
     end
@@ -74,8 +72,7 @@ module Admin
     # Never trust parameters from the scary internet,
     # only allow the white list through.
     def admin_order_params
-      params.require(:order)
-          .permit(:email, :password, :password_confirmation)
+      params.require(:order).permit(:order_status_id)
     end
   end
 end

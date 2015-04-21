@@ -16,7 +16,7 @@
     <th>Status</th>
     <th>Shipping address</th>
     <th>Billing address</th>
-    <th colspan="3"></th>
+    <th colspan="2"></th>
   </tr>
   </thead>
   <tbody>
@@ -26,11 +26,20 @@
         <td><%= number_to_currency order.subtotal %></td>
         <td><%= number_to_currency order.tax %></td>
         <td><%= number_to_currency order.shipping %></td>
-        <td><%= order.order_status.name %></td>
+        <% if order.paid? || order.shipped? || order.cancelled? %>
+            <td>
+              <%= form_for [:admin, @user, order], html: {class: 'form', remote: true}, format: :json do |f| %>
+                  <%= token_tag nil %>
+                  <%= f.collection_select :order_status_id, OrderStatus.where(id: [20, 30, 40]), :id, :name, {class: 'form-control'}, onchange: "this.form.submit()" %>
+              <% end %>
+            </td>
+        <% else %>
+            <td><b><%= order.order_status.name %></b></td>
+        <% end %>
         <td><%= order.shipping_address %></td>
         <td><%= order.billing_address %></td>
         <td><%= link_to 'Show', admin_user_order_path(@user, order) %></td>
-        <td><%= link_to 'Edit', edit_admin_user_order_path(@user, order) %></td>
+        <!--<td><%= link_to 'Edit', edit_admin_user_order_path(@user, order) %></td>-->
         <!--<td><%= link_to 'Destroy', [:admin, @user, order], method: :delete, data: {confirm: 'Are you sure?'} %></td>-->
       </tr>
   <% end %>

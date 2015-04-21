@@ -26,11 +26,11 @@ class Order < ActiveRecord::Base
   end
 
   def opened?
-    order_status.equal? OrderStatus.construct_status :opened
+    order_status.id.equal? (OrderStatus.construct_status :opened).id
   end
 
   def in_progress?
-    order_status.equal? OrderStatus.construct_status :in_progress
+    self.order_status.id.equal? (OrderStatus.construct_status :in_progress).id
   end
 
   def in_progress!
@@ -39,7 +39,7 @@ class Order < ActiveRecord::Base
   end
 
   def paid?
-    order_status.equal? OrderStatus.construct_status :paid
+    self.order_status.id.equal? (OrderStatus.construct_status :paid).id
   end
 
   def paid!
@@ -48,7 +48,7 @@ class Order < ActiveRecord::Base
   end
 
   def shipped?
-    order_status.equal? OrderStatus.construct_status :shipped
+    order_status.id.equal? (OrderStatus.construct_status :shipped).id
   end
 
   def shipped!
@@ -57,7 +57,7 @@ class Order < ActiveRecord::Base
   end
 
   def cancelled?
-    order_status.equal? OrderStatus.construct_status :cancelled
+    order_status.id.equal? (OrderStatus.construct_status :cancelled).id
   end
 
   def cancel!
