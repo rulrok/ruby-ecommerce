@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     if user
 
       last_order = user.orders.last
-      if last_order.in_progress?
+      if !last_order.nil? && last_order.in_progress?
         #The user has one unfinished order from a previous session
         session[:order_id] = last_order.id
       else

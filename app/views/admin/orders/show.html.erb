@@ -40,10 +40,29 @@
   <strong>Items:</strong>
 
 </p>
-<%= @order.order_items.each do |order_item| %>
-    <p>Item name:</p>
-    <p><%= order_item %></p>
-<% end %>
+<table class="table panel panel-default">
+  <thead class="panel-heading">
+  <tr>
+    <th>Picture</th>
+    <th>Item name</th>
+  </tr>
+  </thead>
+  <tbody class="panel-body">
+  <% @order.order_items.each do |order_item| %>
+
+      <tr>
+        <td><%= image_tag order_item.product.photo(:mini), class: 'img-thumbnail img-responsive' %></td>
+        <td><%= order_item.product.product_name %></td>
+      </tr>
+
+  <% end %>
+  </tbody>
+  <tfoot class="panel-footer">
+  <tr>
+    <td colspan="4"></td>
+  </tr>
+  </tfoot>
+</table>
 <br/>
 <%= link_to 'Edit', edit_admin_user_order_path(@user, @order) %> |
 <%= link_to 'Back', admin_user_orders_path(@user) %>
