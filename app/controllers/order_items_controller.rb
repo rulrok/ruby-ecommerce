@@ -11,6 +11,7 @@ class OrderItemsController < ApplicationController
     @order = current_order
     @order_item = @order.order_items.find(params[:id])
     @order_item.update_attributes(order_item_params)
+    @tax_over_products = current_province.calculate_taxes current_order.subtotal || 0
     # @order.in_progress! # update order status
     @order_items = @order.order_items
   end
