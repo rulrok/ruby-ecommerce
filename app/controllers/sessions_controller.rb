@@ -1,10 +1,10 @@
 class SessionsController < ApplicationController
   layout 'login'
 
+  before_action :ecommerce_name, only: [:new, :create]
+
   # Login page
   def new
-    @action_name = 'Login'
-    @ecommerce_name = Setting.obtain :title
     redirect_to root_url unless current_user.nil?
   end
 
@@ -60,5 +60,9 @@ class SessionsController < ApplicationController
   def prepare_session(user)
     session[:user_id] = user.id
     session[:expires_at] = Time.now + (params[:remember].nil? ? 24.hours : 9999.days)
+  end
+
+  def ecommerce_name
+    @ecommerce_name = Setting.obtain :title
   end
 end
