@@ -74,7 +74,7 @@ module Admin
     # only allow the white list through.
     def admin_user_params
       params.require(:user)
-          .permit(:email, :password, :password_confirmation)
+        .permit(:email, :password, :password_confirmation)
     end
   end
 end

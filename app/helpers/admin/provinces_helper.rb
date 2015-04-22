@@ -1,2 +1,4 @@
-module Admin::ProvincesHelper
+module Admin
+  module ProvincesHelper
+  end
 end

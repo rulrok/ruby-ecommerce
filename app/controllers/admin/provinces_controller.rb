@@ -1,6 +1,5 @@
 module Admin
   class ProvincesController < AdminController
-
     before_action :set_admin_province, only: [:show, :edit, :update]
 
     # GET /admin/provinces
@@ -19,7 +18,7 @@ module Admin
     def update
       respond_to do |format|
         if @admin_province.update(admin_province_params)
-          format.html { redirect_to admin_provinces_path, notice: 'Province was successfully updated.' }
+          format.html { redirect_to admin_provinces_path, notice: 'Province info  updated.' }
           format.json { render :show, status: :ok, location: @admin_province }
         else
           format.html { render :edit }
@@ -29,6 +28,7 @@ module Admin
     end
 
     private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_province
       @admin_province = Province.find(params[:id])

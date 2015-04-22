@@ -12,19 +12,7 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:email], params[:password])
     if user
 
-      last_order = user.orders.last
-      if !last_order.nil? && last_order.in_progress?
-        #The user has one unfinished order from a previous session
-        session[:order_id] = last_order.id
-      else
-        #The user is only relying on the new created order
-        order = current_order
-        if order.user.nil?
-          order.user = user
-          order.save
-        end
-      end
-
+      process_user_order(user)
 
       start_session user
 
@@ -35,7 +23,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-
     current_order.user = current_user
     current_order.save
 
@@ -45,6 +32,21 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def process_user_order(user)
+    last_order = user.orders.last
+    if last_order.present? && last_order.in_progress?
+      # The user has one unfinished order from a previous session
+      session[:order_id] = last_order.id
+    else
+      # The user is only relying on the new created order
+      order = current_order
+      if order.user.nil?
+        order.user = user
+        order.save
+      end
+    end
+  end
 
   def start_session(user)
     prepare_session(user)
@@ -56,7 +58,6 @@ class SessionsController < ApplicationController
   end
 
   def prepare_session(user)
-
     session[:user_id] = user.id
     session[:expires_at] = Time.now + (params[:remember].nil? ? 24.hours : 9999.days)
   end

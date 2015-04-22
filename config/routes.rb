@@ -54,13 +54,13 @@ Rails.application.routes.draw do
 
   get 'cart' => 'carts#show', :as => 'cart'
 
-  get 'cart/checkout' => 'carts#checkout', :as => 'checkout'
-  post 'cart/checkout' => 'carts#checkout_address'
+  get 'cart/checkout' => 'checkout#checkout', :as => 'checkout'
+  post 'cart/checkout' => 'checkout#checkout_address'
 
-  get 'cart/checkout/payment' => 'carts#checkout_payment', :as => 'checkout_payment'
-  post 'cart/checkout/payment' => 'carts#create_payment'
+  get 'cart/checkout/payment' => 'checkout#checkout_payment', :as => 'checkout_payment'
+  post 'cart/checkout/payment' => 'checkout#create_payment'
 
-  get 'cart/checkout/complete' => 'carts#checkout_complete', :as => 'checkout_complete'
+  get 'cart/checkout/complete' => 'checkout#checkout_complete', :as => 'checkout_complete'
 
   # get 'address/:id' => 'addresses#show', :as => 'addresses'
   resources :order_items, only: [:create, :update, :destroy]

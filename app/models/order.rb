@@ -11,6 +11,12 @@ class Order < ActiveRecord::Base
   # before_create :set_order_status
   before_save :update_subtotal, :update_taxes
 
+  def associate_addresses!(shipping_address, billing_address)
+    self.shipping_address = shipping_address
+    self.billing_address = billing_address
+    save
+  end
+
   def to_s
     "##{id}"
   end
@@ -26,42 +32,42 @@ class Order < ActiveRecord::Base
   end
 
   def opened?
-    order_status.id.equal? (OrderStatus.construct_status :opened).id
+    order_status.id.equal? OrderStatus::OPENED
   end
 
   def in_progress?
-    self.order_status.id.equal? (OrderStatus.construct_status :in_progress).id
+    order_status.id.equal? OrderStatus::IN_PROGRESS
   end
 
   def in_progress!
-    self.order_status = OrderStatus.construct_status :in_progress
+    self.order_status = OrderStatus::IN_PROGRESS
     save
   end
 
   def paid?
-    self.order_status.id.equal? (OrderStatus.construct_status :paid).id
+    order_status.id.equal? OrderStatus::PAID
   end
 
   def paid!
-    self.order_status = OrderStatus.construct_status :paid
+    self.order_status = OrderStatus::PAID
     save
   end
 
   def shipped?
-    order_status.id.equal? (OrderStatus.construct_status :shipped).id
+    order_status.id.equal? OrderStatus::SHIPPED
   end
 
   def shipped!
-    self.order_status = OrderStatus.construct_status :shipped
+    self.order_status = OrderStatus::SHIPPED
     save
   end
 
   def cancelled?
-    order_status.id.equal? (OrderStatus.construct_status :cancelled).id
+    order_status.id.equal? OrderStatus::CANCELLED
   end
 
   def cancel!
-    self.order_status = OrderStatus.construct_status :cancelled
+    self.order_status = OrderStatus::CANCELLED
     save
   end
 

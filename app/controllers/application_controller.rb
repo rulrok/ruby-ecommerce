@@ -45,12 +45,12 @@ class ApplicationController < ActionController::Base
 
   def current_order
     if session[:order_id].nil?
-      clear_current_order
+      create_new_order_session
     else
       begin
         Order.find(session[:order_id])
       rescue
-        clear_current_order
+        create_new_order_session
       end
     end
   end
@@ -59,8 +59,10 @@ class ApplicationController < ActionController::Base
     Province.find(Setting.obtain 'default-province')
   end
 
-  def clear_current_order
-    order = Order.create
+  def create_new_order_session
+    order = Order.new
+    order.order_status = OrderStatus.construct_status :opened
+    order.save
     session[:order_id] = order.id
     order
   end
@@ -111,7 +113,7 @@ class ApplicationController < ActionController::Base
 
   def offers
     Product.where(discount_available: true)
-        .order(:updated_at).limit(5)
+      .order(:updated_at).limit(5)
   end
 
   def popular_products
