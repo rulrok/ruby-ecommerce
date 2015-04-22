@@ -40,7 +40,7 @@ class CheckoutController < ApplicationController
 
     if order.paid?
       session[:last_order_completed] = order.id
-      redirect_to :checkout_complete, notice: "Order completed"
+      redirect_to :checkout_complete, notice: 'Order completed'
     else
       redirect_to :checkout_payment, error: 'Payment not authorized!'
     end
@@ -74,7 +74,7 @@ class CheckoutController < ApplicationController
   end
 
   def verify_logged_user
-    session[:return_url] = 'cart/checkout_path'
+    session[:return_url] = '/cart/checkout'
     redirect_to :log_in, notice: 'You must be be logged in to checkout' if current_user.nil?
   end
 

@@ -11,6 +11,5 @@ class CartsController < ApplicationController
     payment = current_user.payments.last
     payment.details = token
     payment.save
-
   end
 end
