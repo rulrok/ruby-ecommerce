@@ -50,8 +50,7 @@ class ApplicationController < ActionController::Base
       create_new_order_session
     end
     if current_user.present? && order.user.nil?
-      order.user = current_user
-      order.save
+      order.update_attribute :user, current_user
     end
     order
   end
@@ -114,7 +113,7 @@ class ApplicationController < ActionController::Base
 
   def offers
     Product.where(discount_available: true)
-      .order(:updated_at).limit(5)
+        .order(:updated_at).limit(5)
   end
 
   def popular_products
