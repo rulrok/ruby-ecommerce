@@ -16,6 +16,7 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
 //@import "font-awesome-sprockets";
 //@import "font-awesome";
 
@@ -23,24 +24,23 @@
   margin: 0;
 }
 
-.list-group-horizontal .list-group-item {
-  display: inline-block;
-}
-
-.list-group-horizontal .list-group-item {
-  margin-bottom: 0;
-  margin-left: -4px;
-  margin-right: 0;
-}
-
-.list-group-horizontal .list-group-item:first-child {
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 4px;
-}
-
-.list-group-horizontal .list-group-item:last-child {
-  border-top-right-radius: 4px;
-  border-bottom-left-radius: 0;
+.list-group-horizontal {
+  .list-group-item {
+    display: inline-block;
+  }
+  .list-group-item {
+    margin-bottom: 0;
+    margin-left: -4px;
+    margin-right: 0;
+  }
+  .list-group-item:first-child {
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 4px;
+  }
+  .list-group-item:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 0;
+  }
 }
 
 .form-search {
@@ -79,70 +79,73 @@
 .product-pic {
   width: 10%;
   position: relative;
-}
 
-.product-pic span a {
-  color: #fff;
-  font-size: 16px;
-  display: none;
+  span a {
+    color: #fff;
+    font-size: 16px;
+    display: none;
+  }
 }
 
 .product-pic-buttons span {
   background-color: cornflowerblue;
 }
 
-.product-pic span.product-like {
-  position: absolute;
-  left: 11%;
-  bottom: 10px;
-}
-
-.product-pic span.product-share {
-  position: absolute;
-  left: 46%;
-  bottom: 10px;
-}
-
-.product-pic span.product-plus {
-  position: absolute;
-  right: 9%;
-  bottom: 10px;
+.product-pic {
+  span.product-like {
+    position: absolute;
+    left: 11%;
+    bottom: 10px;
+  }
+  span.product-share {
+    position: absolute;
+    left: 46%;
+    bottom: 10px;
+  }
+  span.product-plus {
+    position: absolute;
+    right: 9%;
+    bottom: 10px;
+  }
 }
 
 .product-profile {
   width: 88%;
+
+  span.product-sub {
+    font-size: 15px;
+    color: #bbb;
+    float: left;
+    width: 100%;
+    font-weight: normal;
+    padding: 5px 0;
+  }
 }
 
 .product-profile span.product-sub {
-  font-size: 15px;
-  color: #bbb;
-  float: left;
-  width: 100%;
-  font-weight: normal;
-  padding: 5px 0;
-}
 
-.product-profile span.product-sub span.product-description {
-  font-weight: 700;
-  color: #aaa;
-}
+  span.product-description {
+    font-weight: 700;
+    color: #aaa;
+  }
 
-.product-profile span.product-sub span.daysago {
-  float: right;
-  font-size: 12px;
+  span.daysago {
+    float: right;
+    font-size: 12px;
+  }
 }
 
 .counter-tab {
   float: left;
   width: 100%;
   padding-top: 45px;
-}
 
-.counter-tab div {
-  float: left;
-  width: 33%;
-  color: #aaa;
-  font-size: 12px;
+  div {
+    float: left;
+    width: 33%;
+    color: #aaa;
+    font-size: 12px;
+  }
 }
 
 .bot-links {
@@ -197,39 +200,46 @@ body {
 
 //Carrousel bootstrap
 
-#custom_carousel .item {
+#custom_carousel {
 
-  color: #000;
-//  background-color: #eee;
-  padding: 20px 0;
+  .controls {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    text-align: center;
+    position: relative;
+    background: #ddd
+  }
+
+  .controls li {
+    display: table-cell;
+    width: 1%;
+    max-width: 90px
+  }
+
+  .controls li.active {
+    background-color: #eee;
+    border-top: 3px solid orange;
+  }
+
+  .controls a small {
+    overflow: hidden;
+    display: block;
+    font-size: 10px;
+    margin-top: 5px;
+    font-weight: bold
+  }
+
+  .item {
+
+    color: #000;
+    //  background-color: #eee;
+    padding: 20px 0;
+  }
 }
 
-#custom_carousel .controls {
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0;
-  margin: 0;
-  white-space: nowrap;
-  text-align: center;
-  position: relative;
-  background: #ddd
-}
 
-#custom_carousel .controls li {
-  display: table-cell;
-  width: 1%;
-  max-width: 90px
-}
 
-#custom_carousel .controls li.active {
-  background-color: #eee;
-  border-top: 3px solid orange;
-}
 
-#custom_carousel .controls a small {
-  overflow: hidden;
-  display: block;
-  font-size: 10px;
-  margin-top: 5px;
-  font-weight: bold
-}
