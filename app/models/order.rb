@@ -8,7 +8,6 @@ class Order < ActiveRecord::Base
 
   has_many :order_items, dependent: :delete_all
 
-  # before_create :set_order_status
   before_save :update_subtotal, :update_taxes
 
   def associate_addresses!(shipping_address, billing_address)
@@ -27,12 +26,12 @@ class Order < ActiveRecord::Base
     end.sum
   end
 
-  def set_order_status
-    self.order_status = OrderStatus.construct_status :opened if order_status.nil?
-  end
-
   def opened?
     order_status.id.equal? OrderStatus::OPENED
+  end
+
+  def open!
+    order_status.id = OrderStatus.construct_status :open
   end
 
   def in_progress?
@@ -40,7 +39,7 @@ class Order < ActiveRecord::Base
   end
 
   def in_progress!
-    self.order_status = OrderStatus::IN_PROGRESS
+    self.order_status = OrderStatus.construct_status :in_progress
     save
   end
 
@@ -49,7 +48,7 @@ class Order < ActiveRecord::Base
   end
 
   def paid!
-    self.order_status = OrderStatus::PAID
+    self.order_status = OrderStatus.construct_status :paid
     save
   end
 
@@ -58,7 +57,7 @@ class Order < ActiveRecord::Base
   end
 
   def shipped!
-    self.order_status = OrderStatus::SHIPPED
+    self.order_status = OrderStatus.construct_status :shipped
     save
   end
 
@@ -67,7 +66,7 @@ class Order < ActiveRecord::Base
   end
 
   def cancel!
-    self.order_status = OrderStatus::CANCELLED
+    self.order_status = OrderStatus.construct_status :cancel
     save
   end
 

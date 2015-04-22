@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   get 'products/search' => 'products#search'
   get 'products/:id' => 'products#show', :as => 'product'
 
+  # === CART
   get 'cart' => 'carts#show', :as => 'cart'
 
   get 'cart/checkout' => 'checkout#checkout', :as => 'checkout'
@@ -62,7 +63,8 @@ Rails.application.routes.draw do
 
   get 'cart/checkout/complete' => 'checkout#checkout_complete', :as => 'checkout_complete'
 
-  # get 'address/:id' => 'addresses#show', :as => 'addresses'
+  # === END CART
+
   resources :order_items, only: [:create, :update, :destroy]
 
   resource :addresses, only: [:create, :update, :destroy]
