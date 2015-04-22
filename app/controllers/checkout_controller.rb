@@ -60,12 +60,12 @@ class CheckoutController < ApplicationController
   private
 
   def make_payment(order)
-    creditcard = Creditcard.find_or_create_by(creditcard_params)
+    # creditcard = Creditcard.find_or_create_by(creditcard_params)
 
     # begin
     order.payment = Payment.create
     order.payment.update_attribute :details, params[:stripeToken]
-    order.payment.associate_creditcard! creditcard
+    # order.payment.associate_creditcard! creditcard
     order.update_payment!
     order.paid!
     create_new_order_session
@@ -132,7 +132,7 @@ class CheckoutController < ApplicationController
     params.require(:billing_address).permit(:postalcode, :city)
   end
 
-  def creditcard_params
-    params.require(:creditcard).permit(:name_on_card, :number, :month, :year, :cvc)
-  end
+  # def creditcard_params
+  #   params.require(:creditcard).permit(:name_on_card, :number, :month, :year, :cvc)
+  # end
 end

@@ -20,58 +20,58 @@
               src="https://checkout.stripe.com/checkout.js" class="stripe-button"
               data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh">
               </script>
-              <fieldset>
-                <%= fields_for :creditcard do |cc| %>
+              <!--<fieldset>-->
+                <!--<%= fields_for :creditcard do |cc| %>-->
 
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="form-group">
-                          <%= cc.label :name_on_card, "CARD HOLDER'S NAME" %>
-                          <!--<label for="name_on_card">CARD HOLDER'S NAME</label>-->
-                          <%= cc.text_field :name_on_card, class: 'form-control', placeholder: 'Name on card', autofocus: true, required: true %>
-                          <!--<input id="name_on_card" type="text" class="form-control" name="name_on_card"/>-->
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="form-group">
-                          <%= cc.label :number, 'CARD NUMBER' %>
+                    <!--<div class="row">-->
+                      <!--<div class="col-xs-12">-->
+                        <!--<div class="form-group">-->
+                          <!--<%= cc.label :name_on_card, "CARD HOLDER'S NAME" %>-->
+                          <!--&lt;!&ndash;<label for="name_on_card">CARD HOLDER'S NAME</label>&ndash;&gt;-->
+                          <!--<%= cc.text_field :name_on_card, class: 'form-control', placeholder: 'Name on card', autofocus: true, required: true %>-->
+                          <!--&lt;!&ndash;<input id="name_on_card" type="text" class="form-control" name="name_on_card"/>&ndash;&gt;-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-xs-12">-->
+                        <!--<div class="form-group">-->
+                          <!--<%= cc.label :number, 'CARD NUMBER' %>-->
 
-                          <div class="input-group">
-                            <%= cc.text_field :number, id: 'card_number', class: 'form-control', placeholder: 'Valid Card Number', required: true, data: {stripe: :number} %>
-                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-7 col-md-7">
-                        <div class="form-group">
-                          <%= cc.label 'month', 'EXPIRATION DATE' %>
+                          <!--<div class="input-group">-->
+                            <!--<%= cc.text_field :number, id: 'card_number', class: 'form-control', placeholder: 'Valid Card Number', required: true, data: {stripe: :number} %>-->
+                            <!--<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-xs-7 col-md-7">-->
+                        <!--<div class="form-group">-->
+                          <!--<%= cc.label 'month', 'EXPIRATION DATE' %>-->
 
-                          <div class="col-xs-6 col-lg-6 pl-ziro">
-                            <%= cc.text_field :month, id: :month, class: 'form-control', placeholder: 'MM', required: true, data: {stripe: 'month'} %>
-                          </div>
-                          <div class="col-xs-6 col-lg-6 pl-ziro">
-                            <%= cc.text_field :year, id: :year, class: 'form-control', placeholder: 'YY', required: true, data: {stripe: 'year'} %>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xs-5 col-md-5 pull-right">
-                        <div class="form-group">
-                          <%= cc.label :cvc, 'CV CODE' %>
-                          <%= cc.password_field :cvc, id: :cvc, class: 'form-control', placeholder: 'CVC', required: true, data: {stripe: :cvc} %>
-                        </div>
-                      </div>
-                    </div>
-                    </fieldset>
+                          <!--<div class="col-xs-6 col-lg-6 pl-ziro">-->
+                            <!--<%= cc.text_field :month, id: :month, class: 'form-control', placeholder: 'MM', required: true, data: {stripe: 'month'} %>-->
+                          <!--</div>-->
+                          <!--<div class="col-xs-6 col-lg-6 pl-ziro">-->
+                            <!--<%= cc.text_field :year, id: :year, class: 'form-control', placeholder: 'YY', required: true, data: {stripe: 'year'} %>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--<div class="col-xs-5 col-md-5 pull-right">-->
+                        <!--<div class="form-group">-->
+                          <!--<%= cc.label :cvc, 'CV CODE' %>-->
+                          <!--<%= cc.password_field :cvc, id: :cvc, class: 'form-control', placeholder: 'CVC', required: true, data: {stripe: :cvc} %>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--</fieldset>-->
                 <% end %>
-                <div class="row">
-                  <div class="col-xs-12">
-                    <%= submit_tag 'Confirm payment', class: 'btn btn-success btn-lg btn-block' %>
-                  </div>
-                </div>
+                <!--<div class="row">-->
+                  <!--<div class="col-xs-12">-->
+                    <!--<%= submit_tag 'Confirm payment', class: 'btn btn-success btn-lg btn-block' %>-->
+                  <!--</div>-->
+                <!--</div>-->
 
                 <div class="row" style="display:none;">
                   <div class="col-xs-12">
