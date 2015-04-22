@@ -36,9 +36,10 @@ class CheckoutController < ApplicationController
   def create_payment
     order = update_order_prices
 
-    make_payment(order)
+    make_payment(order) unless order.paid?
 
     if order.paid?
+      session[:last_order_completed] = order.id
       redirect_to :checkout_complete, notice: 'Order completed'
     else
       redirect_to :checkout_payment, error: 'Payment not authorized!'

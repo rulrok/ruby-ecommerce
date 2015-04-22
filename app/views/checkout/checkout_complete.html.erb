@@ -1,0 +1,16 @@
+<%= title 'Checkout complete' %>
+
+<div class="jumbotron">
+
+
+  <h1>Your order has been placed</h1>
+
+  <p>Thank you for shopping with us. Your order will be delivered as soon as we can.</p>
+
+  <p>Your order details were sent to your email address.</p>
+  <br/>
+
+  <p>You order number is:
+    <a class="btn btn-primary btn-lg" href="#" role="button">#<%= session[:last_order_completed] %></a>
+  </p>
+</div>

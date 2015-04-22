@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420024404) do
+ActiveRecord::Schema.define(version: 20150422064837) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_line_1", limit: 255
@@ -104,10 +104,10 @@ ActiveRecord::Schema.define(version: 20150420024404) do
 
   create_table "payments", force: :cascade do |t|
     t.date     "date"
-    t.decimal  "total",                     precision: 10
+    t.decimal  "total",                     precision: 12, scale: 3
     t.string   "details",       limit: 255
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.integer  "order_id",      limit: 4
     t.integer  "creditcard_id", limit: 4
   end

@@ -1,5 +1,11 @@
 <% if @order.errors.any? || @order_item.errors.any? %>
-alert("not valid.")
+<% @order.errors.each do |e| %>
+$.toaster({title: 'Warning', priority: 'warning', message: '<%= e %>'});
+<% end %>
+<% @order_item.errors.each do |e| %>
+$.toaster({title: 'Warning', priority: 'warning', message: '<%= e %>'});
+<% end %>
 <% else %>
 $(".cart-text").html("<%= escape_javascript(render 'layouts/cart_text') %>")
+$.toaster({title: 'Success', priority: 'success', message: 'Product added to cart!'});
 <% end %>
