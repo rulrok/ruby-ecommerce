@@ -61,6 +61,7 @@ class CheckoutController < ApplicationController
   private
 
   def verify_logged_user
+    session[:return_url] = 'cart/checkout_path'
     redirect_to :log_in, notice: 'You must be be logged in to checkout' if current_user.nil?
   end
 

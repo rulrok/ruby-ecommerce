@@ -44,15 +44,16 @@ class ApplicationController < ActionController::Base
   end
 
   def current_order
-    if session[:order_id].nil?
+    order = begin
+      Order.find(session[:order_id])
+    rescue
       create_new_order_session
-    else
-      begin
-        Order.find(session[:order_id])
-      rescue
-        create_new_order_session
-      end
     end
+    if current_user.present? && order.user.nil?
+      order.user = current_user
+      order.save
+    end
+    order
   end
 
   def current_province

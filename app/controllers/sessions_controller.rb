@@ -53,7 +53,7 @@ class SessionsController < ApplicationController
     if user.admin?
       redirect_admin
     else
-      redirect_to root_url, notice: 'Logged in!'
+      redirect_to session[:return_url] || root_url, notice: 'Logged in!'
     end
   end
 
