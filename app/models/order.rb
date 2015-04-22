@@ -10,6 +10,9 @@ class Order < ActiveRecord::Base
 
   before_save :update_subtotal
 
+  validates :subtotal, :tax, :shipping, presence: true, if: :paid?
+  validates :shipping_address_id, :billing_address_id, presence: true, if: :paid?
+
   def associate_addresses!(shipping_address, billing_address)
     update(shipping_address: shipping_address, billing_address: billing_address)
   end

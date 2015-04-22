@@ -19,11 +19,7 @@ class CheckoutController < ApplicationController
     order = current_order
     order.associate_addresses!(shipping_address, billing_address)
 
-    if shipping_address.save && order.save
-      redirect_to :checkout_payment
-    else
-      render 'layouts/application', notice: 'We could not save address to your order.'
-    end
+    redirect_to :checkout_payment
   end
 
   # GET /cart/checkout/payment
