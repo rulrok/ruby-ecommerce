@@ -40,7 +40,7 @@ class CheckoutController < ApplicationController
 
     if order.paid?
       session[:last_order_completed] = order.id
-      redirect_to :checkout_complete, notice: 'Order completed'
+      redirect_to :checkout_complete, notice: "Order completed"
     else
       redirect_to :checkout_payment, error: 'Payment not authorized!'
     end
@@ -62,14 +62,15 @@ class CheckoutController < ApplicationController
   def make_payment(order)
     creditcard = Creditcard.find_or_create_by(creditcard_params)
 
-    begin
-      order.payment = Payment.create
-      order.payment.associate_creditcard! creditcard
-      order.update_payment!
-      order.paid!
-      create_new_order_session
-      true
-    end if creditcard.authorize_payment order
+    # begin
+    order.payment = Payment.create
+    order.payment.update_attribute :details, params[:stripeToken]
+    order.payment.associate_creditcard! creditcard
+    order.update_payment!
+    order.paid!
+    create_new_order_session
+    # true
+    # end #if creditcard.authorize_payment order
   end
 
   def verify_logged_user
@@ -91,6 +92,7 @@ class CheckoutController < ApplicationController
   def obtain_shipping_address
     add = Address.create(shipping_address_params)
     add.province = current_province
+    add
     # add.save
     # add
   end
@@ -109,6 +111,7 @@ class CheckoutController < ApplicationController
   def obtain_billing_address
     add = Address.create(billing_address_params)
     add.province = current_province
+    add
     # add.save
     # add
   end

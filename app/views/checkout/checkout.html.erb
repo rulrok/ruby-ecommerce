@@ -70,7 +70,7 @@
                       <div class="form-group">
                         <%= #f.fields_for :postalcode do |p|
                         %>
-                        <%= sa.label :province_id, 'Province', class: 'col-sm-2 control-label' %>
+                        <%= sa.label :province, 'Province', class: 'col-sm-2 control-label' %>
 
                         <div class="col-sm-4">
                           <%= sa.text_field :province, class: 'form-control disabled', value: @province.name, disabled: true %>
@@ -167,10 +167,10 @@
                       <div class="form-group">
                         <%= #f.fields_for :postalcode do |p|
                         %>
-                        <%= ba.label :province_id, 'Province', class: 'col-sm-2 control-label' %>
+                        <%= ba.label :province_billing, 'Province', class: 'col-sm-2 control-label' %>
 
                         <div class="col-sm-4">
-                          <%= ba.text_field :province, class: 'form-control disabled', value: @province.name, disabled: true %>
+                          <%= ba.text_field :province_billing, class: 'form-control disabled', value: @province.name, disabled: true %>
                           <%= #collection_select :shipping_address, :province_id, Province.all, :id, :full_name, {include_blank: 'Select an address'}, {class: 'chosen-select', form: :addresses_form}
                           %>
                           <%= #text_field_tag :province, nil, class: 'form-control', placeholder: 'Province'

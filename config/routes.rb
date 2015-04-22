@@ -61,6 +61,8 @@ Rails.application.routes.draw do
   get 'cart/checkout/payment' => 'checkout#checkout_payment', :as => 'checkout_payment'
   post 'cart/checkout/payment' => 'checkout#create_payment'
 
+  post 'account/stripe_card_token' => 'carts#stripe_card_token'
+
   get 'cart/checkout/complete' => 'checkout#checkout_complete', :as => 'checkout_complete'
 
   # === END CART

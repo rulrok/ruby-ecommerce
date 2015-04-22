@@ -16,7 +16,10 @@
         </div>
         <div class="panel-body">
           <%= form_tag '/cart/checkout/payment', method: :post, name: :creditcard_form, id: 'payment-form', role: :form, autocomplete: :off do %>
-
+              <script
+              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh">
+              </script>
               <fieldset>
                 <%= fields_for :creditcard do |cc| %>
 
