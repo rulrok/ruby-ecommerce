@@ -8,11 +8,23 @@ class Order < ActiveRecord::Base
 
   has_many :order_items, dependent: :delete_all
 
-  before_save :update_subtotal, :update_taxes
+  before_save :update_subtotal
 
   def associate_addresses!(shipping_address, billing_address)
-    self.shipping_address = shipping_address
-    self.billing_address = billing_address
+    update(shipping_address: shipping_address, billing_address: billing_address)
+  end
+
+  def update_taxes(taxes_amount)
+    self[:tax] = taxes_amount
+  end
+
+  def update_shipping_cost(shipping_amount)
+    self[:shipping] = shipping_amount
+  end
+
+  def update_payment!
+    payment.date = Time.now
+    payment.total = total
     save
   end
 
@@ -24,6 +36,10 @@ class Order < ActiveRecord::Base
     order_items.collect do |oi|
       oi.valid? ? (oi.quantity * oi.unit_price) : 0
     end.sum
+  end
+
+  def total
+    subtotal + tax + shipping
   end
 
   def opened?
@@ -74,9 +90,5 @@ class Order < ActiveRecord::Base
 
   def update_subtotal
     self[:subtotal] = subtotal
-  end
-
-  def update_taxes
-    # self[:tax] =
   end
 end

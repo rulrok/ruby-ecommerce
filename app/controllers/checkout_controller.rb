@@ -34,31 +34,42 @@ class CheckoutController < ApplicationController
 
   # POST /cart/checkout/payment
   def create_payment
+    order = update_order_prices
+
+    make_payment(order)
+
+    if order.paid?
+      redirect_to :checkout_complete, notice: 'Order completed'
+    else
+      redirect_to :checkout_payment, error: 'Payment not authorized!'
+    end
+  end
+
+  def update_order_prices
     order = current_order
-    order.tax = current_province.calculate_taxes order.subtotal
-    order.shipping = 0
-    user = current_user
-
-    make_payment(order, user) unless order.paid?
-
-    redirect_to :checkout_complete, notice: 'Order completed'
+    order.update_taxes current_province.calculate_taxes(order.subtotal)
+    order.update_shipping_cost 0
+    order
   end
 
-  def make_payment(_order, _user)
-    # TODO
-    creditcard = Creditcard.find_or_create_by(creditcard_params)
-  end
-
-  def prepare_order_payment(creditcard, order)
-    order.payment = Payment.new
-    order.payment.creditcard = creditcard
-    order.paid!
-  end
-
+  # GET /cart/checkout/complete
   def checkout_complete
   end
 
   private
+
+  def make_payment(order)
+    creditcard = Creditcard.find_or_create_by(creditcard_params)
+
+    begin
+      order.payment = Payment.create
+      order.payment.associate_creditcard! creditcard
+      order.update_payment!
+      order.paid!
+      create_new_order_session
+      true
+    end if creditcard.authorize_payment order
+  end
 
   def verify_logged_user
     session[:return_url] = 'cart/checkout_path'

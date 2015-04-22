@@ -2,7 +2,8 @@ class Payment < ActiveRecord::Base
   belongs_to :order
   belongs_to :creditcard
 
-  def make_payment(_user)
-    order
+  def associate_creditcard!(creditcard)
+    update_attribute :creditcard, creditcard
+    save
   end
 end

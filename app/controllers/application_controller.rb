@@ -113,7 +113,7 @@ class ApplicationController < ActionController::Base
 
   def offers
     Product.where(discount_available: true)
-        .order(:updated_at).limit(5)
+      .order(:updated_at).limit(5)
   end
 
   def popular_products
